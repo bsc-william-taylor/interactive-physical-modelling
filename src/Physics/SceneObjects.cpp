@@ -96,9 +96,9 @@ void SceneObjects::KeyPress(int Key, int State)
 	{
 		m_Camera.x += CAMERASPEED;
 
-		if(m_Camera.x > 2570)
+		if(m_Camera.x > 1720)
 		{
-			m_Camera.x = 2570.0f;
+			m_Camera.x = 1720;
 		}
 	}
 }

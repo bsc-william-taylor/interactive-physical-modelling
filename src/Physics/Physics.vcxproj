@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,18 +14,19 @@
     <ProjectGuid>{E48FF813-ADF0-48C0-93F0-04C9D7C3F81A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Physics</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -41,14 +42,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)Include;$(ProjectDir)Include/FreeType;$(ProjectDir)Include/GLEW;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)Output_$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)..\lib\GLEW\include;$(SolutionDir)..\lib\;$$(SolutionDir)..\lib\freeimage\include;$(SolutionDir)..\lib\GLM;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Lib;$(SolutionDir)..\lib\freeimage\lib;$(SolutionDir)..\lib\tinyxml2\Debug;$(SolutionDir)..\lib\glew;$(LibraryPath);$(SolutionDir)..\lib\GLEW\lib</LibraryPath>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)Include\GLEW;$(ProjectDir)Include;$(ProjectDir)Include\freeimage;$(ProjectDir)Include\GLM;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\GLEW\include;$(SolutionDir)..\lib\;$$(SolutionDir)..\lib\freeimage\include;$(SolutionDir)..\lib\GLM;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Lib;$(SolutionDir)..\lib\freeimage\lib;$(SolutionDir)..\lib\tinyxml2\Release;$(SolutionDir)..\lib\glew;$(LibraryPath);$(SolutionDir)..\lib\GLEW\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -62,6 +63,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y $(SolutionDir)..\lib\FreeImage\bin $(OutDir)
+xcopy /Y $(SolutionDir)..\lib\GLEW\bin $(OutDir)
+xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -79,6 +85,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y $(SolutionDir)..\lib\FreeImage\bin $(OutDir)
+xcopy /Y $(SolutionDir)..\lib\GLEW\bin $(OutDir)
+xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackEvent.cpp" />

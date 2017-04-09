@@ -35,7 +35,7 @@ void Target::Update()
 		return;
 	}
 
-	if ( m_Position.y < -TARGETHEIGHT / 2 )
+	if ( m_Position.y - 10 < -TARGETHEIGHT / 2 )
 	{
 		return;
 	}

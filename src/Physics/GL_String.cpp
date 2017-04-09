@@ -76,8 +76,6 @@ void GL_String::setString(std::string text)
 			GLfloat w = atoi(element->FirstChildElement("width")->GetText());
 			GLfloat y = m_Sprite->Height - atoi(element->FirstChildElement("y")->GetText());
 			GLfloat h = atoi(element->FirstChildElement("height")->GetText());
-			
-		
 			GLfloat realX = (GLfloat)x/m_Sprite->Width;
 		    GLfloat realY = (GLfloat)y/m_Sprite->Height;
 		    GLfloat realW = (GLfloat)(x + w)/m_Sprite->Width;

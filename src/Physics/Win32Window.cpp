@@ -82,8 +82,10 @@ LRESULT CALLBACK Win32Window::WndProc(HWND Hwnd, UINT Message, WPARAM wParam, LP
 		case WM_SIZE: glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));  break;
 		
 		default:
-			return DefWindowProc(Hwnd, Message, wParam, lParam);
+			break;
 	}	
+
+    return DefWindowProc(Hwnd, Message, wParam, lParam);
 }
 
 void Win32Window::Display(Type type) 

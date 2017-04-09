@@ -30,7 +30,7 @@ void MenuImages::VLoad()
 {
 	m_pBgObject->setOrtho2D(vec4(0, 0, 1280, 720));
 	m_pBgObject->setPosition(vec2(0, 0));
-	m_pBgObject->setSize(vec2(3840, 720));
+	m_pBgObject->setSize(vec2(3000, 1383));
 
 	m_pBackground->setTexture("data/img/background.png", GL_CLAMP_TO_EDGE);
 	m_pBackground->setParameters(m_pBgObject);

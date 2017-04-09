@@ -18,7 +18,7 @@
 #include <dinput.h>	
 #include <iostream>														
 #include <stdarg.h>		
-#include "gl\glew.h"
+#include "glew.h"
 #include <gl\GLU.h>	
 #include <dshow.h>
 #include <Mfidl.h>

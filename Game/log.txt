@@ -1,5 +1,0 @@
-
- - Event Logger - 
-
-User Starts DemoUser Returns To Menu : Event was released
-User Exits Demo : Event was released

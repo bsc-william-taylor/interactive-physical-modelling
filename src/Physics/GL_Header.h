@@ -15,13 +15,13 @@
 
 #include "Win32Header.h"
 
-#include "include/freeimage/freeimage.h"
+#include "freeimage/include/freeimage.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/glm.hpp"
 
-#include "include/tinyxml2.h"
-#include "GL/glew.h"
+#include "tinyxml2/tinyxml2.h"
+#include "glew.h"
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -30,8 +30,8 @@
 #include <map>
 
 #pragma comment(lib, "tinyxml2.lib")
-#pragma comment(lib, "FreeImage/freeimage.lib")
-#pragma comment(lib, "glew/glew32.lib")
+#pragma comment(lib, "freeimage.lib")
+#pragma comment(lib, "glew32.lib")
 
 #define PI 3.14159265359;
 #define RADIAN(v) (v / 180.0f) * PI

@@ -8,6 +8,12 @@
 *.gch
 *.pch
 
+# Folder
+Debug
+Release
+.vs
+*.db
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
