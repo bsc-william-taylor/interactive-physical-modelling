@@ -13,6 +13,7 @@ Debug
 Release
 .vs
 *.db
+*.opendb
 
 # Compiled Dynamic libraries
 *.so
