@@ -1,10 +1,10 @@
-﻿#pragma once 
+﻿
+#pragma once 
 
 #include "GL_Header.h"
 #include "SceneManager.h"
 #include "Win32System.h"
 #include "Win32Timer.h"
-#include <array>
 
 #ifdef WINDOW_MAIN
     #define MAIN WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
@@ -46,15 +46,15 @@ const auto DENSITY = std::array<float, 4>
 
 class Demo
 {
-    unsigned int framerate;
     Win32System system;
     Win32Timer timer;
+    int framerate;
 public:
     Demo();
     ~Demo();
 
     void execute();
-    void setFrameRate(unsigned int);
+    void setFrameRate(int);
     void setupStates();
     void setupWindow();
 };

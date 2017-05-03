@@ -10,51 +10,49 @@
 class MainScene : public Scene, public IEvent
 {
     GL_Texture* backgroundTexture;
-    GL_Texture m_pSettingsTexture;
-    GL_Texture m_pHeaderTexture;
-    GL_Texture m_pBackPlate;
+    GL_Texture settingsTexture;
+    GL_Texture headerTexture;
+    GL_Texture backPlate;
 
-    GL_String* m_pStatusStrings[4];
-    GL_String* m_pStrings[4];
+    GL_String statusStrings[4];
+    GL_String uiStrings[4];
 
-    GL_Object m_pSettingsObject;
-    GL_Object m_pStatusObjects[3];
-    GL_Object m_pHeaderObject;
-    GL_Object m_pBackObject;
-    GL_Object m_pObjects[4];
+    GL_Object settingsObject;
+    GL_Object statusObject[3];
+    GL_Object headerObject;
+    GL_Object backplateObject;
+    GL_Object uiObjects[4];
 
     GL_Renderer renderer;
 
-    Button m_pAirResistance;
-    Button m_pReloadButton;
-    Button m_pQuitButton;
-    Button buttons[8];
+    Button airResistanceButton;
+    Button reloadButton;
+    Button quitButton;
+    Button uiButtons[8];
 
-    Cannon m_pCannon;
-    Target m_pTarget;
+    Cannon cannon;
+    Target target;
 
-    std::vector<GLuint> m_IDs;
-    vec2 m_Camera;
-    bool m_Reload;
+    std::vector<GLuint> textureIDs;
+    vec2 cameraPosition;
+    bool reloadCannon;
 public:
     MainScene();
     ~MainScene();
 
-    Target* getTarget();
-    Cannon* getCannon();
-
-    bool mustReload();
-
-    std::string getMessage();
+    void setupUI();
+    void setupCannon();
     void onTriggered(void *);
-
     void onRequest(SceneFactory *);
     void onMousePress(int, int, int, int);
     void onKeyPress(int, int);
     void onUpdate();
     void onRender();
 
-    void RenderBackground(GL_Texture *);
-    void RenderCannon(Cannon *);
-    void RenderTarget(Target*);
+    std::string getMessage();
+    std::string getMateralName(Material mat);
+
+    void renderBackground(GL_Texture *);
+    void renderCannon(Cannon *);
+    void renderTarget(Target*);
 };

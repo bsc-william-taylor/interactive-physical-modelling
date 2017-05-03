@@ -6,7 +6,8 @@
 #include "MainMenu.h"
 #include "Main.h"
 
-Demo::Demo() : framerate(60)
+Demo::Demo() : 
+    framerate(60)
 {
     SetConsoleTitle("Debug Console");
 }
@@ -42,7 +43,7 @@ void Demo::setupStates()
     sceneManager->EnableFactory();
 }
 
-void Demo::setFrameRate(unsigned int framerate)
+void Demo::setFrameRate(int framerate)
 {
     this->framerate = framerate;
 }
@@ -50,7 +51,6 @@ void Demo::setFrameRate(unsigned int framerate)
 void Demo::execute()
 {
     timer.Start();
-
     setupWindow();
     setupStates();
 

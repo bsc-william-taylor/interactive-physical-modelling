@@ -16,10 +16,10 @@
 
 enum class Material
 {
-	IRON = 1,
-	ALUMINIUM,
-	COPPER,
-	STONE
+	Iron = 1,
+	Aluminium,
+	Copper,
+	Stone
 };
 
 class Projectiles

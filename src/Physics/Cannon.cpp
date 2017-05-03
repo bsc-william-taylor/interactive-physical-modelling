@@ -19,7 +19,7 @@ Cannon::Cannon()
 	  m_pRotateObject(new GL_Object()),
 	  m_Angle(0)
 {
-	m_BallMaterial = Material::IRON;
+	m_BallMaterial = Material::Iron;
 	for(int i = 0; i < 3; i++)
 		m_pSprites.push_back(new GL_Texture());
 }
@@ -88,10 +88,10 @@ void Cannon::onKeyPress(int Key, int State)
 		case ARROW_DOWN: if(m_Angle > 0) m_Angle--; break;
 		case ARROW_UP: if(m_Angle < 90) m_Angle++; break;
 			
-		case FOUR:m_pProjectiles->SetMaterial(Material::STONE); m_BallMaterial = Material::STONE; break;
-		case THREE: m_pProjectiles->SetMaterial(Material::COPPER); m_BallMaterial = Material::COPPER; break;
-		case TWO:m_pProjectiles->SetMaterial(Material::ALUMINIUM); m_BallMaterial = Material::ALUMINIUM; break;
-		case ONE: m_pProjectiles->SetMaterial(Material::IRON); m_BallMaterial = Material::IRON; break;
+		case FOUR:m_pProjectiles->SetMaterial(Material::Stone); m_BallMaterial = Material::Stone; break;
+		case THREE: m_pProjectiles->SetMaterial(Material::Copper); m_BallMaterial = Material::Copper; break;
+		case TWO:m_pProjectiles->SetMaterial(Material::Aluminium); m_BallMaterial = Material::Aluminium; break;
+		case ONE: m_pProjectiles->SetMaterial(Material::Iron); m_BallMaterial = Material::Iron; break;
 
 		default: break;
 	};	

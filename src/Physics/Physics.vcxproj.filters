@@ -26,13 +26,13 @@
     <Filter Include="Source Code\Framework\Shaders">
       <UniqueIdentifier>{78b5e65d-76b0-4906-9bc7-cb3949c01ab3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Code\App">
+    <Filter Include="Source Code\Game">
       <UniqueIdentifier>{55307dfc-7500-4f94-8047-7a217e2be469}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Code\App\Events">
+    <Filter Include="Source Code\Game\Events">
       <UniqueIdentifier>{07509bcc-b467-4968-a58b-2f2bfe3b41fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Code\App\Scenes">
+    <Filter Include="Source Code\Game\Scenes">
       <UniqueIdentifier>{e9463c26-9911-49b6-aebb-bb75fc4499d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -110,22 +110,22 @@
       <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="ExitEvent.cpp">
-      <Filter>Source Code\App\Events</Filter>
+      <Filter>Source Code\Game\Events</Filter>
     </ClCompile>
     <ClCompile Include="BackEvent.cpp">
-      <Filter>Source Code\App\Events</Filter>
+      <Filter>Source Code\Game\Events</Filter>
     </ClCompile>
     <ClCompile Include="PlayEvent.cpp">
-      <Filter>Source Code\App\Events</Filter>
+      <Filter>Source Code\Game\Events</Filter>
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
-      <Filter>Source Code\App\Scenes</Filter>
+      <Filter>Source Code\Game\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Code\App\Scenes</Filter>
+      <Filter>Source Code\Game\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Code\App</Filter>
+      <Filter>Source Code\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,22 +223,22 @@
       <Filter>Source Code\Framework\Events</Filter>
     </ClInclude>
     <ClInclude Include="ExitEvent.h">
-      <Filter>Source Code\App\Events</Filter>
+      <Filter>Source Code\Game\Events</Filter>
     </ClInclude>
     <ClInclude Include="BackEvent.h">
-      <Filter>Source Code\App\Events</Filter>
+      <Filter>Source Code\Game\Events</Filter>
     </ClInclude>
     <ClInclude Include="PlayEvent.h">
-      <Filter>Source Code\App\Events</Filter>
+      <Filter>Source Code\Game\Events</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
-      <Filter>Source Code\App\Scenes</Filter>
+      <Filter>Source Code\Game\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
-      <Filter>Source Code\App\Scenes</Filter>
+      <Filter>Source Code\Game\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Main.h">
-      <Filter>Source Code\App</Filter>
+      <Filter>Source Code\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

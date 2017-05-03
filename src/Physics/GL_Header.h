@@ -27,6 +27,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <array>
 #include <map>
 
 #pragma comment(lib, "tinyxml2.lib")

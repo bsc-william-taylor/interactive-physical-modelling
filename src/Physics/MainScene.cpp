@@ -1,126 +1,28 @@
 
 #include "EventManager.h"
+#include "Projectiles.h"
+#include "Trajectory.h"
 #include "Win32Codes.h"
 #include "MainScene.h"
 #include "BackEvent.h"
 #include "Cannon.h"
 #include "Target.h"
-#include "Trajectory.h"
-#include "Projectiles.h"
 
-MainScene::MainScene()
+template<typename T>
+GL_Matrix* fetchMatrix(T* object)
 {
-    float x[4] = { 1150, 1143, 1160, 1160 };
-    float y = 467;
-    for (int i = 0; i < 4; i++)
-    {
-        m_pObjects[i].setOrtho2D(vec4(0, 0, 1280, 720));
-        m_pObjects[i].setPosition(vec2(x[i], y));
-        m_pObjects[i].setSize(vec2(18, 18));
+    return object->getObject()->getMatrix();
+}
 
-        m_pStrings[i] = new GL_String("data/version.xml", "data/version.png");
-        m_pStrings[i]->setParameters(&m_pObjects[i]);
-        m_pStrings[i]->setColour(1, 1, 1, 1);
-        m_pStrings[i]->setString("0");
-        m_pStrings[i]->Prepare();
-
-        y += 15;
-    }
-
-    float y2 = 380;
-
-    for (int i = 0; i < 4; i++)
-    {
-        m_pStatusObjects[i].setOrtho2D(vec4(0, 0, 1280, 720));
-        m_pStatusObjects[i].setPosition(vec2(1125, y2));
-        m_pStatusObjects[i].setSize(vec2(15, 15));
-
-        m_pStatusStrings[i] = new GL_String("data/version.xml", "data/version.png");
-        m_pStatusStrings[i]->setParameters(&m_pStatusObjects[i]);
-        m_pStatusStrings[i]->setString("0");
-        m_pStatusStrings[i]->setColour(1, 1, 1, 1);
-        m_pStatusStrings[i]->Prepare();
-
-        y2 += 15;
-    }
-
-    m_pAirResistance.SetTexture("data/img/enabled.png");
-    m_pAirResistance.SetPosition("", vec2(1125, 428), vec2(78, 14));
-    m_pAirResistance.OnPress(this);
-
-    m_pReloadButton.OnPress(this);
-    m_pReloadButton.SetTexture("data/img/reload.png");
-    m_pReloadButton.SetPosition("", vec2(1126, 526), vec2(78, 14));
-
-    m_pSettingsObject.setOrtho2D(vec4(0, 0, 1280, 720));
-    m_pSettingsObject.setPosition(vec2(1000, 358));
-    m_pSettingsObject.setSize(vec2(228, 96));
-
-    m_pSettingsTexture.setTexture("data/img/status.png", GL_CLAMP_TO_EDGE);
-    m_pSettingsTexture.setParameters(&m_pSettingsObject);
-    m_pSettingsTexture.Prepare();
-
-    float position[] = {
-        467, 482, 497, 512,
-        467, 482, 497, 512
-    };
-
-    for (int i = 0; i < 8; i++)
-    {
-
-        buttons[i].OnPress(this);
-
-        if (i < 4)
-        {
-            buttons[i].SetTexture("data/img/plus.png");
-            buttons[i].SetPosition("", vec2(1190, position[i]), vec2(14, 13));
-        }
-        else
-        {
-            buttons[i].SetTexture("data/img/minus.png");
-            buttons[i].SetPosition("", vec2(1125, position[i]), vec2(14, 13));
-        }
-    }
-
-    m_pHeaderObject.setOrtho2D(vec4(0, 0, 1280, 720));
-    m_pHeaderObject.setPosition(vec2(1000, 550));
-    m_pHeaderObject.setSize(vec2(228, 96));
-
-    m_pHeaderTexture.setTexture("data/img/header1.png", GL_CLAMP_TO_EDGE);
-    m_pHeaderTexture.setParameters(&m_pHeaderObject);
-    m_pHeaderTexture.Prepare();
-
-    m_pQuitButton.SetPosition("Back", vec2(25, 600), vec2(200, 50));
-    m_pQuitButton.OnPress(this);
-
-    m_pBackObject.setOrtho2D(vec4(0, 0, 1280, 720));
-    m_pBackObject.setPosition(vec2(1000, 454));
-    m_pBackObject.setSize(vec2(228, 96));
-
-    m_pBackPlate.setTexture("data/img/console.png", GL_CLAMP_TO_EDGE);
-    m_pBackPlate.setParameters(&m_pBackObject);
-    m_pBackPlate.Prepare();
-
-    m_IDs.push_back(m_pHeaderTexture.getTextureID());
-    m_IDs.push_back(GL_TextureManager::get()->CreateTexture("data/img/header2.png", GL_CLAMP_TO_EDGE)->m_ID);
-    m_IDs.push_back(GL_TextureManager::get()->CreateTexture("data/img/header3.png", GL_CLAMP_TO_EDGE)->m_ID);
-    m_IDs.push_back(GL_TextureManager::get()->CreateTexture("data/img/header4.png", GL_CLAMP_TO_EDGE)->m_ID);
-    m_IDs.push_back(GL_TextureManager::get()->CreateTexture("data/img/disabled.png", GL_CLAMP_TO_EDGE)->m_ID);
-    m_IDs.push_back(GL_TextureManager::get()->CreateTexture("data/img/enabled.png", GL_CLAMP_TO_EDGE)->m_ID);
-
-
-    m_pCannon.Initialise();
-    m_pCannon.getProjects()->SetMaterial(Material::IRON);
-    m_pTarget.Setup(vec2(1000, 200));
-    m_Reload = false;
+MainScene::MainScene() : 
+    reloadCannon(false)
+{
+    setupUI();
+    setupCannon();
 }
 
 MainScene::~MainScene()
 {
-    for (int i = 0; i < 4; i++)
-    {
-        SAFE_RELEASE(m_pStrings[i]);
-    }
 }
 
 void MainScene::onRequest(SceneFactory * factory)
@@ -129,304 +31,362 @@ void MainScene::onRequest(SceneFactory * factory)
 }
 
 void MainScene::onKeyPress(int Key, int State)
-{
-    auto events = EventManager::get();
+{    
+    auto eventManger = EventManager::get();
+    auto ball = cannon.getProjectile();
+    auto mass = ball->getMass();
+
+    cannon.onKeyPress(Key, State);
 
     if (KEY_DOWN(ESCAPE, Key, State))
     {
-        events->TriggerEvent(new BackEvent(), true, this);
+        eventManger->TriggerEvent(new BackEvent(), true, this);
     }
-    else
+
+    if (KEY_DOWN(SPACE, Key, State) && !reloadCannon)
     {
-        m_pCannon.onKeyPress(Key, State);
+        cannon.Fire();
+        reloadCannon = true;
+    }
 
-        if (Key == SPACE && State == PRESSED && !m_Reload)
-        {
-            m_pCannon.Fire();
-            m_Reload = true;
-        }
+    if (KEY_DOWN(R_KEY, Key, State))
+    {
+        reloadCannon = false;
+        cameraPosition.x = 0;
+    }
 
-        if (Key == R_KEY && State == PRESSED)
-        {
-            m_Reload = false;
+    if (KEY_DOWN(W_KEY, Key, State))
+    {
+        ball->setMass(mass + 0.1f);
+    }
 
-            m_Camera.x = 0;
-        }
+    if (KEY_DOWN(S_KEY, Key, State))
+    {
+        ball->setMass(mass - 0.1f);
+    }
 
-        if (Key == W_KEY && State == PRESSED)
-        {
-            float mass = m_pCannon.getProjectile()->getMass() + 0.1f;
-            m_pCannon.getProjectile()->setMass(mass);
-        }
+    if (KEY_HOLDING(ARROW_LEFT, Key, State))
+    {
+        cameraPosition.x -= CAMERASPEED;
+        cameraPosition.x = std::max(cameraPosition.x, 0.0f);
+    }
 
-        if (Key == S_KEY && State == PRESSED)
-        {
-            float mass = m_pCannon.getProjectile()->getMass() - 0.1f;
-            m_pCannon.getProjectile()->setMass(mass);
-
-        }
-
-        if (Key == ARROW_LEFT)
-        {
-            m_Camera.x -= CAMERASPEED;
-
-            if (m_Camera.x < 0)
-            {
-                m_Camera.x = 0.0f;
-            }
-        }
-        else if (Key == ARROW_RIGHT)
-        {
-            m_Camera.x += CAMERASPEED;
-
-            if (m_Camera.x > 1720)
-            {
-                m_Camera.x = 1720;
-            }
-        }
+    if (KEY_HOLDING(ARROW_RIGHT, Key, State))
+    {
+        cameraPosition.x += CAMERASPEED;
+        cameraPosition.x = std::min(cameraPosition.x, 1720.0f);
     }
 }
 
 void MainScene::onMousePress(int key, int state, int x, int y)
 {
-    for (int i = 0; i < 8; i++)
+    auto viewX = x + cameraPosition.x;
+    auto viewY = y + cameraPosition.y;
+
+    for (auto& button : uiButtons)
     {
-        buttons[i].MouseState(key, state, x, y);
+        button.MouseState(key, state, x, y);
     }
 
-    m_pAirResistance.MouseState(key, state, x, y);
-    m_pReloadButton.MouseState(key, state, x, y);
-    m_pQuitButton.MouseState(key, state, x, y);
-    m_pTarget.onMousePress(key, state, x + m_Camera.x, y + m_Camera.y);
+    airResistanceButton.MouseState(key, state, x, y);
+    reloadButton.MouseState(key, state, x, y);
+    quitButton.MouseState(key, state, x, y);
+    target.onMousePress(key, state, viewX, viewY);
+}
+
+std::string MainScene::getMateralName(Material material)
+{
+    switch (material)
+    {
+    case Material::Iron:
+        return "   Iron  ";
+    case Material::Aluminium:
+        return "Aluminium";
+    case Material::Copper:
+        return "  Copper ";
+    case Material::Stone:
+        return "   Zinc  ";
+    default:
+        return " Unknown ";
+    }
 }
 
 void MainScene::onUpdate()
 {
-    backgroundTexture->getObject()->getMatrix()->Ortho(vec2(0, 1280), vec2(0, 720));
-    backgroundTexture->getObject()->getMatrix()->LookAt(m_Camera);
-    m_pCannon.getStaticObject()->getMatrix()->LookAt(m_Camera);
-    m_pCannon.getRotateObject()->getMatrix()->LookAt(m_Camera);
-    m_pTarget.getObject()->getMatrix()->LookAt(m_Camera);
-    m_pCannon.getTrajectory()->getMatrix()->LookAt(m_Camera);
+    fetchMatrix(backgroundTexture)->Ortho(vec2(0, 1280), vec2(0, 720));
+    fetchMatrix(backgroundTexture)->LookAt(cameraPosition);
 
-    auto& vec = m_pCannon.getProjectiles();
+    cannon.getStaticObject()->getMatrix()->LookAt(cameraPosition);
+    cannon.getRotateObject()->getMatrix()->LookAt(cameraPosition);
+    cannon.getTrajectory()->getMatrix()->LookAt(cameraPosition);
+    cannon.getTrajectory()->getMatrix()->LookAt(cameraPosition);
+    cannon.onUpdate();
 
-    for (auto iterator = vec.begin(); iterator != vec.end(); ++iterator)
+    for (auto& proj : cannon.getProjectiles())
     {
-        (*iterator)->getObject()->getMatrix()->LookAt(m_Camera);
+        fetchMatrix(proj)->LookAt(cameraPosition);
     }
 
-    m_pCannon.getTrajectory()->getMatrix()->LookAt(m_Camera);
-    m_pCannon.onUpdate();
-    m_pTarget.onUpdate();
+    target.getObject()->getMatrix()->LookAt(cameraPosition);
+    target.onUpdate();
 
-    Projectile* pBall = getCannon()->getProjectile();
+    auto ball = cannon.getProjectile();
+    auto currentPosition = ball->getPosition().x;
+    auto targetPosition = target.getPosition().x;
+    auto startPosition = ball->getStartPos().x;
+    auto distanceToTarget = ((targetPosition - startPosition) + TARGETWIDTH / 2 - (currentPosition - startPosition)) / METRE;
+    auto distanceTravelled = std::to_string((currentPosition - startPosition) / METRE).append("m");
+    auto missed = distanceToTarget > TARGETWIDTH / (2 * METRE) || distanceToTarget < -TARGETWIDTH / (2 * METRE);
+    auto hit = ball->getPosition().y < TARGETHEIGHT / 4;
 
-    std::string weight = std::to_string(int(pBall->getMass() * 1000.0f)).append("g");
-    std::string angle = std::to_string((int)getCannon()->getAngle());
-    std::string num = std::to_string((int)getCannon()->getBallMaterial());
+    statusStrings[0].setString(missed ? "Missed!" : hit ? "Hit!" : "");
+    statusStrings[1].setString(std::to_string(abs(distanceToTarget)).append("m"));
+    statusStrings[2].setString(distanceTravelled);
 
-    m_pStrings[0]->setString(weight);
-    m_pStrings[3]->setString(angle);
-    m_pStrings[2]->setString(num);
-
-    switch (getCannon()->getBallMaterial())
-    {
-    case Material::IRON: m_pStrings[1]->setString("   Iron  ");  m_pHeaderTexture.setID(m_IDs[0]); break;
-    case Material::ALUMINIUM: m_pStrings[1]->setString("Aluminium"); m_pHeaderTexture.setID(m_IDs[1]); break;
-    case Material::COPPER: m_pStrings[1]->setString("  Copper ");  m_pHeaderTexture.setID(m_IDs[2]); break;
-    case Material::STONE: m_pStrings[1]->setString("   Zinc  "); m_pHeaderTexture.setID(m_IDs[3]); break;
-
-    default:
-        break;
-    }
-
-    float ballX = pBall->getPosition().x;
-    float ballStartX = pBall->getStartPos().x;
-    float targetX = getTarget()->getPosition().x;
-    float distTarget = ((targetX - ballStartX) + TARGETWIDTH / 2 - (ballX - ballStartX)) / METRE;
-
-    std::string distance = std::to_string((ballX - ballStartX) / METRE).append("m");
-    std::string distTargetStr = std::to_string(abs(distTarget)).append("m");
-
-    m_pStatusStrings[1]->setString(distTargetStr);
-    m_pStatusStrings[2]->setString(distance);
-
-    if (distTarget > TARGETWIDTH / (2 * METRE) || distTarget < -TARGETWIDTH / (2 * METRE))
-    {
-        m_pStatusStrings[0]->setString("Missed!");
-    }
-    else
-    {
-        if (pBall->getPosition().y < TARGETHEIGHT / 4)
-        {
-            m_pStatusStrings[0]->setString("Hit!");
-        }
-    }
+    uiStrings[0].setString(std::to_string((int)(ball->getMass() * 1000.0f)).append("g"));
+    uiStrings[3].setString(std::to_string((int)cannon.getAngle()));
+    uiStrings[2].setString(std::to_string((int)cannon.getBallMaterial()));
+    uiStrings[1].setString(getMateralName(cannon.getBallMaterial()));
+    
+    headerTexture.setID(textureIDs[(int)cannon.getBallMaterial()-1]);
 }
 
 void MainScene::onRender()
 {
-    RenderBackground(backgroundTexture);
-    RenderCannon(&m_pCannon);
-    RenderTarget(&m_pTarget);
+    renderBackground(backgroundTexture);
+    renderCannon(&cannon);
+    renderTarget(&target);
 
-    renderer.RenderTexture(&m_pHeaderTexture);
-    renderer.RenderTexture(m_pQuitButton.getTexture());
-    renderer.RenderString(m_pQuitButton.getString());
-    renderer.RenderTexture(&m_pSettingsTexture);
-    renderer.RenderTexture(m_pAirResistance.getTexture());
-    renderer.RenderTexture(&m_pBackPlate);
+    renderer.RenderTexture(&headerTexture);
+    renderer.RenderTexture(quitButton.getTexture());
+    renderer.RenderString(quitButton.getString());
+    renderer.RenderTexture(&settingsTexture);
+    renderer.RenderTexture(airResistanceButton.getTexture());
+    renderer.RenderTexture(&backPlate);
 
-    if (mustReload())
+    if (reloadCannon)
     {
-        renderer.RenderTexture(m_pReloadButton.getTexture());
+        renderer.RenderTexture(reloadButton.getTexture());
     }
 
-    for (int i = 0; i < 3; i++)
+    for (auto& status : statusStrings)
     {
-        renderer.RenderString(m_pStatusStrings[i]);
+        renderer.RenderString(&status);
     }
 
-    for (int i = 0; i < 4; i++)
+    for (auto& uiString : uiStrings)
     {
-        renderer.RenderString(m_pStrings[i]);
+        renderer.RenderString(&uiString);
     }
 
-    for (int i = 0; i < 8; i++)
+    for (auto& uiButton : uiButtons)
     {
-        renderer.RenderTexture(buttons[i].getTexture());
+        renderer.RenderTexture(uiButton.getTexture());
     }
 }
 
-bool MainScene::mustReload()
+void MainScene::renderBackground(GL_Texture * background)
 {
-    return m_Reload;
-}
-
-Cannon* MainScene::getCannon()
-{
-    return &m_pCannon;
-}
-
-Target* MainScene::getTarget()
-{
-    return &m_pTarget;
-}
-
-// Member Functions
-void MainScene::RenderBackground(GL_Texture * background)
-{
-    // Background is just a texture so we just render it haha :P
     renderer.RenderTexture(background);
 }
 
-void MainScene::RenderCannon(Cannon * cannon)
+void MainScene::renderCannon(Cannon * cannon)
 {
-    // Get all projectiles in the scene
-    vector<Projectile *>& vec = cannon->getProjectiles();
-    for (auto iterator = vec.begin(); iterator != vec.end(); ++iterator)
+    for (auto& projectile : cannon->getProjectiles())
     {
-        // If its been fired draw the projectile.
-        if ((*iterator)->hasFired())
+        if (projectile->hasFired())
         {
-            auto position = (*iterator)->getPosition() + (*iterator)->getVelocity();
-
+            auto position = projectile->getPosition() + projectile->getVelocity();
             cannon->getTrajectory()->PlotPoint(position.x, position.y, 5.0f);
             cannon->getTrajectory()->onRender();
-
-            renderer.RenderTexture((*iterator)->getSprite());
+            renderer.RenderTexture(projectile->getSprite());
         }
     }
 
-    // Render the cannon itself
-    std::vector<GL_Texture *>& textures = cannon->getTextures();
-    for (auto i = textures.begin(); i != textures.end(); ++i)
+    for (auto& texture : cannon->getTextures())
     {
-        renderer.RenderTexture((*i));
+        renderer.RenderTexture(texture);
     }
 }
 
-void MainScene::RenderTarget(Target * pTarget)
+void MainScene::renderTarget(Target * pTarget)
 {
     renderer.RenderTexture(pTarget->getSprite());
 }
 
 std::string MainScene::getMessage()
 {
-    return("Back button pressed");
+    return "Back button pressed";
 }
 
 void MainScene::onTriggered(void * data)
 {
-    if (data == &m_pQuitButton)
+    auto scenes = SceneManager::get();
+    auto ball = cannon.getProjectile();
+
+    if (data == &quitButton)
     {
-        SceneManager::get()->SwitchTo((int)SceneStates::MainMenu);
+        scenes->SwitchTo((int)SceneStates::MainMenu);
     }
-    else
+
+    else if (data == &uiButtons[3])
     {
-        auto scene = SceneManager::get()->getCurrent();
-
-        Projectile* pBall = getCannon()->getProjectile();
-
-        if (data == &buttons[3])
-        {
-            scene->onKeyPress(ARROW_UP, PRESSED);
-        }
-        else if (data == &buttons[7])
-        {
-            scene->onKeyPress(ARROW_DOWN, PRESSED);
-        }
-        else if (data == &buttons[6] || data == &buttons[5])
-        {
-            switch (getCannon()->getBallMaterial())
-            {
-            case Material::IRON: scene->onKeyPress(FOUR, PRESSED);  break;
-            case Material::ALUMINIUM: scene->onKeyPress(ONE, PRESSED); break;
-            case Material::COPPER: scene->onKeyPress(TWO, PRESSED); break;
-            case Material::STONE: scene->onKeyPress(THREE, PRESSED); break;
-
-            default:
-                break;
-            };
-        }
-        else if (data == &buttons[2] || data == &buttons[1])
-        {
-            switch (getCannon()->getBallMaterial())
-            {
-            case Material::IRON: scene->onKeyPress(TWO, PRESSED);  break;
-            case Material::ALUMINIUM: scene->onKeyPress(THREE, PRESSED); break;
-            case Material::COPPER: scene->onKeyPress(FOUR, PRESSED); break;
-            case Material::STONE: scene->onKeyPress(ONE, PRESSED); break;
-
-            default:
-                break;
-            };
-        }
-        else if (data == &buttons[0])
-        {
-            scene->onKeyPress(W_KEY, PRESSED);
-        }
-        else if (data == &buttons[4])
-        {
-            scene->onKeyPress(S_KEY, PRESSED);
-        }
-        else if (data == &m_pReloadButton)
-        {
-            scene->onKeyPress(R_KEY, PRESSED);
-        }
-        else if (data == &m_pAirResistance)
-        {
-            if (m_pAirResistance.getTexture()->getTextureID() != m_IDs[4])
-            {
-                m_pAirResistance.getTexture()->setID(m_IDs[4]);
-            }
-            else
-            {
-                m_pAirResistance.getTexture()->setID(m_IDs[5]);
-            }
-
-            getCannon()->getProjectile()->toggleDragForce();
-        }
+        onKeyPress(ARROW_UP, PRESSED);
     }
+    else if (data == &uiButtons[7])
+    {
+        onKeyPress(ARROW_DOWN, PRESSED);
+    }
+    else if (data == &uiButtons[6] || data == &uiButtons[5])
+    {
+        switch (cannon.getBallMaterial())
+        {
+        case Material::Iron:
+            onKeyPress(FOUR, PRESSED);
+            break;
+        case Material::Aluminium:
+            onKeyPress(ONE, PRESSED);
+            break;
+        case Material::Copper:
+            onKeyPress(TWO, PRESSED);
+            break;
+        case Material::Stone:
+            onKeyPress(THREE, PRESSED);
+            break;
+        default:
+            break;
+        };
+    }
+    else if (data == &uiButtons[2] || data == &uiButtons[1])
+    {
+        switch (cannon.getBallMaterial())
+        {
+        case Material::Iron:
+            onKeyPress(TWO, PRESSED);
+            break;
+        case Material::Aluminium:
+            onKeyPress(THREE, PRESSED);
+            break;
+        case Material::Copper:
+            onKeyPress(FOUR, PRESSED);
+            break;
+        case Material::Stone:
+            onKeyPress(ONE, PRESSED);
+            break;
+        default:
+            break;
+        };
+    }
+    else if (data == &uiButtons[0])
+    {
+        onKeyPress(W_KEY, PRESSED);
+    }
+    else if (data == &uiButtons[4])
+    {
+        onKeyPress(S_KEY, PRESSED);
+    }
+    else if (data == &reloadButton)
+    {
+        onKeyPress(R_KEY, PRESSED);
+    }
+    else if (data == &airResistanceButton)
+    {
+        const auto& buttonTexture = airResistanceButton.getTexture();
+        const auto textureID = buttonTexture->getTextureID();
+        buttonTexture->setID(textureIDs[textureID != textureIDs[4] ? 4 : 5]);
+        ball->toggleDragForce();
+    }
+}
+
+void MainScene::setupCannon()
+{
+    cannon.Initialise();
+    cannon.getProjects()->SetMaterial(Material::Iron);
+
+    target.Setup(vec2(1000, 200));
+}
+
+void MainScene::setupUI()
+{
+    auto textureManager = GL_TextureManager::get();
+    auto horizontalX = std::array<float, 4>{ 1150.0f, 1143.0f, 1160.0f, 1160.0f };
+    auto positions = std::array<float, 8> { 
+        467.0f, 482.0f, 497.0f, 512.0f,
+        467.0f, 482.0f, 497.0f, 512.0f 
+    };
+
+    for (auto i = 0, y = 467; i < 4; i++, y += 15)
+    {
+        uiObjects[i].setOrtho2D(vec4(0, 0, 1280, 720));
+        uiObjects[i].setPosition(vec2(horizontalX[i], y));
+        uiObjects[i].setSize(vec2(18, 18));
+
+        uiStrings[i].PrepareFont("data/version.xml", "data/version.png");
+        uiStrings[i].setParameters(&uiObjects[i]);
+        uiStrings[i].setColour(1, 1, 1, 1);
+        uiStrings[i].setString("0");
+        uiStrings[i].Prepare();
+    }
+
+    for (auto i = 0, y = 380; i < 4; i++, y += 15)
+    {
+        statusObject[i].setOrtho2D(vec4(0, 0, 1280, 720));
+        statusObject[i].setPosition(vec2(1125, y));
+        statusObject[i].setSize(vec2(15, 15));
+
+        statusStrings[i].PrepareFont("data/version.xml", "data/version.png");
+        statusStrings[i].setParameters(&statusObject[i]);
+        statusStrings[i].setString("0");
+        statusStrings[i].setColour(1, 1, 1, 1);
+        statusStrings[i].Prepare();
+    }
+
+    airResistanceButton.SetTexture("data/img/enabled.png");
+    airResistanceButton.SetPosition("", vec2(1125, 428), vec2(78, 14));
+    airResistanceButton.OnPress(this);
+
+    reloadButton.OnPress(this);
+    reloadButton.SetTexture("data/img/reload.png");
+    reloadButton.SetPosition("", vec2(1126, 526), vec2(78, 14));
+
+    settingsObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    settingsObject.setPosition(vec2(1000, 358));
+    settingsObject.setSize(vec2(228, 96));
+
+    settingsTexture.setTexture("data/img/status.png", GL_CLAMP_TO_EDGE);
+    settingsTexture.setParameters(&settingsObject);
+    settingsTexture.Prepare();
+
+    for (int i = 0; i < 8; i++)
+    {
+        uiButtons[i].OnPress(this);
+        uiButtons[i].SetTexture(i < 4 ? "data/img/plus.png" : "data/img/minus.png");
+        uiButtons[i].SetPosition("", vec2(i < 4 ? 1190 : 1125, positions[i]), vec2(14, 13));
+    }
+
+    headerObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    headerObject.setPosition(vec2(1000, 550));
+    headerObject.setSize(vec2(228, 96));
+
+    headerTexture.setTexture("data/img/header1.png", GL_CLAMP_TO_EDGE);
+    headerTexture.setParameters(&headerObject);
+    headerTexture.Prepare();
+
+    quitButton.SetPosition("Back", vec2(25, 600), vec2(200, 50));
+    quitButton.OnPress(this);
+
+    backplateObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    backplateObject.setPosition(vec2(1000, 454));
+    backplateObject.setSize(vec2(228, 96));
+
+    backPlate.setTexture("data/img/console.png", GL_CLAMP_TO_EDGE);
+    backPlate.setParameters(&backplateObject);
+    backPlate.Prepare();
+
+    textureIDs.push_back(headerTexture.getTextureID());
+    textureIDs.push_back(textureManager->CreateTexture("data/img/header2.png", GL_CLAMP_TO_EDGE)->m_ID);
+    textureIDs.push_back(textureManager->CreateTexture("data/img/header3.png", GL_CLAMP_TO_EDGE)->m_ID);
+    textureIDs.push_back(textureManager->CreateTexture("data/img/header4.png", GL_CLAMP_TO_EDGE)->m_ID);
+    textureIDs.push_back(textureManager->CreateTexture("data/img/disabled.png", GL_CLAMP_TO_EDGE)->m_ID);
+    textureIDs.push_back(textureManager->CreateTexture("data/img/enabled.png", GL_CLAMP_TO_EDGE)->m_ID);
 }
