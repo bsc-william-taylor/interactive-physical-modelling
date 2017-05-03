@@ -50,7 +50,7 @@ void EventLogger::WriteEventLog(IEvent * event)
 	// Exception handling is used just to be safe.
 	try 
 	{
-		auto msg = event->VMessage();
+		auto msg = event->getMessage();
 		fwrite(msg.c_str(), 1, msg.size(), m_pFile);
 	} 
 	catch (...) 

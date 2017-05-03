@@ -9,8 +9,8 @@
  ------------------------------------------------- */
 
 #include "Win32Codes.h"
-#include "GLobals.h"
 #include "Cannon.h"
+#include "Main.h"
 
 // Constructor & Deconstructor
 Cannon::Cannon()
@@ -63,8 +63,8 @@ void Cannon::Initialise()
 
 	m_pProjectiles->setMaxProjectiles(1);
 
-	float cannonLengthX = 90*cosf(glm::radians(m_Angle));
-	float cannonLengthY = 90*sinf(glm::radians(m_Angle));
+	float cannonLengthX = 90.0*cosf(glm::radians(m_Angle));
+	float cannonLengthY = 90.0*sinf(glm::radians(m_Angle));
 	float xComponent(fulcrumX-10+ cannonLengthX);		// 10 is bomb radius seeing the fact the origin is not in the center
 	float yComponent(fulcrumY-10+ cannonLengthY);		// bomb radius again
 

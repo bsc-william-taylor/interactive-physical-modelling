@@ -12,7 +12,7 @@
 
 #include "GL_Texture_Manager.h"
 #include "Projectiles.h"
-#include "Globals.h"
+#include "Main.h"
 
 double acos(int angle) { return cos(3.14156892/180*angle); };			//returns cosine from degrees
 double asin(int angle) { return sin(3.14156892/180*angle); };			//returns sine from degrees

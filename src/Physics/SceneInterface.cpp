@@ -2,7 +2,7 @@
 #include "SceneInterface.h"
 #include "SceneManager.h"
 #include "Win32Codes.h"
-#include "Globals.h"
+#include "Main.h"
 #include "Scenes.h"
 
 SceneInterface::SceneInterface()
@@ -230,16 +230,16 @@ void SceneInterface::VLoad()
 	m_IDs.push_back(GL_TextureManager::get()->CreateTexture("data/img/enabled.png", GL_CLAMP_TO_EDGE)->m_ID);
 }
 
-std::string SceneInterface::VMessage() 
+std::string SceneInterface::getMessage() 
 {
 	return("Back button pressed");
 }
 
-void SceneInterface::VOnTriggered(void * data) 
+void SceneInterface::onTriggered(void * data) 
 {
 	if(data == m_pQuitButton)
 	{
-		SceneManager::get()->SwitchTo(MAIN_MENU);
+		SceneManager::get()->SwitchTo((int)SceneStates::MainMenu);
 	} 
 	else
 	{

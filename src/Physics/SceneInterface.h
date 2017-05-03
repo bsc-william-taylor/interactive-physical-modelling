@@ -35,8 +35,8 @@ public:
 	void VRender();
 	void VLoad();
 
-	std::string VMessage();
-	void VOnTriggered(void *);
+	std::string getMessage();
+	void onTriggered(void *);
 
 private:
 

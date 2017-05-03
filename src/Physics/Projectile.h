@@ -11,7 +11,7 @@
 #pragma once
 
 #include "GL_Texture.h"
-#include "Globals.h"
+#include "Main.h"
 
 class Projectile
 {

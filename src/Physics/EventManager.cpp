@@ -33,7 +33,7 @@ void EventManager::TriggerEvent(IEvent * event, bool destroy, void * data)
 	if(event != NULL) 
 	{
 		m_pEventLogger->WriteEventLog(event);
-		event->VOnTriggered(data);
+		event->onTriggered(data);
 
 		// If asked the event will be deleted.
 		if(destroy) 
@@ -50,8 +50,8 @@ void EventManager::TriggerEvent(unsigned int ms, IEvent * event, void * data)
 	TimedEvent * Event = new TimedEvent();
 	
 	// initialise timer
-	Event->m_pTimer = new Win32Timer();
-	Event->m_pTimer->Start();
+	Event->timer = new Win32Timer();
+	Event->timer->Start();
 	Event->m_pEvent = event;
 	Event->pData = data;
 	Event->ms = ms;
@@ -68,12 +68,12 @@ void EventManager::UpdateManager()
 		auto Event = m_vTimedEvents[i];
 		
 		// if the time has passed trigger the event.
-		Event->m_pTimer->Stop();
-		if(Event->m_pTimer->Difference(TimeType::MS) >= Event->ms)
+		Event->timer->Stop();
+		if(Event->timer->Difference(TimeType::MS) >= Event->ms)
 		{
 			// Activiate event & Delete event & timer
-			Event->m_pEvent->VOnTriggered(Event->pData);
-			delete Event->m_pTimer;
+			Event->m_pEvent->onTriggered(Event->pData);
+			delete Event->timer;
 			delete Event->m_pEvent;
 
 			// resize array to remove the null element. 

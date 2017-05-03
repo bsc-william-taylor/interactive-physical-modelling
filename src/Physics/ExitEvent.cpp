@@ -1,24 +1,12 @@
 
-/* -------------------------------------------------
-  
- @Filename  : ExitEvent.cpp
- @author	: William Taylor
- @date		: 19/02/2014
- @purpose	: Class implementation.
-
- ------------------------------------------------- */
-
 #include "ExitEvent.h"
 
-// Constructor not really needed for something so basic.
-// Handler Function
-void ExitEvent::VOnTriggered(void *)
+void ExitEvent::onTriggered(void* pData)
 {
-	PostQuitMessage(0);
+    PostQuitMessage(0);
 }
 
-// Msg to be posted to the event log
-std::string ExitEvent::VMessage() 
+std::string ExitEvent::getMessage()
 {
-	return("User Exits Demo");
+    return "User Exits Demo";
 }

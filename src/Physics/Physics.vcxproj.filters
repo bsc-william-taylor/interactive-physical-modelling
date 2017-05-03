@@ -1,402 +1,303 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Physics Demo">
+    <Filter Include="Source Code">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Physics Demo\Demo">
-      <UniqueIdentifier>{f3da2c46-e98d-46bd-b4a1-9b14cf5b12ed}</UniqueIdentifier>
+    <Filter Include="Source Code\Framework">
+      <UniqueIdentifier>{b54a68f7-a9da-4574-862b-c9b5ad6f11ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\Events">
+    <Filter Include="Source Code\Demo">
+      <UniqueIdentifier>{55307dfc-7500-4f94-8047-7a217e2be469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Code\Framework\Events">
       <UniqueIdentifier>{6eb1c969-07a2-4550-bd84-dbcd454ca0b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\Events\Back Event">
-      <UniqueIdentifier>{62be6dbf-e507-4279-adf0-43cb42885b06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Events\Exit Event">
-      <UniqueIdentifier>{2ed9bb4b-0a6b-415d-ae45-69646caded45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Events\Play Event">
-      <UniqueIdentifier>{376752ae-a22f-4102-8bca-f06c0bc95c62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes">
-      <UniqueIdentifier>{bcda849d-0d4f-46fb-957e-15fff87f7cd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Menu">
-      <UniqueIdentifier>{e88b7017-a68c-44c9-a987-ac54edecb90c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Menu\Images">
-      <UniqueIdentifier>{fb4b725d-182f-4ba2-944c-40c595d364b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Menu\Button">
-      <UniqueIdentifier>{c019f1c6-152b-4528-b508-38b3fd420d54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Menu\Labels">
-      <UniqueIdentifier>{5aa644f7-c5ea-403d-8dba-fe55ccd56598}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Scene">
-      <UniqueIdentifier>{6f0fede2-302e-47d6-8ed3-711521401768}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Scene\Main Objects">
-      <UniqueIdentifier>{b62e9408-2e13-46fe-bed1-b20a1c2c2c5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Scene Manager">
-      <UniqueIdentifier>{dfdfd75c-56e6-45d7-884d-4ad77fabe455}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Scene List">
-      <UniqueIdentifier>{18dd3c5c-9583-4eb3-9979-699afaf6d0ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Scene Factory">
-      <UniqueIdentifier>{39ab5118-2237-41f7-8d0b-586430f6a87b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\OpenGL">
-      <UniqueIdentifier>{b3392d56-27ac-41a1-a5e3-ee6315d92e34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Objects">
+    <Filter Include="Source Code\Framework\Objects">
       <UniqueIdentifier>{fcda6fbb-7d88-4697-91fb-d43da7cab70b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\Objects\Renderer">
-      <UniqueIdentifier>{da7868ee-3be0-4eac-964d-173ded5e806a}</UniqueIdentifier>
+    <Filter Include="Source Code\Framework\OpenGL">
+      <UniqueIdentifier>{b3392d56-27ac-41a1-a5e3-ee6315d92e34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\Objects\Button">
-      <UniqueIdentifier>{1276587e-c278-4787-957b-10400616eb65}</UniqueIdentifier>
+    <Filter Include="Source Code\Framework\Scenes">
+      <UniqueIdentifier>{bcda849d-0d4f-46fb-957e-15fff87f7cd3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\Objects\Cannon">
-      <UniqueIdentifier>{f1686942-e254-4706-b922-74c1d7eb54b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Objects\Projectiles">
-      <UniqueIdentifier>{8ba1b59e-443a-42ca-b757-3b4c3c40339e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Objects\Projectiles\Projectile">
-      <UniqueIdentifier>{70ad2dcf-bad4-4c48-b992-6b5ad3015baa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Objects\Projectiles\Trajectory">
-      <UniqueIdentifier>{7e131e7d-be40-4ba9-b7bc-35893abbe9a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32">
+    <Filter Include="Source Code\Framework\Win32">
       <UniqueIdentifier>{5a22355c-6115-491b-9b6e-9f944a799891}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_Matrix">
-      <UniqueIdentifier>{a3ddd9ca-b639-4a6c-b0de-69ee543b4b75}</UniqueIdentifier>
+    <Filter Include="Source Code\Framework\Shaders">
+      <UniqueIdentifier>{78b5e65d-76b0-4906-9bc7-cb3949c01ab3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_Texture">
-      <UniqueIdentifier>{48e15b2c-9a19-4e80-a01e-c5044dc1f50f}</UniqueIdentifier>
+    <Filter Include="Source Code\Demo\Events">
+      <UniqueIdentifier>{07509bcc-b467-4968-a58b-2f2bfe3b41fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_Object">
-      <UniqueIdentifier>{5bc78759-3e9d-4fec-b657-3ef5f4c08b32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_Program">
-      <UniqueIdentifier>{5122139c-4f38-4fea-ba08-300f163fe6dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_Renderer">
-      <UniqueIdentifier>{6929fd08-dab6-432a-aaf9-38122c55d708}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_String">
-      <UniqueIdentifier>{e97511c7-bb55-461b-b550-7bf1e115bddd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\OpenGL\GL_Shaders">
-      <UniqueIdentifier>{3bfa4d8d-4c1d-410f-b9c8-ecc5baf6290b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 Driver">
-      <UniqueIdentifier>{c9e9d372-13df-46c2-915c-6c458bd8f20e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 Headers">
-      <UniqueIdentifier>{50cefaf0-2516-4b01-9eb7-89bc63f7d12e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 Driver\Keyboard">
-      <UniqueIdentifier>{9ee435aa-a912-440e-999e-a7de66ae7a6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 Driver\Mouse">
-      <UniqueIdentifier>{4803e0ed-a61e-41c9-b6ec-70cceedb6d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 System">
-      <UniqueIdentifier>{c9bb0dc6-f0ef-4c96-b0fa-35d3d54f0762}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 Timer">
-      <UniqueIdentifier>{66e18544-b603-41b5-a08e-be9014a66335}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Win32\Win32 Window">
-      <UniqueIdentifier>{a06a48bc-4ddd-4849-8d62-a0a1d2ab01c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Objects\Target">
-      <UniqueIdentifier>{03adb2a0-8b68-4666-bd4c-3edf59bfdac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Scenes\Main Scene\Main Interface">
-      <UniqueIdentifier>{5b1cee37-fe99-4bf2-a363-af5fe9ba3127}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics Demo\Demo\Class">
-      <UniqueIdentifier>{4b52d1be-a664-4847-b12f-ab3c96b540e6}</UniqueIdentifier>
+    <Filter Include="Source Code\Demo\Scenes">
+      <UniqueIdentifier>{e9463c26-9911-49b6-aebb-bb75fc4499d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Demo.cpp">
-      <Filter>Physics Demo\Demo\Class</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Physics Demo\Demo</Filter>
-    </ClCompile>
     <ClCompile Include="EventLogger.cpp">
-      <Filter>Physics Demo\Events</Filter>
+      <Filter>Source Code\Framework\Events</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
-      <Filter>Physics Demo\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="BackEvent.cpp">
-      <Filter>Physics Demo\Events\Back Event</Filter>
-    </ClCompile>
-    <ClCompile Include="ExitEvent.cpp">
-      <Filter>Physics Demo\Events\Exit Event</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuButtons.cpp">
-      <Filter>Physics Demo\Scenes\Main Menu\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuImages.cpp">
-      <Filter>Physics Demo\Scenes\Main Menu\Images</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuLabels.cpp">
-      <Filter>Physics Demo\Scenes\Main Menu\Labels</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>Physics Demo\Scenes\Main Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Physics Demo\Scenes\Main Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayEvent.cpp">
-      <Filter>Physics Demo\Events\Play Event</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Physics Demo\Objects\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Physics Demo\Objects\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="Cannon.cpp">
-      <Filter>Physics Demo\Objects\Cannon</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectiles.cpp">
-      <Filter>Physics Demo\Objects\Projectiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Physics Demo\Objects\Projectiles\Projectile</Filter>
-    </ClCompile>
-    <ClCompile Include="Trajectory.cpp">
-      <Filter>Physics Demo\Objects\Projectiles\Trajectory</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Physics Demo\Scenes\Scene Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneFactory.cpp">
-      <Filter>Physics Demo\Scenes\Scene Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneObjects.cpp">
-      <Filter>Physics Demo\Scenes\Main Scene\Main Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Texture.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Texture_Manager.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Texture</Filter>
+      <Filter>Source Code\Framework\Events</Filter>
     </ClCompile>
     <ClCompile Include="GL_Matrix.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Matrix</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="GL_Object.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Object</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="GL_Program.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Program</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="GL_Renderer.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Renderer</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="GL_Shader_Manager.cpp">
-      <Filter>Physics Demo\OpenGL\GL_Program</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="GL_String.cpp">
-      <Filter>Physics Demo\OpenGL\GL_String</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="GL_Texture.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="GL_Texture_Manager.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Win32Driver.cpp">
-      <Filter>Physics Demo\Win32\Win32 Driver</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32Keyboard.cpp">
-      <Filter>Physics Demo\Win32\Win32 Driver\Keyboard</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32Mouse.cpp">
-      <Filter>Physics Demo\Win32\Win32 Driver\Mouse</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32System.cpp">
-      <Filter>Physics Demo\Win32\Win32 System</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32Timer.cpp">
-      <Filter>Physics Demo\Win32\Win32 Timer</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32Window.cpp">
-      <Filter>Physics Demo\Win32\Win32 Window</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFactory.cpp">
+      <Filter>Source Code\Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Code\Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectiles.cpp">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Target.cpp">
-      <Filter>Physics Demo\Objects\Target</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Trajectory.cpp">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Cannon.cpp">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitEvent.cpp">
+      <Filter>Source Code\Demo\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="BackEvent.cpp">
+      <Filter>Source Code\Demo\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayEvent.cpp">
+      <Filter>Source Code\Demo\Events</Filter>
     </ClCompile>
     <ClCompile Include="SceneInterface.cpp">
-      <Filter>Physics Demo\Scenes\Main Scene\Main Interface</Filter>
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObjects.cpp">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuButtons.cpp">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuImages.cpp">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuLabels.cpp">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Code\Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Demo.h">
-      <Filter>Physics Demo\Demo\Class</Filter>
+    <ClInclude Include="EventLogger.h">
+      <Filter>Source Code\Framework\Events</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
-      <Filter>Physics Demo\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="EventLogger.h">
-      <Filter>Physics Demo\Events</Filter>
+      <Filter>Source Code\Framework\Events</Filter>
     </ClInclude>
     <ClInclude Include="GL_Header.h">
-      <Filter>Physics Demo\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="BackEvent.h">
-      <Filter>Physics Demo\Events\Back Event</Filter>
-    </ClInclude>
-    <ClInclude Include="ExitEvent.h">
-      <Filter>Physics Demo\Events\Exit Event</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuButtons.h">
-      <Filter>Physics Demo\Scenes\Main Menu\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuImages.h">
-      <Filter>Physics Demo\Scenes\Main Menu\Images</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuLabels.h">
-      <Filter>Physics Demo\Scenes\Main Menu\Labels</Filter>
-    </ClInclude>
-    <ClInclude Include="MainScene.h">
-      <Filter>Physics Demo\Scenes\Main Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Physics Demo\Scenes\Main Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="IEvent.h">
-      <Filter>Physics Demo\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Physics Demo\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes.h">
-      <Filter>Physics Demo\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayEvent.h">
-      <Filter>Physics Demo\Events\Play Event</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Physics Demo\Objects\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Physics Demo\Objects\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="Cannon.h">
-      <Filter>Physics Demo\Objects\Cannon</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects.h">
-      <Filter>Physics Demo\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectiles.h">
-      <Filter>Physics Demo\Objects\Projectiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Physics Demo\Objects\Projectiles\Projectile</Filter>
-    </ClInclude>
-    <ClInclude Include="Trajectory.h">
-      <Filter>Physics Demo\Objects\Projectiles\Trajectory</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneList.h">
-      <Filter>Physics Demo\Scenes\Scene List</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Physics Demo\Scenes\Scene Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneFactory.h">
-      <Filter>Physics Demo\Scenes\Scene Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneObjects.h">
-      <Filter>Physics Demo\Scenes\Main Scene\Main Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Texture.h">
-      <Filter>Physics Demo\OpenGL\GL_Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Texture_Manager.h">
-      <Filter>Physics Demo\OpenGL\GL_Texture</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="GL_Matrix.h">
-      <Filter>Physics Demo\OpenGL\GL_Matrix</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="GL_Object.h">
-      <Filter>Physics Demo\OpenGL\GL_Object</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="GL_Program.h">
-      <Filter>Physics Demo\OpenGL\GL_Program</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="GL_Renderer.h">
-      <Filter>Physics Demo\OpenGL\GL_Renderer</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="GL_Shader_Manager.h">
-      <Filter>Physics Demo\OpenGL\GL_Program</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="GL_String.h">
-      <Filter>Physics Demo\OpenGL\GL_String</Filter>
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Win32Driver.h">
-      <Filter>Physics Demo\Win32\Win32 Driver</Filter>
+    <ClInclude Include="GL_Texture.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Win32Header.h">
-      <Filter>Physics Demo\Win32\Win32 Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Win32Codes.h">
-      <Filter>Physics Demo\Win32\Win32 Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Win32Keyboard.h">
-      <Filter>Physics Demo\Win32\Win32 Driver\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Win32Mouse.h">
-      <Filter>Physics Demo\Win32\Win32 Driver\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="Win32System.h">
-      <Filter>Physics Demo\Win32\Win32 System</Filter>
-    </ClInclude>
-    <ClInclude Include="Win32Timer.h">
-      <Filter>Physics Demo\Win32\Win32 Timer</Filter>
+    <ClInclude Include="GL_Texture_Manager.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Win32Window.h">
-      <Filter>Physics Demo\Win32\Win32 Window</Filter>
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Driver.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Header.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Keyboard.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Mouse.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32System.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Timer.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Codes.h">
+      <Filter>Source Code\Framework\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Source Code\Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source Code\Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFactory.h">
+      <Filter>Source Code\Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneList.h">
+      <Filter>Source Code\Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Trajectory.h">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectiles.h">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Target.h">
-      <Filter>Physics Demo\Objects\Target</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Source Code\Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IEvent.h">
+      <Filter>Source Code\Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitEvent.h">
+      <Filter>Source Code\Demo\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="BackEvent.h">
+      <Filter>Source Code\Demo\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayEvent.h">
+      <Filter>Source Code\Demo\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjects.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SceneInterface.h">
-      <Filter>Physics Demo\Scenes\Main Scene\Main Interface</Filter>
+      <Filter>Source Code\Demo\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Physics Demo\Objects</Filter>
+    <ClInclude Include="MenuLabels.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuButtons.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuImages.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Source Code\Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Source Code\Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\shaders\text.frag">
-      <Filter>Physics Demo\OpenGL\GL_Shaders</Filter>
-    </None>
-    <None Include="data\shaders\text.vert">
-      <Filter>Physics Demo\OpenGL\GL_Shaders</Filter>
-    </None>
-    <None Include="data\shaders\texture.frag">
-      <Filter>Physics Demo\OpenGL\GL_Shaders</Filter>
-    </None>
-    <None Include="data\shaders\texture.vert">
-      <Filter>Physics Demo\OpenGL\GL_Shaders</Filter>
-    </None>
     <None Include="data\shaders\Trajectory.frag">
-      <Filter>Physics Demo\OpenGL\GL_Shaders</Filter>
+      <Filter>Source Code\Framework\Shaders</Filter>
     </None>
     <None Include="data\shaders\Trajectory.vert">
-      <Filter>Physics Demo\OpenGL\GL_Shaders</Filter>
+      <Filter>Source Code\Framework\Shaders</Filter>
+    </None>
+    <None Include="data\shaders\text.frag">
+      <Filter>Source Code\Framework\Shaders</Filter>
+    </None>
+    <None Include="data\shaders\text.vert">
+      <Filter>Source Code\Framework\Shaders</Filter>
+    </None>
+    <None Include="data\shaders\texture.frag">
+      <Filter>Source Code\Framework\Shaders</Filter>
+    </None>
+    <None Include="data\shaders\texture.vert">
+      <Filter>Source Code\Framework\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ private:
 	// Custom data type for the timed events
 	struct TimedEvent
 	{
-		Win32Timer * m_pTimer;
+		Win32Timer * timer;
 		IEvent * m_pEvent;
 		unsigned int ms;
 		void * pData;

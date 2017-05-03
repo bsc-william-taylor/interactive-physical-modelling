@@ -38,8 +38,8 @@
 
 
 
-#define fulcrumX 144
-#define fulcrumY 75
+#define fulcrumX 144.0
+#define fulcrumY 75.0
 
 using namespace glm;
 using std::vector;
