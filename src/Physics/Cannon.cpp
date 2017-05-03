@@ -65,8 +65,8 @@ void Cannon::Initialise()
 
 	float cannonLengthX = 90.0*cosf(glm::radians(m_Angle));
 	float cannonLengthY = 90.0*sinf(glm::radians(m_Angle));
-	float xComponent(fulcrumX-10+ cannonLengthX);		// 10 is bomb radius seeing the fact the origin is not in the center
-	float yComponent(fulcrumY-10+ cannonLengthY);		// bomb radius again
+	float xComponent(FULCRUM_X-10+ cannonLengthX);		// 10 is bomb radius seeing the fact the origin is not in the center
+	float yComponent(FULCRUM_Y-10+ cannonLengthY);		// bomb radius again
 
 	m_pProjectiles->Initialise(m_Angle, vec2(xComponent, yComponent), vec2(xComponent, yComponent));
 }
@@ -81,7 +81,7 @@ void Cannon::Fire()
 	m_pProjectiles->FireProjectile(m_Angle);
 }
 
-void Cannon::KeyPress(int Key, int State)
+void Cannon::onKeyPress(int Key, int State)
 {
 	switch(Key)
 	{
@@ -102,16 +102,16 @@ Projectile* Cannon::getProjectile()
 	return m_pProjectiles->getTextures().at(0);
 }
 
-void Cannon::Update()
+void Cannon::onUpdate()
 {
 	m_pStaticObject->setIdentity();
 	m_pRotateObject->setIdentity();
 
-	m_pRotateObject->setTranslate(vec2(fulcrumX, fulcrumY));
+	m_pRotateObject->setTranslate(vec2(FULCRUM_X, FULCRUM_Y));
 	m_pRotateObject->setRotation(glm::radians((float)m_Angle), vec3(0.0, 0.0, 1.0));
-	m_pRotateObject->setTranslate(-vec2(fulcrumX, fulcrumY));
+	m_pRotateObject->setTranslate(-vec2(FULCRUM_X, FULCRUM_Y));
 	
-	m_pProjectiles->Update();
+	m_pProjectiles->onUpdate();
 }
 
 // Get & Set Functions

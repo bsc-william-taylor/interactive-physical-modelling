@@ -38,7 +38,7 @@ public:
 	void PlotPoint(int, int, float);
 	void ResetStart(float, float);
 	void StartFrom(int, int, float);
-	void Render();
+	void onRender();
 	void Clear();
 
 	GL_Matrix* getMatrix() { return m_pMatrix; }

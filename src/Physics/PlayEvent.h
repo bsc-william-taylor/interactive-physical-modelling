@@ -6,6 +6,6 @@
 class PlayEvent : public IEvent
 {
 public:
-    std::string getMessage();			
-    void onTriggered(void *);			
+    std::string getMessage();
+    void onTriggered(void *);
 };

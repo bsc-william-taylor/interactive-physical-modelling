@@ -21,19 +21,28 @@ GL_String::GL_String(std::string fontname, std::string texture)
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	glBindVertexArray(0);
 
-	m_Document = new tinyxml2::XMLDocument();
-	m_Document->LoadFile(fontname.c_str());
-	m_Fontname = fontname;
-
-	m_Sprite = GL_TextureManager::get()->CreateTexture(texture, GL_CLAMP_TO_EDGE);
-
 	setColour(0, 0, 0, 1);
+    PrepareFont(fontname, texture);
 }
 
 GL_String::~GL_String()
 {
-	glDeleteVertexArrays(1, &m_VBO);
-	glDeleteBuffers(1, &m_VBO);
+    if(m_VBO != 0 && m_VAO != 0)
+    { 
+        glDeleteBuffers(1, &m_VBO);
+        glDeleteVertexArrays(1, &m_VAO);
+    }
+}
+
+void GL_String::PrepareFont(std::string fontname, std::string texture)
+{
+    if(!fontname.empty() && !texture.empty())
+    {
+        m_Document = new tinyxml2::XMLDocument();
+        m_Document->LoadFile(fontname.c_str());
+        m_Fontname = fontname;
+        m_Sprite = GL_TextureManager::get()->CreateTexture(texture, GL_CLAMP_TO_EDGE);
+    }
 }
 
 GLvoid GL_String::setParameters(GL_Object * object)

@@ -1,68 +1,104 @@
 
-/* -------------------------------------------------
-  
- @Filename  : MainMenu.cpp
- @author	: William Taylor
- @date		: 12/02/2014
-
- @purpose	: The main menu scene obviously :P
-
- ------------------------------------------------- */
-
 #include "EventManager.h"
 #include "Win32Codes.h"
 #include "ExitEvent.h"
 #include "MainMenu.h"
 
-// Constructor & Deconstructor
-MainMenu::MainMenu()
-	: m_pButtons(new MenuButtons()),
-	  m_pImages(new MenuImages()),
-	  m_pLabels(new MenuLabels())
+MainMenu::MainMenu() :
+    title("data/largeText.xml", "data/LargeText.png")
 {
-	glViewport(0, 0, 1280, 720);
+    for (int i = 0; i < 3; i++)
+    {
+        m_Banners[i].PrepareFont("data/LargeText.xml", "data/LargeText.png");
+    }
 
-	m_pImages->VLoad();
-	m_pLabels->VLoad();
-	m_pButtons->VLoad();
+    setupLabels();
+    setupButtons();
+    setupImages();
 }
 
 MainMenu::~MainMenu()
 {
-	SAFE_RELEASE(m_pButtons);
-	SAFE_RELEASE(m_pImages);
-	SAFE_RELEASE(m_pLabels);
 }
 
-// Member Functions
-void MainMenu::Update()
+void MainMenu::setupLabels()
 {
-	m_pButtons->VUpdate();
-	m_pLabels->VUpdate();
-	m_pImages->VUpdate();
+    std::string names[] = { "B00233705", "B00235610", "B00243868" };
+    titleObject.setOrtho2D(vec4(0, 0, 800, 540));
+    titleObject.setScale(vec3(0.5, 0.5, 0.5));
+    titleObject.setPosition(vec2(100, 750));
+    titleObject.setSize(vec2(53, 53));
+
+    title.setParameters(&titleObject);
+    title.setString("Physics Demo Coursework");
+    title.Prepare();
+
+    for (int i = 0, position = 300; i < 3; i++)
+    {
+        m_Objects[i].setOrtho2D(vec4(0, 0, 800, 540));
+        m_Objects[i].setPosition(vec2(150, position));
+        m_Objects[i].setScale(vec3(0.35, 0.35, 0.35));
+        m_Objects[i].setSize(vec2(35, 35));
+
+        m_Banners[i].setParameters(&m_Objects[i]);
+        m_Banners[i].setString(names[i]);
+        m_Banners[i].Prepare();
+
+        position += 150;
+    }
 }
 
-void MainMenu::Render()
+void MainMenu::setupButtons()
 {
-	m_pImages->VRender();
-	m_pButtons->VRender();
-	m_pLabels->VRender();
+    playButton.SetPosition("Play", vec2(800, 200), vec2(200, 60));
+    playButton.OnPress(new PlayEvent());
 }
 
-void MainMenu::KeyPress(int Key, int State)
+void MainMenu::setupImages()
 {
-	if(KEY_DOWN(ESCAPE, Key, State))
-	{
-		EventManager::get()->TriggerEvent(new ExitEvent(), true, this);
-	}
+    backgroundObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    backgroundObject.setPosition(vec2(0, 0));
+    backgroundObject.setSize(vec2(3000, 1383));
+
+    backgroundTexture.setTexture("data/img/background.png", GL_CLAMP_TO_EDGE);
+    backgroundTexture.setParameters(&backgroundObject);
+    backgroundTexture.Prepare();
 }
 
-void MainMenu::MousePress(int Key, int State, int x, int y)
+void MainMenu::onUpdate()
 {
-	m_pButtons->MousePress(Key, State, x, y);
 }
 
-void MainMenu::VOnCommit(SceneFactory * Factory)
+void MainMenu::onRender()
 {
-	Factory->PushAsset("MenuBackground", m_pImages->getBackground());
+    renderer.RenderTexture(&backgroundTexture);
+
+    for (int i = 0; i < 3; i++)
+    {
+        renderer.RenderString(&m_Banners[i]);
+    }
+
+    renderer.RenderString(&title);
+    renderer.RenderTexture(playButton.getTexture());
+    renderer.RenderString(playButton.getString());
+}
+
+void MainMenu::onKeyPress(int Key, int State)
+{
+    auto events = EventManager::get();
+
+    if (KEY_DOWN(ESCAPE, Key, State))
+    {
+        events->TriggerEvent(new ExitEvent(), true, this);
+    }
+}
+
+void MainMenu::onMousePress(int key, int state, int x, int y)
+{
+    playButton.MouseState(key, state, x, y);
+}
+
+void MainMenu::onCommit(SceneFactory * factory)
+{
+    factory->PushAsset("MenuBackground", &backgroundTexture);
 }

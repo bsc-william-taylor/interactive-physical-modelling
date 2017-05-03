@@ -33,8 +33,8 @@ public:
 
 	// Member Functions
 	void Setup(vec2);
-	void Update();
-	void MousePress(int, int, int, int);
+	void onUpdate();
+	void onMousePress(int, int, int, int);
 
 	// Get & Set & Check functions.
 	GL_Texture * getSprite();

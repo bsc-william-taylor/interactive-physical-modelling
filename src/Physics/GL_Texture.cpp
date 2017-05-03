@@ -13,7 +13,8 @@
 #include "GL_Texture_Manager.h"
 
 // Constructor & Deconstructor
-GL_Texture::GL_Texture()
+GL_Texture::GL_Texture() :
+    m_Object(nullptr)
 {	
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);

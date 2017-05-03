@@ -1,7 +1,7 @@
 
 #include "SceneManager.h"
 #include "PlayEvent.h"
-#include "Scenes.h"
+#include "Main.h"
 
 void PlayEvent::onTriggered(void* pData)
 {

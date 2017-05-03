@@ -85,7 +85,7 @@ void Trajectory::ResetStart(float x, float y)
 	} 
 }
 
-void Trajectory::Render()
+void Trajectory::onRender()
 {
 	// Use the Shader
 	m_pProgram->Use();

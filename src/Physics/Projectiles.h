@@ -43,7 +43,7 @@ public:
 	void Initialise(float angle, vec2, vec2);
 	void FireProjectile(float angle);
 	void SetMaterial(Material);
-	void Update();
+	void onUpdate();
 
 	// Get & Set Functions
 	vector<Projectile *>& getTextures();

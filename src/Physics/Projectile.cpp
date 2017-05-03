@@ -29,7 +29,7 @@ Projectile::~Projectile()
 }
 
 // Member Functions
-void Projectile::Update()
+void Projectile::onUpdate()
 {
 	if ( m_Position.y <= TARGETHEIGHT/4 )
 	{
@@ -94,8 +94,8 @@ void Projectile::Reset(float angle)
 	float cannonLengthX = 90*cosf(glm::radians(angle));
 	float cannonLengthY = 90*sinf(glm::radians(angle));
 	
-	float xComponent( fulcrumX - 10 + cannonLengthX );	// 10 is bomb radius seeing the fact the origin is not in the center
-	float yComponent( fulcrumY - 10 + cannonLengthY );	// bomb radius again
+	float xComponent( FULCRUM_X - 10 + cannonLengthX );	// 10 is bomb radius seeing the fact the origin is not in the center
+	float yComponent( FULCRUM_Y - 10 + cannonLengthY );	// bomb radius again
 	
 	m_Position = vec2(xComponent,yComponent);
 	m_Velocity = vec2(0);

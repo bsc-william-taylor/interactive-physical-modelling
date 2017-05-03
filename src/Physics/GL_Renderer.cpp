@@ -30,37 +30,36 @@ GL_Renderer::~GL_Renderer()
 GLvoid GL_Renderer::RenderTexture(GL_Texture * texture)
 {
 	GL_Object* glObject = texture->getObject();
-	GLuint Tex = texture->getTextureID();
-	GLuint VAO = texture->getVAO();
+    GLuint Tex = texture->getTextureID();
+    GLuint VAO = texture->getVAO();
 
-	glObject->BindProgram();
-	glBindVertexArray(VAO);
-	glObject->sendMatricesToShader();
+    glObject->BindProgram();
+    glBindVertexArray(VAO);
+    glObject->sendMatricesToShader();
 
-	glBindTexture(GL_TEXTURE_2D, Tex);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindVertexArray(0);
-	glObject->EndProgram();
+    glBindTexture(GL_TEXTURE_2D, Tex);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindVertexArray(0);
+    glObject->EndProgram();
 }
 
 GLvoid GL_Renderer::RenderString(GL_String * game_str)
 {
-	glBindVertexArray(game_str->getVertexArray());
 	auto object = game_str->getObject();
-	object->BindProgram();
-	object->sendMatricesToShader();
-	
-	GL_Program * program = object->getShader();
+    object->BindProgram();
+    object->sendMatricesToShader();
 
-	GLuint colourID = program->getUniform("text_colour");
-	
-	glUniform4fv(colourID, 1, game_str->getColour());
-	
-	glBindTexture(GL_TEXTURE_2D, game_str->getTextureID());
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, game_str->getStringLength());
-	object->EndProgram();
-	glBindVertexArray(0);
+    GL_Program * program = object->getShader();
+    GLuint colourID = program->getUniform("text_colour");
+
+    glBindVertexArray(game_str->getVertexArray());
+    glUniform4fv(colourID, 1, game_str->getColour());
+    glBindTexture(GL_TEXTURE_2D, game_str->getTextureID());
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, game_str->getStringLength());
+    glBindVertexArray(0);
+
+    object->EndProgram();
 }
 
 
@@ -81,7 +80,7 @@ GLvoid GL_Renderer::Prepare()
 	}
 }
 
-GLvoid GL_Renderer::Render()
+GLvoid GL_Renderer::onRender()
 {
 	for(unsigned int i = 0; i < m_Textures.size(); i++)
 	{

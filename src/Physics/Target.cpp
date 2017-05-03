@@ -28,7 +28,7 @@ Target::~Target()
 }
 
 // Member Functions
-void Target::Update()
+void Target::onUpdate()
 {
 	if ( m_Click )
 	{
@@ -65,7 +65,7 @@ void Target::Setup(vec2 position)
 
 
 
-void Target::MousePress(int button, int state, int x, int y)
+void Target::onMousePress(int button, int state, int x, int y)
 {
 	if ( button == MOUSE_1 && state == HOLDING )
 	{

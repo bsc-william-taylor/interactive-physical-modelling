@@ -36,12 +36,12 @@ void SceneManager::EnableFactory()
 {
 	for(unsigned int i = 0; i < m_vScenes.size(); i++)
 	{
-		m_vScenes[i]->VOnCommit(m_pFactory);	
+		m_vScenes[i]->onCommit(m_pFactory);	
 	}
 
 	for(unsigned int i = 0; i < m_vScenes.size(); i++)
 	{
-		m_vScenes[i]->VOnRequest(m_pFactory);	
+		m_vScenes[i]->onRequest(m_pFactory);	
 	}
 }
 
@@ -65,15 +65,15 @@ void SceneManager::PushState(Scene * state)
 
 void SceneManager::UpdateManager()
 {
-	m_vScenes[m_CurrentPlace]->Update();
-	m_vScenes[m_CurrentPlace]->Render();
+	m_vScenes[m_CurrentPlace]->onUpdate();
+	m_vScenes[m_CurrentPlace]->onRender();
 }
 
 void SceneManager::SwitchTo(unsigned int newPlace)
 {
-	m_vScenes[m_CurrentPlace]->Enter();
+	m_vScenes[m_CurrentPlace]->onEnter();
 	m_CurrentPlace = newPlace;
-	m_vScenes[m_CurrentPlace]->Exit();
+	m_vScenes[m_CurrentPlace]->onExit();
 }
 
 

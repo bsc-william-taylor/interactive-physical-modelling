@@ -35,9 +35,9 @@ public:
 	~Cannon();
 
 	// Member Functions
-	void KeyPress(int, int);
+	void onKeyPress(int, int);
 	void Initialise();
-	void Update();
+	void onUpdate();
 	void Fire();
 
 	GL_Object * getStaticObject() { return m_pStaticObject; }

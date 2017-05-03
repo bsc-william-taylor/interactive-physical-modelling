@@ -45,7 +45,7 @@ void Win32Driver::Initialise(HWND * Handle)
 	m_pMouse->InitialiseInput(m_pHandle);
 }
 
-void Win32Driver::Update()
+void Win32Driver::onUpdate()
 {
 	// Get current scene
 	auto Scene = SceneManager::get()->getCurrent();

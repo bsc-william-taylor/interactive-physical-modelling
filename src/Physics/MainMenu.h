@@ -1,39 +1,34 @@
 
-/* -------------------------------------------------
-  
- @Filename  : MainMenu.h
- @author	: William Taylor
- @date		: 19/02/2014
-
- @purpose	: The main menu scene obviously :P
-
- ------------------------------------------------- */
-
 #pragma once
 
-#include "MenuButtons.h"
-#include "MenuImages.h"
-#include "MenuLabels.h"
+#include "PlayEvent.h"
 #include "Scene.h"
+#include "GL_Texture.h"
+#include "GL_Renderer.h"
+#include "Button.h"
 
 class MainMenu : public Scene
-{ 
-private:
+{
+    GL_Renderer renderer;
+    GL_Texture backgroundTexture;
+    GL_Object backgroundObject;
+    GL_Object titleObject;
+    GL_Object m_Objects[3];
+    GL_String m_Banners[3];
+    GL_String title;
 
-	MenuButtons * m_pButtons;
-	MenuLabels * m_pLabels;
-	MenuImages * m_pImages;
-
+    Button playButton;
 public:
+    MainMenu();
+    ~MainMenu();
 
-	// Constructor & Deconstructor
-	MainMenu();
-	~MainMenu();
-	
-	// Member Functions
-	void MousePress(int, int, int, int);
-	void VOnCommit(SceneFactory *);
-	void KeyPress(int, int);
-	void Update();
-	void Render();
+    void onMousePress(int, int, int, int);
+    void onCommit(SceneFactory *);
+    void onKeyPress(int, int);
+    void onUpdate();
+    void onRender();
+
+    void setupLabels();
+    void setupButtons();
+    void setupImages();
 };

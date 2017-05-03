@@ -2,7 +2,8 @@
 #include "GL_Texture_Manager.h"
 #include "SceneManager.h"
 #include "EventManager.h"
-#include "Scenes.h"
+#include "MainScene.h"
+#include "MainMenu.h"
 #include "Main.h"
 
 Demo::Demo() : framerate(60)
@@ -53,22 +54,20 @@ void Demo::execute()
     setupWindow();
     setupStates();
 
-    auto Events = EventManager::get();
-    auto Scenes = SceneManager::get();
+    auto events = EventManager::get();
+    auto scenes = SceneManager::get();
 
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-    // Main Game Loop
     while (system.WindowRunning())
     {
         glClear(GL_COLOR_BUFFER_BIT);
+        glViewport(0, 0, 1280, 720);
 
-        system.Update();
-
-        Events->UpdateManager();
-        Scenes->UpdateManager();
-
+        system.onUpdate();
+        events->UpdateManager();
+        scenes->UpdateManager();
         system.SwapWindowBuffers();
 
         auto timeLeft = 0.0;
@@ -82,12 +81,6 @@ void Demo::execute()
         timer.Start();
     }
 }
-
-#ifdef WINDOW_MAIN
-#define MAIN WINAPI WinMain(HINSTANCE hInstance, HINSTANCE pInstance, LPSTR str, INT show)
-#else
-#define MAIN main(int argc, const char * argv[])
-#endif
 
 int MAIN
 {

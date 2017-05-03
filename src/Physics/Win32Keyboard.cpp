@@ -60,7 +60,7 @@ void Win32Keyboard::OutputInput(Scene * CurrentState)
 		// If pressed send state to state
 		if(m_KeyBuffer[i] & 0x80 && !m_KeyRelease[i])
 		{
-			CurrentState->KeyPress(i, PRESSED);
+			CurrentState->onKeyPress(i, PRESSED);
 			m_ReleaseMsg[i] = false;
 			m_KeyRelease[i] = true;
 		}
@@ -68,14 +68,14 @@ void Win32Keyboard::OutputInput(Scene * CurrentState)
 		// If held send state to state
 		if(m_KeyRelease[i] && m_KeyBuffer[i] & 0x80)
 		{
-			CurrentState->KeyPress(i, HOLDING);
+			CurrentState->onKeyPress(i, HOLDING);
 			m_ReleaseMsg[i] = false;
 		}
 
 		// If released send state to state
 		if(!(m_KeyBuffer[i] & 0x80) && m_KeyRelease[i])
 		{
-			CurrentState->KeyPress(i, RELEASED);
+			CurrentState->onKeyPress(i, RELEASED);
 			m_KeyRelease[i] = false;
 			m_ReleaseMsg[i] = true;
 		}

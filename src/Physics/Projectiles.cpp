@@ -28,7 +28,7 @@ Projectiles::Projectiles()
 	m_TextureIDs.push_back(mgr->CreateTexture("data/img/iron.png", GL_CLAMP_TO_EDGE)->m_ID);
 	m_TextureIDs.push_back(mgr->CreateTexture("data/img/aluminium.png", GL_CLAMP_TO_EDGE)->m_ID);
 	m_TextureIDs.push_back(mgr->CreateTexture("data/img/copper.png", GL_CLAMP_TO_EDGE)->m_ID);
-	m_TextureIDs.push_back(mgr->CreateTexture("data/img/stone.png", GL_CLAMP_TO_EDGE)->m_ID);
+	m_TextureIDs.push_back(mgr->CreateTexture("data/img/steel.png", GL_CLAMP_TO_EDGE)->m_ID);
 }
 
 Projectiles::~Projectiles()
@@ -100,14 +100,14 @@ void Projectiles::SetMaterial(Material material)
 	m_Projectiles.at(0)->setMass( mass );
 }
 
-void Projectiles::Update()
+void Projectiles::onUpdate()
 {
 	auto iterator = m_Projectiles.begin();
 	
 	// Iterate the vector and update each object
 	while(iterator != m_Projectiles.end())
 	{
-		(*iterator)->Update();
+		(*iterator)->onUpdate();
 		++iterator;
 	}
 }

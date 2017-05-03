@@ -34,11 +34,12 @@ private:
 public:
 
 	// Constructor & Deconstructor
-	GL_String(std::string, std::string);
+	GL_String(std::string font = "", std::string tex = "");
 	~GL_String();
 
 	// Member Functions
 	GLvoid Prepare();
+    GLvoid PrepareFont(std::string fontname, std::string texture);
 
 	// Set & Get Functions
 	GLvoid setColour(GLfloat, GLfloat, GLfloat, GLfloat);

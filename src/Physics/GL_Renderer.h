@@ -35,7 +35,7 @@ public:
 	GLvoid PushTexture(GL_Texture *);
 	GLvoid PushText(GL_String *);
 	GLvoid Prepare();
-	GLvoid Render();
+	GLvoid onRender();
 
 	GLvoid RenderTexture(GL_Texture *);
 	GLvoid RenderString(GL_String *);

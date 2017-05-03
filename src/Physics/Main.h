@@ -6,9 +6,21 @@
 #include "Win32Timer.h"
 #include <array>
 
-template<typename T, int N>
-using raw_array = T[N];
+#ifdef WINDOW_MAIN
+    #define MAIN WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
+#else
+    #define MAIN main(int, const char*[])
+#endif
 
+enum class SceneStates
+{
+    MainMenu,
+    MainScene
+};
+
+const auto FULCRUM_X = 144.0f;
+const auto FULCRUM_Y = 75.0f;
+const auto CAMERASPEED = 10.0f;
 const auto METRE = 64.0f;
 const auto M3 = METRE * METRE * METRE;
 const auto SECOND = 60.0f;

@@ -38,7 +38,7 @@ public:
 
 	// Member Functions
 	void Setup(vec2);
-	void Update();
+	void onUpdate();
 	void Reset(float angle);
 	void Fire();
 	void toggleDragForce();
