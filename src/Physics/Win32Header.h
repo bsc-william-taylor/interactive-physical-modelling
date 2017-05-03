@@ -16,6 +16,7 @@
 // Include headers
 #include <Windows.h>
 #include <dinput.h>	
+#include <algorithm>
 #include <iostream>														
 #include <stdarg.h>		
 #include "glew.h"

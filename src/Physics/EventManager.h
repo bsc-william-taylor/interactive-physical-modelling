@@ -1,15 +1,4 @@
 
-/* -------------------------------------------------
-  
- @Filename  : EventManager.h
- @author	: William Taylor
- @date		: 19/02/2014
-
- @purpose	: A singleton for managing all events
-			 that the game will generate.
-
- ------------------------------------------------- */
-
 #pragma once
 
 #include "EventLogger.h"
@@ -18,34 +7,24 @@
 
 class EventManager
 {
-private:
+    struct TimedEvent
+    {
+        Win32Timer* timer;
+        IEvent* event;
+        void* data;
+        int ms;
+    };
 
-	// Custom data type for the timed events
-	struct TimedEvent
-	{
-		Win32Timer * timer;
-		IEvent * m_pEvent;
-		unsigned int ms;
-		void * pData;
-	};
-
-private:
-
-	static EventManager * m_pEventManager;		// Static instance
-	vector<TimedEvent *> m_vTimedEvents;		// All timed events
-	EventLogger * m_pEventLogger;				// Event logger
-
+    static EventManager * eventManager;
+    vector<TimedEvent *> timedEvents;
+    EventLogger eventLogger;
 public:
+    EventManager();
+    ~EventManager();
 
-	// Constructor & Deconstructor
-	EventManager();
-	~EventManager();
+    void triggerEvent(int, IEvent*, void*);
+    void triggerEvent(IEvent*, bool, void*);
+    void updateManager();
 
-	// Member Functions
-	void TriggerEvent(unsigned int, IEvent *, void *);
-	void TriggerEvent(IEvent *, bool, void *);
-	void UpdateManager();
-
-	// Get & Set Functions
-	static EventManager * get();
+    static EventManager* get();
 };

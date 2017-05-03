@@ -27,13 +27,13 @@ Button::~Button()
 	SAFE_RELEASE(m_pTextObject);
 	SAFE_RELEASE(m_pString);
 	SAFE_RELEASE(m_pSprite);
-	SAFE_RELEASE(m_pEvent);
+	SAFE_RELEASE(event);
 }
 
 // Member Functions
 void Button::OnPress(IEvent * event)
 {
-	m_pEvent = event;
+	this->event = event;
 }
 
 void Button::SetPosition(const std::string& name, vec2 position, vec2 size)
@@ -71,9 +71,9 @@ void Button::MouseState(int Key, int State, int x, int y)
 {
 	if(x >= m_Position.x && x <= m_Position.x + m_Size.x && y >= m_Position.y && y <= m_Position.y + m_Size.y)
 	{
-		if(Key == MOUSE_1 && State == RELEASED)
+		if(Key == MOUSE_1 && State == RELEASED && event != nullptr)
 		{
-			EventManager::get()->TriggerEvent(m_pEvent, false, this);
+			EventManager::get()->triggerEvent(event, false, this);
 		}
 	}
 }

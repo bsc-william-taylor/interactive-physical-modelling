@@ -7,6 +7,6 @@ class IEvent
 {
 public:
     virtual ~IEvent() = default;
-	virtual std::string getMessage() = 0;
-	virtual void onTriggered(void *) = 0;
+    virtual std::string getMessage() = 0;
+    virtual void onTriggered(void *) = 0;
 };

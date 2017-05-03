@@ -26,7 +26,7 @@ private:
 	GL_Texture * m_pSprite;		// The texture
 	GL_String * m_pString;
 
-	IEvent * m_pEvent;			// Event to be called when pressed
+	IEvent * event;			// Event to be called when pressed
 
 	std::string filename;
 	vec2 m_Position;			// Position

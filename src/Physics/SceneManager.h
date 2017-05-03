@@ -34,7 +34,7 @@ public:
 
 	// Member functions
 	void EnableFactory();
-	void UpdateManager();
+	void updateManager();
 	void StartFrom(unsigned int);	
 	void SwitchTo(unsigned int);
 	void PushState(Scene *);

@@ -58,8 +58,8 @@ void Demo::execute()
         glViewport(0, 0, 1280, 720);
 
         system.onUpdate();
-        events->UpdateManager();
-        scenes->UpdateManager();
+        events->updateManager();
+        scenes->updateManager();
         system.SwapWindowBuffers();
 
         auto timeLeft = 0.0;

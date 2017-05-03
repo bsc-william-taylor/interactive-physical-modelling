@@ -1,7 +1,7 @@
 
 #include "BackEvent.h"
 
-void BackEvent::onTriggered(void* pData)
+void BackEvent::onTriggered(void* data)
 {
     SceneManager::get()->PreviousScene();
 }

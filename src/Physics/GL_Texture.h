@@ -22,7 +22,7 @@ class GL_Texture
 {
 private:
 
-	std::string m_Filename;			// Filename
+	std::string path;			// Filename
 
 	GL_Sprite * m_Texture;			// Ref to Sprite (Custom Data type def in GL_Texture_Manager
 	GL_Object * m_Object;

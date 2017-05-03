@@ -40,7 +40,7 @@ void MainScene::onKeyPress(int Key, int State)
 
     if (KEY_DOWN(ESCAPE, Key, State))
     {
-        eventManger->TriggerEvent(new BackEvent(), true, this);
+        eventManger->triggerEvent(new BackEvent(), true, this);
     }
 
     if (KEY_DOWN(SPACE, Key, State) && !reloadCannon)

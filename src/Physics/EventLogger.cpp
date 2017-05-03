@@ -1,107 +1,43 @@
 
-/* -------------------------------------------------
-  
- @Filename  : EventLogger.cpp
- @author	: William Taylor
- @date		: 19/02/2014
- @purpose	: Class implementation
-
- ------------------------------------------------- */
-
 #include "EventLogger.h"
 #include <assert.h>
 
-// Constructor & Deconstructor
-EventLogger::EventLogger(std::string filename)
-	: m_Filename(filename),
-	  m_Msgs(NULL)
+EventLogger::EventLogger(std::string filename) :
+    path(filename),
+    count(NULL)
 {
+    std::string title = "\n - Event Logger - \n\n";
+    fopen_s(&file, path.c_str(), "w+");
+    fseek(file, 0, SEEK_SET);
+    fwrite(title.c_str(), 1, title.size(), file);
 }
 
 EventLogger::~EventLogger()
 {
-	fclose(m_pFile);
+    fclose(file);
 }
 
-// Member Functions
-void EventLogger::Initialise()
+void EventLogger::writeEventLog(IEvent * event)
 {
-	// Exception handling is used just to be safe.
-	try {
-		// Write a title to the file.
-		std::string Header = "\n - Event Logger - \n\n";
-
-		fopen_s(&m_pFile, m_Filename.c_str(), "w+");
-		fseek(m_pFile, 0, SEEK_SET);
-		fwrite(Header.c_str(), 1, Header.size(), m_pFile);
-
-		++m_Msgs;
-	} 
-	catch (...)
-	{
-		// Close file to prevent data loss
-		fclose(m_pFile);
-		assert("Couldnt Setup Event Logger !!!");
-	}
+    auto msg = event->getMessage();
+    fwrite(msg.c_str(), 1, msg.size(), file);
 }
 
-void EventLogger::WriteEventLog(IEvent * event)
+void EventLogger::writeReleasedEvent()
 {
-	// Exception handling is used just to be safe.
-	try 
-	{
-		auto msg = event->getMessage();
-		fwrite(msg.c_str(), 1, msg.size(), m_pFile);
-	} 
-	catch (...) 
-	{
-		fclose(m_pFile);
-		assert("Couldnt Write to logger");
-	}
+    std::string msg = " : Event was released \n";
+    fwrite(msg.c_str(), 1, msg.size(), file);
+    count++;
 }
 
-void EventLogger::EventReleased()
+void EventLogger::writeKeptEvent()
 {
-	// Exception handling is used just to be safe.
-	try 
-	{
-		std::string msg = " : Event was released";
-		std::string nl = "\n";
-
-		fwrite(msg.c_str(), 1, msg.size(), m_pFile);
-		fwrite(nl.c_str(), 1, nl.size(), m_pFile);
-
-		++m_Msgs;
-	}
-	catch (...) 
-	{
-		fclose(m_pFile);
-		assert("Couldnt Write to logger");
-	}
+    std::string msg = " : Event wasnt released \n";
+    fwrite(msg.c_str(), 1, msg.size(), file);
+    count++;
 }
 
-void EventLogger::EventKept()
+int EventLogger::getLogsCount()
 {
-	// Exception handling is used just to be safe.
-	try 
-	{
-		std::string msg = " : Event wasnt released";
-		std::string nl = "\n";
-
-		fwrite(msg.c_str(), 1, msg.size(), m_pFile);
-		fwrite(nl.c_str(), 1, nl.size(), m_pFile);
-		
-		++m_Msgs;
-	} 
-	catch (...) 
-	{
-		fclose(m_pFile);
-		assert("Couldnt Write to logger");
-	}
-}
-
-// Get & Set Functions
-unsigned int EventLogger::numMessagesWritten()
-{
-	return m_Msgs;
+    return count;
 }

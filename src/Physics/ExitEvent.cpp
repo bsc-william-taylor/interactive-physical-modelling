@@ -1,7 +1,7 @@
 
 #include "ExitEvent.h"
 
-void ExitEvent::onTriggered(void* pData)
+void ExitEvent::onTriggered(void* data)
 {
     PostQuitMessage(0);
 }

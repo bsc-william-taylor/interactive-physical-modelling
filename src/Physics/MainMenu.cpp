@@ -89,7 +89,7 @@ void MainMenu::onKeyPress(int Key, int State)
 
     if (KEY_DOWN(ESCAPE, Key, State))
     {
-        events->TriggerEvent(new ExitEvent(), true, this);
+        events->triggerEvent(500, new ExitEvent(), this);
     }
 }
 

@@ -46,7 +46,7 @@ void GL_Texture::Prepare()
 	};
 
 	
-	m_Texture = GL_Textures::get()->CreateTexture(m_Filename, m_Setting);
+	m_Texture = GL_Textures::get()->CreateTexture(path, m_Setting);
 	m_Object->setShaders(vs, fs);
 
 	glBindVertexArray(m_VAO);
@@ -70,7 +70,7 @@ GLvoid GL_Texture::setParameters(GL_Object * object)
 // Get & Set Functions
 void GL_Texture::setTexture(std::string filename, GLenum e)
 {
-	m_Filename = filename;
+	path = filename;
 	m_Setting = e;
 }
 
@@ -86,7 +86,7 @@ GLuint GL_Texture::getTextureID()
 
 const std::string& GL_Texture::getPath()
 {
-	return m_Filename;
+	return path;
 }
 
 GLuint GL_Texture::getVAO()

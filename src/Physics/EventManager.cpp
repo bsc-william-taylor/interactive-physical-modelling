@@ -1,95 +1,78 @@
-/* -------------------------------------------------
-  
- @Filename  : EventManager.h
- @author	: William Taylor
- @date		: 19/02/2014
-
- @purpose	: A singleton for managing all events
-			 that the game will generate.
-
- ------------------------------------------------- */
 
 #include "EventManager.h"
 
-EventManager * EventManager::m_pEventManager = 0;
+EventManager * EventManager::eventManager = 0;
 
-// Constructor & Deconstructor
-EventManager::EventManager() 
-	: m_pEventLogger(new EventLogger("log.txt"))
+EventManager::EventManager()
+    : eventLogger("log.txt")
 {
-	m_pEventLogger->Initialise();
 }
 
 EventManager::~EventManager()
 {
-	// Release Logs
-	SAFE_RELEASE(m_pEventLogger);
 }
 
-// Member Functions
-void EventManager::TriggerEvent(IEvent * event, bool destroy, void * data)
+void EventManager::triggerEvent(IEvent * event, bool destroy, void * data)
 {
-	// Make sure event has been created
-	if(event != NULL) 
-	{
-		m_pEventLogger->WriteEventLog(event);
-		event->onTriggered(data);
+    if (event != NULL)
+    {
+        eventLogger.writeEventLog(event);
+        event->onTriggered(data);
 
-		// If asked the event will be deleted.
-		if(destroy) 
-		{
-			m_pEventLogger->EventReleased();
-			SAFE_RELEASE(event);
-		}
-	}
+        if (destroy)
+        {
+            eventLogger.writeReleasedEvent();
+            delete(event);
+        }
+    }
 }
 
-void EventManager::TriggerEvent(unsigned int ms, IEvent * event, void * data)
+void EventManager::triggerEvent(int ms, IEvent * event, void * data)
 {
-	// Create a new event
-	TimedEvent * Event = new TimedEvent();
-	
-	// initialise timer
-	Event->timer = new Win32Timer();
-	Event->timer->Start();
-	Event->m_pEvent = event;
-	Event->pData = data;
-	Event->ms = ms;
+    auto newEvent = new TimedEvent();
+    newEvent->timer = new Win32Timer();
+    newEvent->timer->Start();
+    newEvent->event = event;
+    newEvent->data = data;
+    newEvent->ms = ms;
 
-	// push event to the timed events vector
-	m_vTimedEvents.push_back(Event);
+    timedEvents.push_back(newEvent);
 }
 
-void EventManager::UpdateManager()
+void EventManager::updateManager()
 {
-	// Go through the vector and check all timed events
-	for(unsigned int i = 0; i < m_vTimedEvents.size(); i++)
-	{
-		auto Event = m_vTimedEvents[i];
-		
-		// if the time has passed trigger the event.
-		Event->timer->Stop();
-		if(Event->timer->Difference(TimeType::MS) >= Event->ms)
-		{
-			// Activiate event & Delete event & timer
-			Event->m_pEvent->onTriggered(Event->pData);
-			delete Event->timer;
-			delete Event->m_pEvent;
+    std::vector<TimedEvent*> toRemove;
 
-			// resize array to remove the null element. 
-			auto size = m_vTimedEvents.size() - 1;
-			m_vTimedEvents.resize(size);
-		}
-	}
+    for (auto& timedEvent : timedEvents)
+    {
+        timedEvent->timer->Stop();
+
+        if (timedEvent->timer->Difference(TimeType::MS) >= timedEvent->ms)
+        {
+            timedEvent->event->onTriggered(timedEvent->data);
+            toRemove.push_back(timedEvent);
+        }
+    }
+
+    for (auto& event : toRemove)
+    {
+        const auto begin = timedEvents.begin();
+        const auto end = timedEvents.end();
+
+        timedEvents.erase(std::remove(begin, end, event), end);
+
+        SAFE_RELEASE(event->timer);
+        SAFE_RELEASE(event->event);
+        SAFE_RELEASE(event);
+    }
 }
 
-// Get & Set Functions
 EventManager * EventManager::get()
 {
-	if(!m_pEventManager) 
-	{
-		m_pEventManager = new EventManager();
-	}
+    if (!eventManager)
+    {
+        eventManager = new EventManager();
+    }
 
-	return m_pEventManager;
+    return eventManager;
 }

@@ -63,7 +63,7 @@ void SceneManager::PushState(Scene * state)
 	}
 }
 
-void SceneManager::UpdateManager()
+void SceneManager::updateManager()
 {
 	m_vScenes[m_CurrentPlace]->onUpdate();
 	m_vScenes[m_CurrentPlace]->onRender();

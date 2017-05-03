@@ -3,7 +3,7 @@
 #include "PlayEvent.h"
 #include "Main.h"
 
-void PlayEvent::onTriggered(void* pData)
+void PlayEvent::onTriggered(void* data)
 {
     SceneManager::get()->SwitchTo((int)SceneStates::MainScene);
 }
