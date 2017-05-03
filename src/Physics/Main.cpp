@@ -6,31 +6,23 @@
 #include "MainMenu.h"
 #include "Main.h"
 
-Demo::Demo() : 
-    framerate(60)
+Demo::Demo() : framerate(60)
 {
     SetConsoleTitle("Debug Console");
 }
 
 Demo::~Demo()
 {
-    RELEASE_MANAGER(GL_TextureManager::get());
-    RELEASE_MANAGER(GL_Shader_Manager::get());
+    RELEASE_MANAGER(TextureManagerGL::get());
+    RELEASE_MANAGER(ShaderManagerGL::get());
     RELEASE_MANAGER(SceneManager::get());
     RELEASE_MANAGER(EventManager::get());
 }
 
 void Demo::setupWindow()
 {
-    Window::SIZES size;
-
-    size.w = 1280;
-    size.h = 720;
-    size.x = 0;
-    size.y = 0;
-
-    system.setWindowTraits("Physics Demo", size);
-    system.setWindowType(Win32Window::WINDOWED);
+    system.setWindowTraits("Physics Demo", { Center, Center, 1280, 720 });
+    system.setWindowType(WINDOWED);
     system.Initialise();
 }
 

@@ -41,7 +41,7 @@ void GL_String::PrepareFont(std::string fontname, std::string texture)
         m_Document = new tinyxml2::XMLDocument();
         m_Document->LoadFile(fontname.c_str());
         m_Fontname = fontname;
-        m_Sprite = GL_TextureManager::get()->CreateTexture(texture, GL_CLAMP_TO_EDGE);
+        m_Sprite = TextureManagerGL::get()->CreateTexture(texture, GL_CLAMP_TO_EDGE);
     }
 }
 

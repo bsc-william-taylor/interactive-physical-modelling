@@ -1,36 +1,32 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Win32Window.h
- @author	: William Taylor
- @date		: 12/02/2014
- @purpose	: A Window class that constructs & 
-			  manages a win32 window.
-
- ------------------------------------------------- */
-
 #pragma once
 
 #include "Win32Header.h"
 
+enum Type 
+{ 
+    FULLSCREEN, 
+    WINDOWED 
+};			
+
+enum Location 
+{ 
+    Center = -1 
+};			
+
+struct Region 
+{ 
+    int x, y, w, h; 
+};
+    
 class Win32Window 
 {
+	HGLRC m_Context;		
+	HWND m_Window;			
+	TCHAR * m_Title;		
+	Region m_Sizes;			
+	MSG m_Msg;				
 public:
-
-	struct SIZES { UINT x, y, w, h; };			// Type to simplify setting the windows size.
-	enum Type { FULLSCREEN, WINDOWED };			// Enum to set the type of window to open
-
-private:
-
-	HGLRC m_Context;		// Window Context;
-	HWND m_Window;			// Window Handle
-	TCHAR * m_Title;		// Window Title
-	SIZES m_Sizes;			// Window Sizes
-	MSG m_Msg;				// Window Msgs
-
-public:
-
-	// Constructor & Deconstructor
 	Win32Window();
 	~Win32Window();
 
@@ -40,7 +36,6 @@ public:
 	void Initialise();
 	bool onUpdate();
 
-	// Get & Set Functions
 	void setTraits(TCHAR *, int, int, int, int);
 	void setWindowTraits(Type);
 
@@ -49,8 +44,7 @@ public:
 
 private:
 
-	static LRESULT __stdcall WndProc(HWND, UINT, WPARAM, LPARAM);	// Window Message handler
+	static LRESULT __stdcall WndProc(HWND, UINT, WPARAM, LPARAM);	
 };
 
-// Typedef to make accessing types nicer 
-typedef Win32Window Window;
+using Window = Win32Window;

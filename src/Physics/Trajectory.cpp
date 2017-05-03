@@ -65,7 +65,7 @@ void Trajectory::StartFrom(int x, int y, float r)
 	const GLchar * fs = "data/shaders/Trajectory.frag";
 
 	// Load program & Set projection
-	m_pProgram = GL_Shader_Manager::get()->GetShader(vs, fs);
+	m_pProgram = ShaderManagerGL::get()->GetShader(vs, fs);
 	m_pMatrix->Ortho(vec2(0, 1280), vec2(0, 720));
 	m_Start = vec2(x + r, y + r);
 

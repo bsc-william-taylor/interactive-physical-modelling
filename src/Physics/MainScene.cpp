@@ -308,7 +308,7 @@ void MainScene::setupCannon()
 
 void MainScene::setupUI()
 {
-    auto textureManager = GL_TextureManager::get();
+    auto textureManager = TextureManagerGL::get();
     auto horizontalX = std::array<float, 4>{ 1150.0f, 1143.0f, 1160.0f, 1160.0f };
     auto positions = std::array<float, 8> { 
         467.0f, 482.0f, 497.0f, 512.0f,

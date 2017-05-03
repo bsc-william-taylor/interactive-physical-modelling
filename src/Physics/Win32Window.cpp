@@ -1,19 +1,8 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Win32Window.cpp
- @author	: William Taylor
- @date		: 12/02/2014
- @purpose	: Class implementation
-
- ------------------------------------------------- */
-
 #include "Win32Window.h"
 
-// Constructor & Deconstructor
 Win32Window::Win32Window() 
 {
-	// Setup a default size for the window
 	HWND HandleDesktop = GetDesktopWindow();																
 	RECT DesktopSize;
 
@@ -28,7 +17,6 @@ Win32Window::Win32Window()
 
 Win32Window::~Win32Window()
 {
-	// Destroy Context & Window
 	wglDeleteContext(m_Context);
 	wglMakeCurrent(NULL, NULL);
 	DestroyWindow(m_Window);
@@ -36,7 +24,6 @@ Win32Window::~Win32Window()
 
 void Win32Window::Initialise() 
 {
-	// Setup a simple window class
 	WNDCLASSEX WindowClass;
 
 	WindowClass.hCursor			= LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
@@ -52,22 +39,18 @@ void Win32Window::Initialise()
 	WindowClass.cbClsExtra		= 0;		
 	WindowClass.cbWndExtra		= 0;
 
-	// Register the class
 	RegisterClassEx(&WindowClass);
 }
 
 bool Win32Window::onUpdate()
 {
-	// Peek to see a WM_QUIT message
 	PeekMessage(&GetMsg(), NULL, NULL, NULL, PM_REMOVE);
 	
-	// if found tell the program to quit
 	if(GetMsg().message == WM_QUIT) 
 	{
 		return FALSE;
 	}
 
-	// Translate & Dispatch mess
 	TranslateMessage(&GetMsg());
 	DispatchMessage(&GetMsg());
 	return TRUE;
@@ -75,7 +58,6 @@ bool Win32Window::onUpdate()
 
 LRESULT CALLBACK Win32Window::WndProc(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
 {
-	// Handle Destroy callback event nothing more
 	switch(Message)
 	{
 		case WM_DESTROY: PostQuitMessage(0); return NULL;
@@ -90,12 +72,10 @@ LRESULT CALLBACK Win32Window::WndProc(HWND Hwnd, UINT Message, WPARAM wParam, LP
 
 void Win32Window::Display(Type type) 
 {
-	// Get window instance
 	HINSTANCE Inst = GetModuleHandle(NULL);
 	DWORD Set = WS_BORDER | WS_SYSMENU | WS_MINIMIZEBOX;
 
-	// Make fullscreen if need be
-	if(type == Win32Window::FULLSCREEN)
+	if(type == FULLSCREEN)
 	{
 		DEVMODE Screen;
 
@@ -132,7 +112,6 @@ void Win32Window::Display(Type type)
 
 void Win32Window::EnableOpenGL()
 {
-	// Setup a new format descriptor that allows opengl
 	PIXELFORMATDESCRIPTOR pfd;
 
 	HDC hDC = GetDC(m_Window);
@@ -150,12 +129,9 @@ void Win32Window::EnableOpenGL()
 	SetPixelFormat(hDC, iFormat, &pfd);
 
 	m_Context = wglCreateContext(hDC);
-
-	// Set the new format to current
 	wglMakeCurrent(hDC, m_Context);
 }
 
-// Get & Set Functions
 HWND& Win32Window::GetHandle()
 { 
 	return m_Window; 
@@ -169,10 +145,19 @@ MSG& Win32Window::GetMsg()
 void Win32Window::setTraits(TCHAR * Title, int x, int y, int Width, int Height)
 {
 	m_Title = Title;
-
 	m_Sizes.h = Height;
 	m_Sizes.w = Width;
 	m_Sizes.x = x;
 	m_Sizes.y = y;
+
+    if (m_Sizes.x == Center)
+    {
+        m_Sizes.x = (GetSystemMetrics(SM_CXSCREEN) - Width) / 2;
+    }
+
+    if (m_Sizes.y == Center)
+    {
+        m_Sizes.y = (GetSystemMetrics(SM_CYSCREEN) - Height) / 2;
+    }
 }
 

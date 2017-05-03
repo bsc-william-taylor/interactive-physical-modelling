@@ -201,9 +201,6 @@
     <ClInclude Include="Trajectory.h">
       <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Objects.h">
-      <Filter>Source Code\Framework\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>

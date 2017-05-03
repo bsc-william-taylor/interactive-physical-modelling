@@ -143,7 +143,6 @@ xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
     <ClInclude Include="IEvent.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MainScene.h" />
-    <ClInclude Include="Objects.h" />
     <ClInclude Include="PlayEvent.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Projectiles.h" />

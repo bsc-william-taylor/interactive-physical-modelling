@@ -14,7 +14,7 @@
 Win32System::Win32System()
 	: m_pWindow(new Win32Window()), 
 	  m_pInput(new Win32Driver()),
-	  m_Type(Window::WINDOWED),
+	  m_Type(WINDOWED),
 	  m_Quit(FALSE)
 {
 }
@@ -63,12 +63,12 @@ void Win32System::onUpdate()
 }
 
 // Get & Set Functions
-void Win32System::setWindowType(Window::Type type)
+void Win32System::setWindowType(Type type)
 {
 	this->m_Type = type;
 }
 
-void Win32System::setWindowTraits(CHAR * c, Window::SIZES s)
+void Win32System::setWindowTraits(CHAR * c, Region s)
 {
 	m_pWindow->setTraits(c, s.x, s.y, s.w, s.h);
 }

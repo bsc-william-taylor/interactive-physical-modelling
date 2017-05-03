@@ -19,7 +19,7 @@ class Win32System
 {
 private:
 
-	Win32Window::Type m_Type;			// The type of window to be set up
+	Type m_Type;			// The type of window to be set up
 	Win32Window * m_pWindow;			// ptr to the window class
 	Win32Driver * m_pInput;				// a ptr to the input class
 
@@ -39,8 +39,8 @@ public:
 	bool WindowRunning();
 
 	// Set & Get Functions
-	void setWindowTraits(CHAR *, Window::SIZES);
-	void setWindowType(Window::Type);
+	void setWindowTraits(CHAR *, Region);
+	void setWindowType(Type);
 
 	Win32Window * getWindow();
 };

@@ -11,10 +11,10 @@
 
 #include "GL_Texture_Manager.h"
 
-GL_TextureManager * GL_TextureManager::m_pManager = NULL;
+TextureManagerGL * TextureManagerGL::m_pManager = NULL;
 
 // Constructor & Deconstructor
-GL_TextureManager::GL_TextureManager()
+TextureManagerGL::TextureManagerGL()
 {
 	glEnable(GL_TEXTURE_2D);
 	
@@ -22,7 +22,7 @@ GL_TextureManager::GL_TextureManager()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-GL_TextureManager::~GL_TextureManager()
+TextureManagerGL::~TextureManagerGL()
 {
 	FreeTextures();
 
@@ -31,7 +31,7 @@ GL_TextureManager::~GL_TextureManager()
 }
 
 // Member Functions
-GL_Sprite * GL_TextureManager::CreateTexture(const std::string& filename, GLenum e)
+GL_Sprite * TextureManagerGL::CreateTexture(const std::string& filename, GLenum e)
 {
 	for(unsigned int i = 0; i < m_Textures.size(); i++)
 	{
@@ -52,13 +52,13 @@ GL_Sprite * GL_TextureManager::CreateTexture(const std::string& filename, GLenum
 	return Tex;
 }
 
-GLuint GL_TextureManager::getTextureCount()
+GLuint TextureManagerGL::getTextureCount()
 {
 	return(m_Textures.size());
 }
 
 
-GL_Sprite * GL_TextureManager::CreateTexture(GLubyte * data, GLuint width, GLuint height, GLenum format)
+GL_Sprite * TextureManagerGL::CreateTexture(GLubyte * data, GLuint width, GLuint height, GLenum format)
 {
 	GL_Sprite * Sprite = new GL_Sprite();
 
@@ -78,7 +78,7 @@ GL_Sprite * GL_TextureManager::CreateTexture(GLubyte * data, GLuint width, GLuin
 	return Sprite;
 }
 
-GL_Sprite * GL_TextureManager::LoadTexture(const std::string& Location, GLenum e)
+GL_Sprite * TextureManagerGL::LoadTexture(const std::string& Location, GLenum e)
 {
 	GL_Sprite * Sprite = new GL_Sprite();
 
@@ -125,7 +125,7 @@ GL_Sprite * GL_TextureManager::LoadTexture(const std::string& Location, GLenum e
 	return Sprite;
 }
 
-GLvoid GL_TextureManager::FreeTextures()
+GLvoid TextureManagerGL::FreeTextures()
 {
 	for(GLuint i = 0; i < m_Textures.size(); i++)
 	{
@@ -134,11 +134,11 @@ GLvoid GL_TextureManager::FreeTextures()
 }
 
 // Get Functions
-GL_TextureManager * GL_TextureManager::get()
+TextureManagerGL * TextureManagerGL::get()
 {
 	if(m_pManager == NULL) 
 	{
-		m_pManager = new GL_TextureManager();
+		m_pManager = new TextureManagerGL();
 	}
 
 	return m_pManager;

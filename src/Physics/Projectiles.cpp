@@ -22,7 +22,7 @@ Projectiles::Projectiles()
 	: m_Count(0),
 	  m_Max(10)
 {
-	GL_TextureManager * mgr = GL_TextureManager::get();
+	TextureManagerGL * mgr = TextureManagerGL::get();
 	m_pTrajectory = new Trajectory();
 	
 	m_TextureIDs.push_back(mgr->CreateTexture("data/img/iron.png", GL_CLAMP_TO_EDGE)->m_ID);

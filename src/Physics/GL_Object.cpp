@@ -26,7 +26,7 @@ GL_Object::~GL_Object()
 // Methods can be override if needed.
 GLvoid GL_Object::setShaders(GLchar * vs, GLchar * fs)
 {
-	m_pShader = GL_Shader_Manager::get()->GetShader(vs, fs);
+	m_pShader = ShaderManagerGL::get()->GetShader(vs, fs);
 }
 
 vec2 GL_Object::getPosition()
