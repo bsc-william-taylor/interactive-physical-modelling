@@ -9,7 +9,7 @@
 #include "Target.h"
 
 template<typename T>
-GL_Matrix* fetchMatrix(T* object)
+MatrixGL* fetchMatrix(T* object)
 {
     return object->getObject()->getMatrix();
 }
@@ -27,7 +27,7 @@ MainScene::~MainScene()
 
 void MainScene::onRequest(SceneFactory * factory)
 {
-    backgroundTexture = factory->GrabAsset<GL_Texture>("MenuBackground");
+    backgroundTexture = factory->GrabAsset<TextureGL>("MenuBackground");
 }
 
 void MainScene::onKeyPress(int Key, int State)
@@ -113,21 +113,21 @@ std::string MainScene::getMateralName(Material material)
 
 void MainScene::onUpdate()
 {
-    fetchMatrix(backgroundTexture)->Ortho(vec2(0, 1280), vec2(0, 720));
-    fetchMatrix(backgroundTexture)->LookAt(cameraPosition);
+    fetchMatrix(backgroundTexture)->ortho(vec2(0, 1280), vec2(0, 720));
+    fetchMatrix(backgroundTexture)->lookAt(cameraPosition);
 
-    cannon.getStaticObject()->getMatrix()->LookAt(cameraPosition);
-    cannon.getRotateObject()->getMatrix()->LookAt(cameraPosition);
-    cannon.getTrajectory()->getMatrix()->LookAt(cameraPosition);
-    cannon.getTrajectory()->getMatrix()->LookAt(cameraPosition);
+    cannon.getStaticObject()->getMatrix()->lookAt(cameraPosition);
+    cannon.getRotateObject()->getMatrix()->lookAt(cameraPosition);
+    cannon.getTrajectory()->getMatrix()->lookAt(cameraPosition);
+    cannon.getTrajectory()->getMatrix()->lookAt(cameraPosition);
     cannon.onUpdate();
 
     for (auto& proj : cannon.getProjectiles())
     {
-        fetchMatrix(proj)->LookAt(cameraPosition);
+        fetchMatrix(proj)->lookAt(cameraPosition);
     }
 
-    target.getObject()->getMatrix()->LookAt(cameraPosition);
+    target.getObject()->getMatrix()->lookAt(cameraPosition);
     target.onUpdate();
 
     auto ball = cannon.getProjectile();
@@ -142,6 +142,7 @@ void MainScene::onUpdate()
     statusStrings[0].setString(missed ? "Missed!" : hit ? "Hit!" : "");
     statusStrings[1].setString(std::to_string(abs(distanceToTarget)).append("m"));
     statusStrings[2].setString(distanceTravelled);
+    statusStrings[3].setString("");
 
     uiStrings[0].setString(std::to_string((int)(ball->getMass() * 1000.0f)).append("g"));
     uiStrings[3].setString(std::to_string((int)cannon.getAngle()));
@@ -157,37 +158,40 @@ void MainScene::onRender()
     renderCannon(&cannon);
     renderTarget(&target);
 
-    renderer.RenderTexture(&headerTexture);
-    renderer.RenderTexture(quitButton.getTexture());
-    renderer.RenderString(quitButton.getString());
-    renderer.RenderTexture(&settingsTexture);
-    renderer.RenderTexture(airResistanceButton.getTexture());
-    renderer.RenderTexture(&backPlate);
+    renderer.renderTexture(&headerTexture);
+    renderer.renderTexture(quitButton.getTexture());
+    renderer.renderString(quitButton.getString());
+    renderer.renderTexture(&settingsTexture);
+    renderer.renderTexture(&backPlate);
+    renderer.renderTexture(airResistanceButton.getTexture());
 
     if (reloadCannon)
     {
-        renderer.RenderTexture(reloadButton.getTexture());
+        renderer.renderTexture(reloadButton.getTexture());
     }
 
     for (auto& status : statusStrings)
     {
-        renderer.RenderString(&status);
+        if (status.getString().size() > 1)
+        {
+            renderer.renderString(&status);
+        }
     }
 
     for (auto& uiString : uiStrings)
     {
-        renderer.RenderString(&uiString);
+        renderer.renderString(&uiString);
     }
 
     for (auto& uiButton : uiButtons)
     {
-        renderer.RenderTexture(uiButton.getTexture());
+        renderer.renderTexture(uiButton.getTexture());
     }
 }
 
-void MainScene::renderBackground(GL_Texture * background)
+void MainScene::renderBackground(TextureGL * background)
 {
-    renderer.RenderTexture(background);
+    renderer.renderTexture(background);
 }
 
 void MainScene::renderCannon(Cannon * cannon)
@@ -199,19 +203,19 @@ void MainScene::renderCannon(Cannon * cannon)
             auto position = projectile->getPosition() + projectile->getVelocity();
             cannon->getTrajectory()->PlotPoint(position.x, position.y, 5.0f);
             cannon->getTrajectory()->onRender();
-            renderer.RenderTexture(projectile->getSprite());
+            renderer.renderTexture(projectile->getSprite());
         }
     }
 
     for (auto& texture : cannon->getTextures())
     {
-        renderer.RenderTexture(texture);
+        renderer.renderTexture(texture);
     }
 }
 
 void MainScene::renderTarget(Target * pTarget)
 {
-    renderer.RenderTexture(pTarget->getSprite());
+    renderer.renderTexture(pTarget->getSprite());
 }
 
 std::string MainScene::getMessage()
@@ -321,11 +325,11 @@ void MainScene::setupUI()
         uiObjects[i].setPosition(vec2(horizontalX[i], y));
         uiObjects[i].setSize(vec2(18, 18));
 
-        uiStrings[i].PrepareFont("data/version.xml", "data/version.png");
+        uiStrings[i].prepareFont("data/version.xml", "data/version.png");
         uiStrings[i].setParameters(&uiObjects[i]);
         uiStrings[i].setColour(1, 1, 1, 1);
-        uiStrings[i].setString("0");
-        uiStrings[i].Prepare();
+        uiStrings[i].setString("");
+        uiStrings[i].prepare();
     }
 
     for (auto i = 0, y = 380; i < 4; i++, y += 15)
@@ -334,11 +338,11 @@ void MainScene::setupUI()
         statusObject[i].setPosition(vec2(1125, y));
         statusObject[i].setSize(vec2(15, 15));
 
-        statusStrings[i].PrepareFont("data/version.xml", "data/version.png");
+        statusStrings[i].prepareFont("data/version.xml", "data/version.png");
         statusStrings[i].setParameters(&statusObject[i]);
         statusStrings[i].setString("0");
         statusStrings[i].setColour(1, 1, 1, 1);
-        statusStrings[i].Prepare();
+        statusStrings[i].prepare();
     }
 
     airResistanceButton.setTexture("data/img/enabled.png");
@@ -355,7 +359,7 @@ void MainScene::setupUI()
 
     settingsTexture.setTexture("data/img/status.png", GL_CLAMP_TO_EDGE);
     settingsTexture.setParameters(&settingsObject);
-    settingsTexture.Prepare();
+    settingsTexture.prepare();
 
     for (int i = 0; i < 8; i++)
     {
@@ -370,7 +374,7 @@ void MainScene::setupUI()
 
     headerTexture.setTexture("data/img/header1.png", GL_CLAMP_TO_EDGE);
     headerTexture.setParameters(&headerObject);
-    headerTexture.Prepare();
+    headerTexture.prepare();
 
     quitButton.setPosition("Back", vec2(25, 600), vec2(200, 50));
     quitButton.onPress(this);
@@ -381,12 +385,12 @@ void MainScene::setupUI()
 
     backPlate.setTexture("data/img/console.png", GL_CLAMP_TO_EDGE);
     backPlate.setParameters(&backplateObject);
-    backPlate.Prepare();
+    backPlate.prepare();
 
     textureIDs.push_back(headerTexture.getTextureID());
-    textureIDs.push_back(textureManager->CreateTexture("data/img/header2.png", GL_CLAMP_TO_EDGE)->m_ID);
-    textureIDs.push_back(textureManager->CreateTexture("data/img/header3.png", GL_CLAMP_TO_EDGE)->m_ID);
-    textureIDs.push_back(textureManager->CreateTexture("data/img/header4.png", GL_CLAMP_TO_EDGE)->m_ID);
-    textureIDs.push_back(textureManager->CreateTexture("data/img/disabled.png", GL_CLAMP_TO_EDGE)->m_ID);
-    textureIDs.push_back(textureManager->CreateTexture("data/img/enabled.png", GL_CLAMP_TO_EDGE)->m_ID);
+    textureIDs.push_back(textureManager->createTexture("data/img/header2.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(textureManager->createTexture("data/img/header3.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(textureManager->createTexture("data/img/header4.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(textureManager->createTexture("data/img/disabled.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(textureManager->createTexture("data/img/enabled.png", GL_CLAMP_TO_EDGE)->uniqueID);
 }

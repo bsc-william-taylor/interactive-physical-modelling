@@ -27,15 +27,15 @@ void Button::setPosition(const std::string& text, vec2 pos, vec2 sz)
 
     charTexture.setTexture(filename.c_str(), GL_CLAMP_TO_EDGE);
     charTexture.setParameters(&textureObject);
-    charTexture.Prepare();
+    charTexture.prepare();
 
     textObject.setOrtho2D(vec4(0, 0, 1280, 720));
     textObject.setPosition(pos);
     textObject.setSize(vec2(25, 25));
 
     string.setParameters(&textObject);
-    string.setString(text.c_str());
-    string.Prepare();
+    string.setString(text.c_str(), 3);
+    string.prepare();
 
     const auto height = (int)sz.y - string.getHeight();
     const auto width = (int)sz.x - string.getWidth();
@@ -63,12 +63,12 @@ void Button::onMouseState(int Key, int State, int x, int y)
     }
 }
 
-GL_Texture* Button::getTexture()
+TextureGL* Button::getTexture()
 {
     return &charTexture;
 }
 
-GL_String* Button::getString()
+StringGL* Button::getString()
 {
     return &string;
 }

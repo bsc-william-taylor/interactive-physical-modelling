@@ -3,19 +3,19 @@
 
 #include "PlayEvent.h"
 #include "Scene.h"
-#include "GL_Texture.h"
-#include "GL_Renderer.h"
+#include "TextureGL.h"
+#include "RendererGL.h"
 #include "Button.h"
 
 class MainMenu : public Scene
 {
-    GL_Renderer renderer;
-    GL_Texture backgroundTexture;
-    GL_Object backgroundObject;
-    GL_Object titleObject;
-    GL_Object m_Objects[3];
-    GL_String m_Banners[3];
-    GL_String title;
+    RendererGL renderer;
+    TextureGL backgroundTexture;
+    ObjectGL backgroundObject;
+    ObjectGL titleObject;
+    ObjectGL m_Objects[3];
+    StringGL m_Banners[3];
+    StringGL title;
 
     Button playButton;
 public:

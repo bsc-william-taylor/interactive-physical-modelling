@@ -11,15 +11,15 @@
 
 #pragma once
 
-#include "GL_Program.h"
-#include "GL_Matrix.h"
+#include "ProgramGL.h"
+#include "MatrixGL.h"
 
 class Trajectory
 {
 private:
 
-	GL_Program * m_pProgram;		// Shader
-	GL_Matrix * m_pMatrix;			// Matrix
+	ProgramGL * m_pProgram;		// Shader
+	MatrixGL * m_pMatrix;			// Matrix
 
 	vector<vec2> positions;			// Buffer Positions
 	vec2 m_Start;					// Starting point
@@ -41,5 +41,5 @@ public:
 	void onRender();
 	void Clear();
 
-	GL_Matrix* getMatrix() { return m_pMatrix; }
+	MatrixGL* getMatrix() { return m_pMatrix; }
 };

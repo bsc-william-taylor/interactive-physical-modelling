@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "GL_Renderer.h"
+#include "RendererGL.h"
 #include "Projectile.h"
 #include "Trajectory.h"
 

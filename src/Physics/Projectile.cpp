@@ -12,8 +12,8 @@
 
 // Constructor & Deconstructor
 Projectile::Projectile()
-	: charTexture(new GL_Texture()),
-	  m_pObject(new GL_Object())
+	: charTexture(new TextureGL()),
+	  m_pObject(new ObjectGL())
 {
 	m_Mass = 1.0f;
 	m_Offset = vec2(0.0f);
@@ -118,7 +118,7 @@ void Projectile::Setup(vec2 position)
 	
 	charTexture->setTexture("data/img/iron.png", GL_CLAMP_TO_EDGE);
 	charTexture->setParameters(m_pObject);
-	charTexture->Prepare();
+	charTexture->prepare();
 
 	position = position;
 	m_Start = position;
@@ -148,7 +148,7 @@ void Projectile::setPosition(vec2 pos)
 	position.y = pos.y;
 }
 
-GL_Texture * Projectile::getSprite()
+TextureGL * Projectile::getSprite()
 {
 	return charTexture;
 }

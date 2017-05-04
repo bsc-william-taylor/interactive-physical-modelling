@@ -15,13 +15,13 @@
  // Constructor & Deconstructor
 Cannon::Cannon()
     : m_pProjectiles(new Projectiles()),
-    m_pStaticObject(new GL_Object()),
-    m_pRotateObject(new GL_Object()),
+    m_pStaticObject(new ObjectGL()),
+    m_pRotateObject(new ObjectGL()),
     m_Angle(0)
 {
     m_BallMaterial = Material::Iron;
     for (int i = 0; i < 3; i++)
-        m_pSprites.push_back(new GL_Texture());
+        m_pSprites.push_back(new TextureGL());
 }
 
 Cannon::~Cannon()
@@ -52,7 +52,7 @@ void Cannon::initialise()
     {
         m_pSprites[i]->setTexture(filenames[i], GL_CLAMP_TO_EDGE);
         m_pSprites[i]->setParameters(i == 1 ? m_pRotateObject : m_pStaticObject);
-        m_pSprites[i]->Prepare();
+        m_pSprites[i]->prepare();
     }
 
     m_pProjectiles->setMaxProjectiles(1);
@@ -114,7 +114,7 @@ vector<Projectile *>& Cannon::getProjectiles()
     return m_pProjectiles->getTextures();
 }
 
-std::vector<GL_Texture *>& Cannon::getTextures()
+std::vector<TextureGL *>& Cannon::getTextures()
 {
     return m_pSprites;
 }

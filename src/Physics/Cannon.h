@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "GL_Texture.h"
+#include "TextureGL.h"
 #include "Projectiles.h"
 #include "Trajectory.h"
 
@@ -9,9 +9,9 @@ class Cannon
 {
 	Projectiles * m_pProjectiles;		
 
-	vector<GL_Texture *> m_pSprites;
-	GL_Object * m_pStaticObject;
-	GL_Object * m_pRotateObject;
+	vector<TextureGL *> m_pSprites;
+	ObjectGL * m_pStaticObject;
+	ObjectGL * m_pRotateObject;
 	Material m_BallMaterial;
 	
 	float m_Angle;				
@@ -25,12 +25,12 @@ public:
 	void onUpdate();
 	void Fire();
 
-	GL_Object * getStaticObject() { return m_pStaticObject; }
-	GL_Object * getRotateObject() { return m_pRotateObject; }
+	ObjectGL * getStaticObject() { return m_pStaticObject; }
+	ObjectGL * getRotateObject() { return m_pRotateObject; }
 
 	float getAngle() { return m_Angle; };
 	vector<Projectile *>& getProjectiles();
-	vector<GL_Texture *>& getTextures();
+	vector<TextureGL *>& getTextures();
 	Trajectory * getTrajectory();
 	Projectile* getProjectile();
 	Projectiles* getProjects();

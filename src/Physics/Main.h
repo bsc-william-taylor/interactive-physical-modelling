@@ -1,7 +1,7 @@
 ﻿
 #pragma once 
 
-#include "GL_Header.h"
+#include "HeaderGL.h"
 #include "SceneManager.h"
 #include "Win32System.h"
 #include "Win32Timer.h"

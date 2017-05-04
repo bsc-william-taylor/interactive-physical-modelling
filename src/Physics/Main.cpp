@@ -1,5 +1,5 @@
 
-#include "GL_Texture_Manager.h"
+#include "TextureManagerGL.h"
 #include "SceneManager.h"
 #include "EventManager.h"
 #include "MainScene.h"
@@ -22,7 +22,7 @@ Demo::~Demo()
 void Demo::setupWindow()
 {
     const auto center = (int)WindowLocation::Center;
-    system.setWindowTraits("Physics Demo", { center, center, 1280, 720 });
+    system.setWindowTraits("Physics Coursework", { center, center, 1280, 720 });
     system.setWindowType(WindowType::Windowed);
     system.initialise();
 }

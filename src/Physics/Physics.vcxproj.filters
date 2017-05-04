@@ -11,12 +11,6 @@
     <Filter Include="Source Code\Framework\Events">
       <UniqueIdentifier>{6eb1c969-07a2-4550-bd84-dbcd454ca0b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Code\Framework\Objects">
-      <UniqueIdentifier>{fcda6fbb-7d88-4697-91fb-d43da7cab70b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Code\Framework\OpenGL">
-      <UniqueIdentifier>{b3392d56-27ac-41a1-a5e3-ee6315d92e34}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Code\Framework\Scenes">
       <UniqueIdentifier>{bcda849d-0d4f-46fb-957e-15fff87f7cd3}</UniqueIdentifier>
     </Filter>
@@ -35,6 +29,12 @@
     <Filter Include="Source Code\Game\Scenes">
       <UniqueIdentifier>{e9463c26-9911-49b6-aebb-bb75fc4499d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Code\Framework\Objects TODO">
+      <UniqueIdentifier>{fcda6fbb-7d88-4697-91fb-d43da7cab70b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Code\Framework\OpenGL">
+      <UniqueIdentifier>{b3392d56-27ac-41a1-a5e3-ee6315d92e34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EventLogger.cpp">
@@ -42,30 +42,6 @@
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Source Code\Framework\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Matrix.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Object.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Program.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Renderer.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Shader_Manager.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_String.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Texture.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GL_Texture_Manager.cpp">
-      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Win32Driver.cpp">
       <Filter>Source Code\Framework\Win32</Filter>
@@ -89,22 +65,22 @@
       <Filter>Source Code\Framework\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClCompile>
     <ClCompile Include="Projectiles.cpp">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClCompile>
     <ClCompile Include="Target.cpp">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClCompile>
     <ClCompile Include="Trajectory.cpp">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClCompile>
     <ClCompile Include="Cannon.cpp">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClCompile>
     <ClCompile Include="ExitEvent.cpp">
       <Filter>Source Code\Game\Events</Filter>
@@ -124,6 +100,30 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Code\Game</Filter>
     </ClCompile>
+    <ClCompile Include="MatrixGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManagerGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="StringGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManagerGL.cpp">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventLogger.h">
@@ -131,33 +131,6 @@
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Source Code\Framework\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Header.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Matrix.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Object.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Program.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Renderer.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Shader_Manager.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_String.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Texture.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GL_Texture_Manager.h">
-      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Win32Window.h">
       <Filter>Source Code\Framework\Win32</Filter>
@@ -196,22 +169,22 @@
       <Filter>Source Code\Framework\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Trajectory.h">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClInclude>
     <ClInclude Include="Projectiles.h">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClInclude>
     <ClInclude Include="Target.h">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClInclude>
     <ClInclude Include="Cannon.h">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Source Code\Framework\Objects</Filter>
+      <Filter>Source Code\Framework\Objects TODO</Filter>
     </ClInclude>
     <ClInclude Include="IEvent.h">
       <Filter>Source Code\Framework\Events</Filter>
@@ -233,6 +206,33 @@
     </ClInclude>
     <ClInclude Include="Main.h">
       <Filter>Source Code\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManagerGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="StringGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManagerGL.h">
+      <Filter>Source Code\Framework\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

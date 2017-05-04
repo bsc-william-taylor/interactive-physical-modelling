@@ -13,8 +13,8 @@
 
 // Constructor & Deconstructor
 Target::Target()
-	: charTexture(new GL_Texture()),
-	  m_pObject(new GL_Object())
+	: charTexture(new TextureGL()),
+	  m_pObject(new ObjectGL())
 {
 	m_Mass = 20.0f;
 
@@ -58,7 +58,7 @@ void Target::Setup(vec2 position)
 	
 	charTexture->setTexture("data/img/target.png", GL_CLAMP_TO_EDGE);
 	charTexture->setParameters(m_pObject);
-	charTexture->Prepare();
+	charTexture->prepare();
 
 	this->position = position;
 }
@@ -101,7 +101,7 @@ void Target::setPosition(vec2 pos)
 	position = pos;
 }
 
-GL_Texture * Target::getSprite()
+TextureGL * Target::getSprite()
 {
 	return charTexture;
 }

@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-#include "GL_Texture_Manager.h"
+#include "TextureManagerGL.h"
 #include "Projectiles.h"
 #include "Main.h"
 
@@ -25,10 +25,10 @@ Projectiles::Projectiles()
 	TextureManagerGL * mgr = TextureManagerGL::get();
 	m_pTrajectory = new Trajectory();
 	
-	m_TextureIDs.push_back(mgr->CreateTexture("data/img/iron.png", GL_CLAMP_TO_EDGE)->m_ID);
-	m_TextureIDs.push_back(mgr->CreateTexture("data/img/aluminium.png", GL_CLAMP_TO_EDGE)->m_ID);
-	m_TextureIDs.push_back(mgr->CreateTexture("data/img/copper.png", GL_CLAMP_TO_EDGE)->m_ID);
-	m_TextureIDs.push_back(mgr->CreateTexture("data/img/steel.png", GL_CLAMP_TO_EDGE)->m_ID);
+	m_TextureIDs.push_back(mgr->createTexture("data/img/iron.png", GL_CLAMP_TO_EDGE)->uniqueID);
+	m_TextureIDs.push_back(mgr->createTexture("data/img/aluminium.png", GL_CLAMP_TO_EDGE)->uniqueID);
+	m_TextureIDs.push_back(mgr->createTexture("data/img/copper.png", GL_CLAMP_TO_EDGE)->uniqueID);
+	m_TextureIDs.push_back(mgr->createTexture("data/img/steel.png", GL_CLAMP_TO_EDGE)->uniqueID);
 }
 
 Projectiles::~Projectiles()

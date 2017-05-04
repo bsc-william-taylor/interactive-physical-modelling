@@ -2,8 +2,8 @@
 #pragma once
 
 #include "EventManager.h"
-#include "GL_Texture.h"
-#include "GL_String.h"
+#include "TextureGL.h"
+#include "StringGL.h"
 #include "IEvent.h"
 
 class Button
@@ -12,10 +12,10 @@ class Button
     vec2 position, size;
     IEvent* event;
 
-    GL_Texture charTexture;
-    GL_Object textureObject;
-    GL_Object textObject;
-    GL_String string;
+    TextureGL charTexture;
+    ObjectGL textureObject;
+    ObjectGL textObject;
+    StringGL string;
 public:
     Button();
     ~Button();
@@ -25,6 +25,6 @@ public:
     void onMouseState(int, int, int, int);
     void onPress(IEvent *);
 
-    GL_Texture* getTexture();
-    GL_String* getString();
+    TextureGL* getTexture();
+    StringGL* getString();
 };

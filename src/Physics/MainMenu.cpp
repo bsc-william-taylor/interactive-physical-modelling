@@ -9,7 +9,7 @@ MainMenu::MainMenu() :
 {
     for (int i = 0; i < 3; i++)
     {
-        m_Banners[i].PrepareFont("data/LargeText.xml", "data/LargeText.png");
+        m_Banners[i].prepareFont("data/LargeText.xml", "data/LargeText.png");
     }
 
     setupLabels();
@@ -30,8 +30,8 @@ void MainMenu::setupLabels()
     titleObject.setSize(vec2(53, 53));
 
     title.setParameters(&titleObject);
-    title.setString("Physics Demo Coursework");
-    title.Prepare();
+    title.setString("Physics Demo Coursework", 5);
+    title.prepare();
 
     for (int i = 0, position = 300; i < 3; i++)
     {
@@ -41,8 +41,8 @@ void MainMenu::setupLabels()
         m_Objects[i].setSize(vec2(35, 35));
 
         m_Banners[i].setParameters(&m_Objects[i]);
-        m_Banners[i].setString(names[i]);
-        m_Banners[i].Prepare();
+        m_Banners[i].setString(names[i], 5);
+        m_Banners[i].prepare();
 
         position += 150;
     }
@@ -62,7 +62,7 @@ void MainMenu::setupImages()
 
     backgroundTexture.setTexture("data/img/background.png", GL_CLAMP_TO_EDGE);
     backgroundTexture.setParameters(&backgroundObject);
-    backgroundTexture.Prepare();
+    backgroundTexture.prepare();
 }
 
 void MainMenu::onUpdate()
@@ -71,16 +71,16 @@ void MainMenu::onUpdate()
 
 void MainMenu::onRender()
 {
-    renderer.RenderTexture(&backgroundTexture);
+    renderer.renderTexture(&backgroundTexture);
 
     for (int i = 0; i < 3; i++)
     {
-        renderer.RenderString(&m_Banners[i]);
+        renderer.renderString(&m_Banners[i]);
     }
 
-    renderer.RenderString(&title);
-    renderer.RenderTexture(playButton.getTexture());
-    renderer.RenderString(playButton.getString());
+    renderer.renderString(&title);
+    renderer.renderTexture(playButton.getTexture());
+    renderer.renderString(playButton.getString());
 }
 
 void MainMenu::onKeyPress(int Key, int State)

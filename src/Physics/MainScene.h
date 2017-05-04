@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "GL_Renderer.h"
+#include "RendererGL.h"
 #include "Cannon.h"
 #include "Target.h"
 #include "Scene.h"
@@ -9,21 +9,21 @@
 
 class MainScene : public Scene, public IEvent
 {
-    GL_Texture* backgroundTexture;
-    GL_Texture settingsTexture;
-    GL_Texture headerTexture;
-    GL_Texture backPlate;
+    TextureGL* backgroundTexture;
+    TextureGL settingsTexture;
+    TextureGL headerTexture;
+    TextureGL backPlate;
 
-    GL_String statusStrings[4];
-    GL_String uiStrings[4];
+    StringGL statusStrings[4];
+    StringGL uiStrings[4];
 
-    GL_Object settingsObject;
-    GL_Object statusObject[3];
-    GL_Object headerObject;
-    GL_Object backplateObject;
-    GL_Object uiObjects[4];
+    ObjectGL settingsObject;
+    ObjectGL statusObject[3];
+    ObjectGL headerObject;
+    ObjectGL backplateObject;
+    ObjectGL uiObjects[4];
 
-    GL_Renderer renderer;
+    RendererGL renderer;
 
     Button airResistanceButton;
     Button reloadButton;
@@ -52,7 +52,7 @@ public:
     std::string getMessage();
     std::string getMateralName(Material mat);
 
-    void renderBackground(GL_Texture *);
+    void renderBackground(TextureGL *);
     void renderCannon(Cannon *);
     void renderTarget(Target*);
 };

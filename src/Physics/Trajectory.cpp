@@ -9,12 +9,12 @@
 
  ------------------------------------------------- */
 
-#include "GL_Shader_Manager.h"
+#include "ShaderManagerGL.h"
 #include "Trajectory.h"
 
 // Constructor & Deconstructor
 Trajectory::Trajectory()
-	: m_pMatrix(new GL_Matrix()),
+	: m_pMatrix(new MatrixGL()),
 	  position(0)
 {
 	// Set up objects needed
@@ -65,8 +65,8 @@ void Trajectory::startFrom(int x, int y, float r)
 	const GLchar * fs = "data/shaders/Trajectory.frag";
 
 	// Load program & Set projection
-	m_pProgram = ShaderManagerGL::get()->GetShader(vs, fs);
-	m_pMatrix->Ortho(vec2(0, 1280), vec2(0, 720));
+	m_pProgram = ShaderManagerGL::get()->getShader(vs, fs);
+	m_pMatrix->ortho(vec2(0, 1280), vec2(0, 720));
 	m_Start = vec2(x + r, y + r);
 
 	// Initialise Array
@@ -88,7 +88,7 @@ void Trajectory::ResetStart(float x, float y)
 void Trajectory::onRender()
 {
 	// Use the Shader
-	m_pProgram->Use();
+	m_pProgram->use();
 	m_pProgram->setMatrix("Projection", m_pMatrix->getProjection());
 	m_pProgram->setMatrix("Model", m_pMatrix->getModel());
 	m_pProgram->setMatrix("View", m_pMatrix->getView());
@@ -101,7 +101,7 @@ void Trajectory::onRender()
 	glBindVertexArray(0);
 
 	// Release Shader
-	m_pProgram->Release();
+	m_pProgram->release();
 }
 
 void Trajectory::Clear()

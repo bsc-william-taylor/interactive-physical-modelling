@@ -10,15 +10,15 @@
 
 #pragma once
 
-#include "GL_Texture.h"
+#include "TextureGL.h"
 #include "Main.h"
 
 class Projectile
 {
 private:
 
-	GL_Texture * charTexture;			// The sprite for the object
-	GL_Object * m_pObject;
+	TextureGL * charTexture;			// The sprite for the object
+	ObjectGL * m_pObject;
 
 	float m_Mass;				// Its mass	
 	vec2 m_StartVelocity;			// Its Velocity
@@ -44,11 +44,11 @@ public:
 	void toggleDragForce();
 
 	// Get & Set & Check functions.
-	GL_Texture * getSprite();
+	TextureGL * getSprite();
 	vec2 getPosition() { return position; }
 	vec2 getStartPos() { return m_Start; }
 	vec2 getVelocity() { return m_Velocity; }
-	GL_Object* getObject() { return m_pObject; }
+	ObjectGL* getObject() { return m_pObject; }
 	float getMass();
 
 	void setMass(float);

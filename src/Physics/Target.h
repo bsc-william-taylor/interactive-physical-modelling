@@ -10,15 +10,15 @@
 
 #pragma once
 
-#include "GL_Texture.h"
+#include "TextureGL.h"
 #include "Main.h"
 
 class Target
 {
 private:
 
-	GL_Texture * charTexture;			// The sprite for the object
-	GL_Object * m_pObject;
+	TextureGL * charTexture;			// The sprite for the object
+	ObjectGL * m_pObject;
 
 	float m_Mass;
 	vec2 position;
@@ -37,9 +37,9 @@ public:
 	void onMousePress(int, int, int, int);
 
 	// Get & Set & Check functions.
-	GL_Texture * getSprite();
+	TextureGL * getSprite();
 	vec2 getPosition() { return position; }
-	GL_Object* getObject() { return m_pObject; }
+	ObjectGL* getObject() { return m_pObject; }
 
 	void setMass(float);
 	void setPosition(vec2);
