@@ -1,124 +1,98 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Projectiles.h
- @author	: William Taylor
- @date		: 19/02/2014
- @purpose	: A list for each projectile fired
-
- ------------------------------------------------- */
-
-#include <cmath>
-
 #include "TextureManagerGL.h"
 #include "Projectiles.h"
 #include "Main.h"
 
-double acos(int angle) { return cos(3.14156892/180*angle); };			//returns cosine from degrees
-double asin(int angle) { return sin(3.14156892/180*angle); };			//returns sine from degrees
-
-// Constructor & Deconstructor
 Projectiles::Projectiles()
-	: m_Count(0),
-	  m_Max(10)
+    : count(0), max(10)
 {
-	TextureManagerGL * mgr = TextureManagerGL::get();
-	m_pTrajectory = new Trajectory();
-	
-	m_TextureIDs.push_back(mgr->createTexture("data/img/iron.png", GL_CLAMP_TO_EDGE)->uniqueID);
-	m_TextureIDs.push_back(mgr->createTexture("data/img/aluminium.png", GL_CLAMP_TO_EDGE)->uniqueID);
-	m_TextureIDs.push_back(mgr->createTexture("data/img/copper.png", GL_CLAMP_TO_EDGE)->uniqueID);
-	m_TextureIDs.push_back(mgr->createTexture("data/img/steel.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    auto manager = TextureManagerGL::get();
+    trajectory = new Trajectory();
+
+    textureIDs.push_back(manager->createTexture("data/img/iron.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(manager->createTexture("data/img/aluminium.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(manager->createTexture("data/img/copper.png", GL_CLAMP_TO_EDGE)->uniqueID);
+    textureIDs.push_back(manager->createTexture("data/img/steel.png", GL_CLAMP_TO_EDGE)->uniqueID);
 }
 
 Projectiles::~Projectiles()
 {
-	for(auto i = m_Projectiles.cbegin(); i != m_Projectiles.cend(); ++i)
-		delete(*i);
+    for (auto projectile : projectiles)
+    {
+        delete projectile;
+    }
+
+    delete trajectory;
 }
 
-// Member Functions
 void Projectiles::initialise(float angle, vec2 vec, vec2 startPosition)
 {
-	// Initialise all projectiles
-	float xVariation = cosf(glm::radians(angle));
-	float yVariation = sinf(glm::radians(angle));
+    auto xVariation = cosf(glm::radians(angle));
+    auto yVariation = sinf(glm::radians(angle));
 
-	m_pTrajectory->startFrom(vec.x, vec.y, 5.0f);
+    trajectory->startFrom(vec.x, vec.y, 5.0f);
 
-	for(unsigned int i = 0; i < m_Max; i++)
-	{
-		Projectile * p = new Projectile();
-		
-		p->setOffset(vec2(xVariation, yVariation));
-		p->setMass(10.0);
-		p->Setup(startPosition);
-
-		m_Projectiles.push_back(p);
-	}
+    for (auto i = 0; i < max; i++)
+    {
+        auto p = new Projectile();
+        p->setOffset(vec2(xVariation, yVariation));
+        p->setMass(10.0);
+        p->setup(startPosition);
+        projectiles.push_back(p);
+    }
 }
 
-Trajectory * Projectiles::getTrajectory()
-{	
-	return m_pTrajectory;
-}
-
-void Projectiles::FireProjectile(float angle)
+Trajectory* Projectiles::getTrajectory()
 {
-	// Reset the projectiles and fire it
-	if(m_Count < m_Max)
-	{
-		m_Projectiles[m_Count]->Reset(angle);
-		m_Projectiles[m_Count]->Fire(); 
-	} 
-	else
-	{
-		m_Projectiles[0]->Reset(angle);
-		m_Count = 0;
-	}
-
-	auto p = m_Projectiles[m_Count]->getPosition() + m_Projectiles[m_Count]->getVelocity();
-
-	m_pTrajectory->Clear();
-	m_pTrajectory->ResetStart(p.x, p.y);
-
-	++m_Count;
+    return trajectory;
 }
 
-void Projectiles::SetMaterial(Material material)
+void Projectiles::fireProjectile(float angle)
 {
-	m_Projectiles.at(0)->getSprite()->setID(m_TextureIDs[(int)material - 1]);
+    if (count < max)
+    {
+        projectiles[count]->reset(angle);
+        projectiles[count]->fire();
+    }
+    else
+    {
+        projectiles[0]->reset(angle);
+        count = 0;
+    }
 
-	float radius = 5.0f * CM;
-	float diametre = 2.0f * radius;
-	m_Projectiles.at(0)->setSize(vec2(diametre, diametre));
+    auto point = projectiles[count]->getPosition() + projectiles[count]->getVelocity();
+    trajectory->clear();
+    trajectory->resetStart(point.x, point.y);
+    count++;
+}
 
-	float volume = (4.0f / 3.0f) * pi<float>() * radius * radius * radius;
-	float density = DENSITY[ (int)material - 1 ];
-	float mass = density * volume;
+void Projectiles::setMaterial(Material material)
+{
+    auto radius = 5.0f * CM;
+    auto diametre = 2.0f * radius;
+    auto volume = (4.0f / 3.0f) * pi<float>() * radius * radius * radius;
+    auto density = DENSITY[(int)material - 1];
+    auto mass = density * volume;
 
-	m_Projectiles.at(0)->setMass( mass );
+    projectiles[0]->getSprite()->setID(textureIDs[(int)material - 1]);
+    projectiles[0]->setSize(vec2(diametre, diametre));
+    projectiles[0]->setMass(mass);
 }
 
 void Projectiles::onUpdate()
 {
-	auto iterator = m_Projectiles.begin();
-	
-	// Iterate the vector and update each object
-	while(iterator != m_Projectiles.end())
-	{
-		(*iterator)->onUpdate();
-		++iterator;
-	}
+    for (auto& projectile : projectiles)
+    {
+        projectile->onUpdate();
+    }
 }
 
-// Get & Set Functions
 vector<Projectile *>& Projectiles::getTextures()
 {
-	return m_Projectiles;
+    return projectiles;
 }
 
 void Projectiles::setMaxProjectiles(unsigned int newMax)
 {
-	m_Max = newMax;
+    this->max = newMax;
 }

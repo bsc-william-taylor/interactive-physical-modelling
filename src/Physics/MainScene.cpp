@@ -6,6 +6,7 @@
 #include "MainScene.h"
 #include "BackEvent.h"
 #include "Cannon.h"
+#include "UiEvent.h"
 #include "Target.h"
 
 template<typename T>
@@ -45,7 +46,7 @@ void MainScene::onKeyPress(int Key, int State)
 
     if (KEY_DOWN(SPACE, Key, State) && !reloadCannon)
     {
-        cannon.Fire();
+        cannon.fire();
         reloadCannon = true;
     }
 
@@ -122,7 +123,7 @@ void MainScene::onUpdate()
     cannon.getTrajectory()->getMatrix()->lookAt(cameraPosition);
     cannon.onUpdate();
 
-    for (auto& proj : cannon.getProjectiles())
+    for (auto& proj : cannon.getProjectiles()->getTextures())
     {
         fetchMatrix(proj)->lookAt(cameraPosition);
     }
@@ -196,12 +197,12 @@ void MainScene::renderBackground(TextureGL * background)
 
 void MainScene::renderCannon(Cannon * cannon)
 {
-    for (auto& projectile : cannon->getProjectiles())
+    for (auto& projectile : cannon->getProjectiles()->getTextures())
     {
         if (projectile->hasFired())
         {
             auto position = projectile->getPosition() + projectile->getVelocity();
-            cannon->getTrajectory()->PlotPoint(position.x, position.y, 5.0f);
+            cannon->getTrajectory()->plotPoint(position.x, position.y, 5.0f);
             cannon->getTrajectory()->onRender();
             renderer.renderTexture(projectile->getSprite());
         }
@@ -218,12 +219,7 @@ void MainScene::renderTarget(Target * pTarget)
     renderer.renderTexture(pTarget->getSprite());
 }
 
-std::string MainScene::getMessage()
-{
-    return "Back button pressed";
-}
-
-void MainScene::onTriggered(void * data)
+void MainScene::onUiEvent(void * data)
 {
     auto scenes = SceneManager::get();
     auto ball = cannon.getProjectile();
@@ -232,7 +228,6 @@ void MainScene::onTriggered(void * data)
     {
         scenes->switchTo((int)SceneStates::MainMenu);
     }
-
     else if (data == &uiButtons[3])
     {
         onKeyPress(ARROW_UP, PRESSED);
@@ -305,9 +300,9 @@ void MainScene::onTriggered(void * data)
 void MainScene::setupCannon()
 {
     cannon.initialise();
-    cannon.getProjects()->SetMaterial(Material::Iron);
+    cannon.getProjectiles()->setMaterial(Material::Iron);
 
-    target.Setup(vec2(1000, 200));
+    target.setup(vec2(1000, 200));
 }
 
 void MainScene::setupUI()
@@ -347,9 +342,9 @@ void MainScene::setupUI()
 
     airResistanceButton.setTexture("data/img/enabled.png");
     airResistanceButton.setPosition("", vec2(1125, 428), vec2(78, 14));
-    airResistanceButton.onPress(this);
+    airResistanceButton.onPress(new UiEvent());
 
-    reloadButton.onPress(this);
+    reloadButton.onPress(new UiEvent());
     reloadButton.setTexture("data/img/reload.png");
     reloadButton.setPosition("", vec2(1126, 526), vec2(78, 14));
 
@@ -363,7 +358,7 @@ void MainScene::setupUI()
 
     for (int i = 0; i < 8; i++)
     {
-        uiButtons[i].onPress(this);
+        uiButtons[i].onPress(new UiEvent());
         uiButtons[i].setTexture(i < 4 ? "data/img/plus.png" : "data/img/minus.png");
         uiButtons[i].setPosition("", vec2(i < 4 ? 1190 : 1125, positions[i]), vec2(14, 13));
     }
@@ -377,7 +372,7 @@ void MainScene::setupUI()
     headerTexture.prepare();
 
     quitButton.setPosition("Back", vec2(25, 600), vec2(200, 50));
-    quitButton.onPress(this);
+    quitButton.onPress(new UiEvent());
 
     backplateObject.setOrtho2D(vec4(0, 0, 1280, 720));
     backplateObject.setPosition(vec2(1000, 454));

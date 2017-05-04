@@ -1,14 +1,4 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Trajectory.h
- @author	: William Taylor
- @date		: 27/02/2014
- @purpose	: A line that will render the 
-			  the projectiles path.
-
- ------------------------------------------------- */
-
 #pragma once
 
 #include "ProgramGL.h"
@@ -16,30 +6,24 @@
 
 class Trajectory
 {
-private:
+    ProgramGL* program;
+    MatrixGL matrix;
 
-	ProgramGL * m_pProgram;		// Shader
-	MatrixGL * m_pMatrix;			// Matrix
+    GLuint position;
+    GLuint vertexArray;
+    GLuint vertexBuffer;
 
-	vector<vec2> positions;			// Buffer Positions
-	vec2 m_Start;					// Starting point
-	
-	GLuint position;				// Position in array
-	GLuint VAO;						// Vertex array object
-	GLuint VBO;						// Vertex buffer object
-
+    vector<vec2> positions;
+    vec2 startPoint;
 public:
+    Trajectory();
+    ~Trajectory();
 
-	// Constructor & Deconstructor
-	Trajectory();
-	~Trajectory();
+    void plotPoint(int, int, float);
+    void resetStart(float, float);
+    void startFrom(int, int, float);
+    void onRender();
+    void clear();
 
-	// Member Functions
-	void PlotPoint(int, int, float);
-	void ResetStart(float, float);
-	void startFrom(int, int, float);
-	void onRender();
-	void Clear();
-
-	MatrixGL* getMatrix() { return m_pMatrix; }
+    MatrixGL* getMatrix();
 };

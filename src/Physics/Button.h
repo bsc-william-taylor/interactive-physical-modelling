@@ -12,7 +12,7 @@ class Button
     vec2 position, size;
     IEvent* event;
 
-    TextureGL charTexture;
+    TextureGL texture;
     ObjectGL textureObject;
     ObjectGL textObject;
     StringGL string;

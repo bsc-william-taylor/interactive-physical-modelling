@@ -7,7 +7,7 @@
 #include "Scene.h"
 #include "Button.h"
 
-class MainScene : public Scene, public IEvent
+class MainScene : public Scene
 {
     TextureGL* backgroundTexture;
     TextureGL settingsTexture;
@@ -42,14 +42,15 @@ public:
 
     void setupUI();
     void setupCannon();
-    void onTriggered(void *);
+
+
     void onRequest(SceneFactory *);
     void onMousePress(int, int, int, int);
     void onKeyPress(int, int);
     void onUpdate();
     void onRender();
+    void onUiEvent(void *);
 
-    std::string getMessage();
     std::string getMateralName(Material mat);
 
     void renderBackground(TextureGL *);

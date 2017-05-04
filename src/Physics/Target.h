@@ -1,12 +1,5 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Target.h
- @author	: Cristian Szabo
- @date		: 19/03/2014
- @purpose	: A clickable target on the screen
 
- ------------------------------------------------- */
 
 #pragma once
 
@@ -15,32 +8,22 @@
 
 class Target
 {
-private:
-
-	TextureGL * charTexture;			// The sprite for the object
-	ObjectGL * m_pObject;
-
-	float m_Mass;
-	vec2 position;
-
-	bool m_Click;
-
+    TextureGL texture;
+    ObjectGL object;
+    float mass;
+    vec2 position;
+    bool clicked;
 public:
+    Target();
+    ~Target();
 
-	// Constructor & Deconstructor
-	Target();
-	~Target();
+    void setMass(float);
+    void setPosition(vec2);
+    void setup(vec2);
+    void onUpdate();
+    void onMousePress(int, int, int, int);
 
-	// Member Functions
-	void Setup(vec2);
-	void onUpdate();
-	void onMousePress(int, int, int, int);
-
-	// Get & Set & Check functions.
-	TextureGL * getSprite();
-	vec2 getPosition() { return position; }
-	ObjectGL* getObject() { return m_pObject; }
-
-	void setMass(float);
-	void setPosition(vec2);
+    TextureGL* getSprite();
+    ObjectGL* getObject();
+    vec2 getPosition();
 };

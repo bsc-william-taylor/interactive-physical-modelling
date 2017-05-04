@@ -115,6 +115,7 @@ xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="Trajectory.cpp" />
+    <ClCompile Include="UiEvent.cpp" />
     <ClCompile Include="Win32Driver.cpp" />
     <ClCompile Include="Win32Keyboard.cpp" />
     <ClCompile Include="Win32Mouse.cpp" />
@@ -151,6 +152,7 @@ xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Target.h" />
     <ClInclude Include="Trajectory.h" />
+    <ClInclude Include="UiEvent.h" />
     <ClInclude Include="Win32Codes.h" />
     <ClInclude Include="Win32Driver.h" />
     <ClInclude Include="Win32Header.h" />

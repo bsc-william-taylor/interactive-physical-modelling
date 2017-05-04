@@ -1,159 +1,154 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Projectile.cpp
- @author	: William Taylor
- @date		: 19/02/2014
- @purpose	: Class implementation
-
- ------------------------------------------------- */
 
 #include "Projectile.h"
 
-// Constructor & Deconstructor
-Projectile::Projectile()
-	: charTexture(new TextureGL()),
-	  m_pObject(new ObjectGL())
+Projectile::Projectile() :
+    mass(1.0),
+    fired(false),
+    dragForce(true),
+    size(vec3(1.0, 1.0, 1.0)),
+    offset(vec2(0.0))
 {
-	m_Mass = 1.0f;
-	m_Offset = vec2(0.0f);
-	m_Fired = false;
-	size = vec3(1.0, 1.0, 1.0);
-	m_bDragForce = true;
 }
 
 Projectile::~Projectile()
 {
-	SAFE_RELEASE(m_pObject);
-	SAFE_RELEASE(charTexture);
 }
 
-// Member Functions
 void Projectile::onUpdate()
 {
-	if ( position.y <= TARGETHEIGHT/4 )
-	{
-		return;
-	}
+    if (position.y <= TARGETHEIGHT / 4)
+    {
+        return;
+    }
 
-	m_pObject->setIdentity();
+    object.setIdentity();
 
-	if(m_Fired)
-	{		
-		vec2 PreviousTranslate = m_pObject->getTranslate();
-		
-		vec2 DragForce;
+    if (fired)
+    {
+        vec2 prevTranslate = object.getTranslate();
+        vec2 force;
 
-		if (m_bDragForce)
-		{
-			// get dimension of the object
-			vec4 dim = m_pObject->getDimensions();
-			// calculate radius
-			float radius = (dim.w - dim.y) / 2.0f ;
-			// calculate area of the object
-			float area = pi<float>() * radius * radius;
+        if (dragForce)
+        {
+            auto dim = object.getDimensions();
+            auto radius = (dim.w - dim.y) / 2.0f;
+            auto area = pi<float>() * radius * radius;
 
-			// calculate the drag force
-			DragForce.x = -0.5f * (DENSITY_AIR) * DRAG_COEFICIENT * m_Velocity.x * m_Velocity.x * area;
-		}
+            force.x = -0.5f * (DENSITY_AIR)* DRAG_COEFICIENT * velocity.x * velocity.x * area;
+        }
 
-		m_Velocity += DragForce + GRAVITY;
+        velocity += force + GRAVITY;
+        position += velocity;
 
-		position += m_Velocity;
-
-		m_pObject->setTranslate( PreviousTranslate + m_Velocity );
-	}
+        object.setTranslate(prevTranslate + velocity);
+    }
 }
 
 void Projectile::toggleDragForce()
 {
-	m_bDragForce = !m_bDragForce;
+    dragForce = !dragForce;
 }
 
 void Projectile::setSize(vec2 vec)
 {
-	m_pObject->setSize(vec);
-	size = vec3(vec.x, vec.y, 1.0f);
+    object.setSize(vec);
+    size = vec3(vec.x, vec.y, 1.0f);
 }
 
-void Projectile::Fire()
+void Projectile::fire()
 {
-	m_Fired = true;
+    fired = true;
 }
 
 float Projectile::getMass()
 {
-	return m_Mass;
+    return mass;
 }
 
-void Projectile::Reset(float angle)
+void Projectile::reset(float angle)
 {
-	m_pObject->setIdentity();
-	m_pObject->setTranslate(vec2(0, 0));
+    object.setIdentity();
+    object.setTranslate(vec2(0, 0));
 
-	float cannonLengthX = 90*cosf(glm::radians(angle));
-	float cannonLengthY = 90*sinf(glm::radians(angle));
-	
-	float xComponent( FULCRUM_X - 10 + cannonLengthX );	// 10 is bomb radius seeing the fact the origin is not in the center
-	float yComponent( FULCRUM_Y - 10 + cannonLengthY );	// bomb radius again
-	
-	position = vec2(xComponent,yComponent);
-	m_Velocity = vec2(0);
+    auto cannonLengthX = 90 * cosf(glm::radians(angle));
+    auto cannonLengthY = 90 * sinf(glm::radians(angle));
+    auto xComponent = FULCRUM_X - 10 + cannonLengthX;
+    auto yComponent = FULCRUM_Y - 10 + cannonLengthY;
 
-	vec2 m_StartingAcceleration;
+    position = vec2(xComponent, yComponent);
+    velocity = vec2(0);
 
-	m_StartingAcceleration.x = FORCE * cosf(glm::radians(angle))/m_Mass;
-	m_StartingAcceleration.y = FORCE * sinf(glm::radians(angle))/m_Mass;
+    vec2 startingAcceleration;
+    startingAcceleration.x = FORCE * cosf(glm::radians(angle)) / mass;
+    startingAcceleration.y = FORCE * sinf(glm::radians(angle)) / mass;
+    velocity += startingAcceleration;
 
-	m_Velocity += m_StartingAcceleration;
-
-	Setup(position);
+    setup(position);
 }
 
-void Projectile::Setup(vec2 position)
+void Projectile::setup(vec2 position)
 {
-	m_pObject->setOrtho2D(vec4(0, 0, 1280, 720));
-	m_pObject->setPosition(position);
-	m_pObject->setSize(vec2(size));
-	
-	charTexture->setTexture("data/img/iron.png", GL_CLAMP_TO_EDGE);
-	charTexture->setParameters(m_pObject);
-	charTexture->prepare();
+    object.setOrtho2D(vec4(0, 0, 1280, 720));
+    object.setPosition(position);
+    object.setSize(vec2(size));
 
-	position = position;
-	m_Start = position;
+    texture.setTexture("data/img/iron.png", GL_CLAMP_TO_EDGE);
+    texture.setParameters(&object);
+    texture.prepare();
 
+    this->position = position;
+    startPoint = position;
 }
 
-// Get & Set Functions
 void Projectile::setOffset(vec2 vec)
 {
-	m_Offset = vec;
+    offset = vec;
 }
 
 void Projectile::setMass(float mass)
 {
-	m_Mass = mass;
+    this->mass = mass;
 }
 
 void Projectile::setVelocity(vec2 vec)
 {
-	m_StartVelocity = vec;
-	m_Velocity = vec;
+    startVelocity = vec;
+    velocity = vec;
 }
 
 void Projectile::setPosition(vec2 pos)
 {
-	position.x = pos.x;
-	position.y = pos.y;
+    position.x = pos.x;
+    position.y = pos.y;
 }
 
 TextureGL * Projectile::getSprite()
 {
-	return charTexture;
+    return &texture;
 }
 
 bool Projectile::hasFired()
 {
-	return m_Fired;
+    return fired;
+}
+
+vec2 Projectile::getPosition()
+{
+    return position;
+}
+
+vec2 Projectile::getStartPos()
+{
+    return startPoint;
+}
+
+vec2 Projectile::getVelocity()
+{
+    return velocity;
+}
+
+ObjectGL* Projectile::getObject()
+{
+    return &object;
 }

@@ -29,11 +29,11 @@
     <Filter Include="Source Code\Game\Scenes">
       <UniqueIdentifier>{e9463c26-9911-49b6-aebb-bb75fc4499d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Code\Framework\Objects TODO">
-      <UniqueIdentifier>{fcda6fbb-7d88-4697-91fb-d43da7cab70b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Code\Framework\OpenGL">
       <UniqueIdentifier>{b3392d56-27ac-41a1-a5e3-ee6315d92e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Code\Framework\Objects">
+      <UniqueIdentifier>{fcda6fbb-7d88-4697-91fb-d43da7cab70b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,22 +65,22 @@
       <Filter>Source Code\Framework\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Projectiles.cpp">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Target.cpp">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Trajectory.cpp">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Cannon.cpp">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClCompile>
     <ClCompile Include="ExitEvent.cpp">
       <Filter>Source Code\Game\Events</Filter>
@@ -123,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="TextureManagerGL.cpp">
       <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="UiEvent.cpp">
+      <Filter>Source Code\Game\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,22 +172,22 @@
       <Filter>Source Code\Framework\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Trajectory.h">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Projectiles.h">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Target.h">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Cannon.h">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Source Code\Framework\Objects TODO</Filter>
+      <Filter>Source Code\Framework\Objects</Filter>
     </ClInclude>
     <ClInclude Include="IEvent.h">
       <Filter>Source Code\Framework\Events</Filter>
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="TextureManagerGL.h">
       <Filter>Source Code\Framework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="UiEvent.h">
+      <Filter>Source Code\Game\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

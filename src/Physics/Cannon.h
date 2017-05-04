@@ -7,33 +7,32 @@
 
 class Cannon
 {
-	Projectiles * m_pProjectiles;		
+    vector<TextureGL *> sprites;
 
-	vector<TextureGL *> m_pSprites;
-	ObjectGL * m_pStaticObject;
-	ObjectGL * m_pRotateObject;
-	Material m_BallMaterial;
-	
-	float m_Angle;				
+    Projectiles projectiles;
+    ObjectGL staticObject;
+    ObjectGL rotateObject;
+    Material material;
 
+    float angle;
 public:
-	Cannon();
-	~Cannon();
+    Cannon();
+    ~Cannon();
 
-	void onKeyPress(int, int);
-	void initialise();
-	void onUpdate();
-	void Fire();
+    vector<TextureGL *>& getTextures();
 
-	ObjectGL * getStaticObject() { return m_pStaticObject; }
-	ObjectGL * getRotateObject() { return m_pRotateObject; }
+    void onKeyPress(int, int);
+    void initialise();
+    void onUpdate();
+    void fire();
 
-	float getAngle() { return m_Angle; };
-	vector<Projectile *>& getProjectiles();
-	vector<TextureGL *>& getTextures();
-	Trajectory * getTrajectory();
-	Projectile* getProjectile();
-	Projectiles* getProjects();
+    ObjectGL* getStaticObject();
+    ObjectGL* getRotateObject();
 
-	Material getBallMaterial(){ return m_BallMaterial; }
+    Projectiles* getProjectiles();
+    Trajectory* getTrajectory();
+    Projectile* getProjectile();
+    Material getBallMaterial();
+
+    float getAngle();
 };

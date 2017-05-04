@@ -1,46 +1,35 @@
 
-/* -------------------------------------------------
-
- @Filename  : Cannon.cpp
- @author	: William Taylor
- @date		: 19/02/2014
- @purpose	: Class implementation
-
- ------------------------------------------------- */
-
 #include "Win32Codes.h"
 #include "Cannon.h"
 #include "Main.h"
 
- // Constructor & Deconstructor
-Cannon::Cannon()
-    : m_pProjectiles(new Projectiles()),
-    m_pStaticObject(new ObjectGL()),
-    m_pRotateObject(new ObjectGL()),
-    m_Angle(0)
+Cannon::Cannon() :
+    material(Material::Iron),
+    angle(0)
 {
-    m_BallMaterial = Material::Iron;
     for (int i = 0; i < 3; i++)
-        m_pSprites.push_back(new TextureGL());
+    { 
+        sprites.push_back(new TextureGL());
+    }
 }
 
 Cannon::~Cannon()
 {
-    SAFE_RELEASE(m_pProjectiles);
-
-    for (auto sprite : m_pSprites)
+    for (auto sprite : sprites)
+    { 
         delete sprite;
+    }
 }
 
 void Cannon::initialise()
 {
-    m_pRotateObject->setOrtho2D(vec4(0, 0, 1280, 720));
-    m_pRotateObject->setPosition(vec2(0, 0));
-    m_pRotateObject->setSize(vec2(235, 96));
+    rotateObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    rotateObject.setPosition(vec2(0, 0));
+    rotateObject.setSize(vec2(235, 96));
 
-    m_pStaticObject->setOrtho2D(vec4(0, 0, 1280, 720));
-    m_pStaticObject->setPosition(vec2(0, 0));
-    m_pStaticObject->setSize(vec2(235, 96));
+    staticObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    staticObject.setPosition(vec2(0, 0));
+    staticObject.setSize(vec2(235, 96));
 
     std::string filenames[3] = {
         "data/img/c3.png",
@@ -50,76 +39,111 @@ void Cannon::initialise()
 
     for (int i = 0; i < 3; i++)
     {
-        m_pSprites[i]->setTexture(filenames[i], GL_CLAMP_TO_EDGE);
-        m_pSprites[i]->setParameters(i == 1 ? m_pRotateObject : m_pStaticObject);
-        m_pSprites[i]->prepare();
+        sprites[i]->setTexture(filenames[i], GL_CLAMP_TO_EDGE);
+        sprites[i]->setParameters(i == 1 ? &rotateObject : &staticObject);
+        sprites[i]->prepare();
     }
 
-    m_pProjectiles->setMaxProjectiles(1);
+    projectiles.setMaxProjectiles(1);
 
-    float cannonLengthX = 90.0*cosf(glm::radians(m_Angle));
-    float cannonLengthY = 90.0*sinf(glm::radians(m_Angle));
-    float xComponent(FULCRUM_X - 10 + cannonLengthX);		// 10 is bomb radius seeing the fact the origin is not in the center
-    float yComponent(FULCRUM_Y - 10 + cannonLengthY);		// bomb radius again
+    float cannonLengthX = 90.0*cosf(glm::radians(angle));
+    float cannonLengthY = 90.0*sinf(glm::radians(angle));
+    float xComponent(FULCRUM_X - 10 + cannonLengthX);		
+    float yComponent(FULCRUM_Y - 10 + cannonLengthY);		
 
-    m_pProjectiles->initialise(m_Angle, vec2(xComponent, yComponent), vec2(xComponent, yComponent));
+    projectiles.initialise(angle, vec2(xComponent, yComponent), vec2(xComponent, yComponent));
 }
 
 Trajectory * Cannon::getTrajectory()
 {
-    return m_pProjectiles->getTrajectory();
+    return projectiles.getTrajectory();
 }
 
-void Cannon::Fire()
+void Cannon::fire()
 {
-    m_pProjectiles->FireProjectile(m_Angle);
+    projectiles.fireProjectile(angle);
 }
 
 void Cannon::onKeyPress(int Key, int State)
 {
+    if (Key == ARROW_DOWN && angle > 0)
+    {
+        angle--;
+    }
+
+    if (Key == ARROW_UP && angle < 90)
+    {
+        angle++;
+    }
+
+
     switch (Key)
     {
-    case ARROW_DOWN: if (m_Angle > 0) m_Angle--; break;
-    case ARROW_UP: if (m_Angle < 90) m_Angle++; break;
+    case FOUR:
+        projectiles.setMaterial(Material::Stone);
+        material = Material::Stone; 
+        break;
+    case THREE: 
+        projectiles.setMaterial(Material::Copper); 
+        material = Material::Copper; 
+        break;
+    case TWO:
+        projectiles.setMaterial(Material::Aluminium); 
+        material = Material::Aluminium; 
+        break;
+    case ONE: 
+        projectiles.setMaterial(Material::Iron); 
+        material = Material::Iron; 
+        break;
 
-    case FOUR:m_pProjectiles->SetMaterial(Material::Stone); m_BallMaterial = Material::Stone; break;
-    case THREE: m_pProjectiles->SetMaterial(Material::Copper); m_BallMaterial = Material::Copper; break;
-    case TWO:m_pProjectiles->SetMaterial(Material::Aluminium); m_BallMaterial = Material::Aluminium; break;
-    case ONE: m_pProjectiles->SetMaterial(Material::Iron); m_BallMaterial = Material::Iron; break;
-
-    default: break;
+    default: 
+        break;
     };
 }
 
 Projectile* Cannon::getProjectile()
 {
-    return m_pProjectiles->getTextures().at(0);
+    return projectiles.getTextures().at(0);
 }
 
 void Cannon::onUpdate()
 {
-    m_pStaticObject->setIdentity();
-    m_pRotateObject->setIdentity();
+    staticObject.setIdentity();
+    rotateObject.setIdentity();
 
-    m_pRotateObject->setTranslate(vec2(FULCRUM_X, FULCRUM_Y));
-    m_pRotateObject->setRotation(glm::radians((float)m_Angle), vec3(0.0, 0.0, 1.0));
-    m_pRotateObject->setTranslate(-vec2(FULCRUM_X, FULCRUM_Y));
+    rotateObject.setTranslate(vec2(FULCRUM_X, FULCRUM_Y));
+    rotateObject.setRotation(glm::radians((float)angle), vec3(0.0, 0.0, 1.0));
+    rotateObject.setTranslate(-vec2(FULCRUM_X, FULCRUM_Y));
 
-    m_pProjectiles->onUpdate();
-}
-
-// Get & Set Functions
-vector<Projectile *>& Cannon::getProjectiles()
-{
-    return m_pProjectiles->getTextures();
+    projectiles.onUpdate();
 }
 
 std::vector<TextureGL *>& Cannon::getTextures()
 {
-    return m_pSprites;
+    return sprites;
 }
 
-Projectiles* Cannon::getProjects()
+Projectiles* Cannon::getProjectiles()
 {
-    return m_pProjectiles;
+    return &projectiles;
+}
+
+ObjectGL * Cannon::getStaticObject() 
+{ 
+    return &staticObject; 
+}
+
+ObjectGL * Cannon::getRotateObject() 
+{ 
+    return &rotateObject; 
+}
+
+Material Cannon::getBallMaterial() 
+{ 
+    return material; 
+}
+
+float Cannon::getAngle()
+{ 
+    return angle; 
 }

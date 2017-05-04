@@ -11,7 +11,7 @@ Button::Button() :
 
 Button::~Button()
 {
-    //SAFE_RELEASE(event);
+    SAFE_RELEASE(event);
 }
 
 void Button::onPress(IEvent* event)
@@ -25,9 +25,9 @@ void Button::setPosition(const std::string& text, vec2 pos, vec2 sz)
     textureObject.setPosition(pos);
     textureObject.setSize(sz);
 
-    charTexture.setTexture(filename.c_str(), GL_CLAMP_TO_EDGE);
-    charTexture.setParameters(&textureObject);
-    charTexture.prepare();
+    texture.setTexture(filename.c_str(), GL_CLAMP_TO_EDGE);
+    texture.setParameters(&textureObject);
+    texture.prepare();
 
     textObject.setOrtho2D(vec4(0, 0, 1280, 720));
     textObject.setPosition(pos);
@@ -65,7 +65,7 @@ void Button::onMouseState(int Key, int State, int x, int y)
 
 TextureGL* Button::getTexture()
 {
-    return &charTexture;
+    return &texture;
 }
 
 StringGL* Button::getString()
