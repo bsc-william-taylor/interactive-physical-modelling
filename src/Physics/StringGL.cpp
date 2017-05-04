@@ -61,19 +61,19 @@ void StringGL::setString(std::string text, int spacing)
 
         tinyxml2::XMLElement * start = document->FirstChildElement("fontMetrics")->FirstChildElement("character");
 
-        for (int i = 0; i < text.size(); i++)
+        for (auto i = 0u; i < text.size(); i++)
         {
             tinyxml2::XMLElement * element = start;
 
-            for (int b = 0; b < (int)text[i] - 32; b++)
+            for (auto b = 0; b < (int)text[i] - 32; b++)
             {
                 element = element->NextSiblingElement();
             }
 
-            GLfloat x = atoi(element->FirstChildElement("x")->GetText());
-            GLfloat w = atoi(element->FirstChildElement("width")->GetText()) + spacing;
-            GLfloat y = sprite->height - atoi(element->FirstChildElement("y")->GetText());
-            GLfloat h = atoi(element->FirstChildElement("height")->GetText());
+            GLfloat x = atof(element->FirstChildElement("x")->GetText());
+            GLfloat w = atof(element->FirstChildElement("width")->GetText()) + spacing;
+            GLfloat y = sprite->height - atof(element->FirstChildElement("y")->GetText());
+            GLfloat h = atof(element->FirstChildElement("height")->GetText());
             GLfloat realX = (GLfloat)x / sprite->width;
             GLfloat realY = (GLfloat)y / sprite->height;
             GLfloat realW = (GLfloat)(x + w) / sprite->width;

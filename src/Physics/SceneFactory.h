@@ -11,7 +11,7 @@ public:
 	SceneFactory() = default;
 	~SceneFactory() = default;
 
-    void PushAsset(const std::string& uniqueID, void* data)
+    void pushAsset(const std::string& uniqueID, void* data)
     {
         if (assets.count(uniqueID) == 0)
         {
@@ -20,7 +20,7 @@ public:
     }
 		
 	template<typename T>
-	T* GrabAsset(const std::string& uniqueID)
+	T* grabAsset(const std::string& uniqueID)
 	{
         if (assets.count(uniqueID) != 0)
         {

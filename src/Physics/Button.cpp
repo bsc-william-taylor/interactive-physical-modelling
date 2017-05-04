@@ -50,13 +50,13 @@ void Button::setTexture(const std::string& file)
     filename = file;
 }
 
-void Button::onMouseState(int Key, int State, int x, int y)
+void Button::onMouseState(int key, int state, int x, int y)
 {
     auto events = EventManager::get();
 
     if (x >= position.x && x <= position.x + size.x && y >= position.y && y <= position.y + size.y)
     {
-        if (Key == MOUSE_1 && State == RELEASED && event != nullptr)
+        if (key == MOUSE_1 && state == RELEASED && event != nullptr)
         {
             events->triggerEvent(event, false, this);
         }

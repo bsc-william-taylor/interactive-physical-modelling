@@ -83,11 +83,11 @@ void MainMenu::onRender()
     renderer.renderString(playButton.getString());
 }
 
-void MainMenu::onKeyPress(int Key, int State)
+void MainMenu::onKeyPress(int key, int state)
 {
     auto events = EventManager::get();
 
-    if (KEY_DOWN(ESCAPE, Key, State))
+    if (KEY_DOWN(ESCAPE, key, state))
     {
         events->triggerEvent(500, new ExitEvent(), this);
     }
@@ -100,5 +100,5 @@ void MainMenu::onMousePress(int key, int state, int x, int y)
 
 void MainMenu::onCommit(SceneFactory * factory)
 {
-    factory->PushAsset("MenuBackground", &backgroundTexture);
+    factory->pushAsset("MenuBackground", &backgroundTexture);
 }

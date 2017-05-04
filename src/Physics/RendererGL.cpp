@@ -61,7 +61,7 @@ GLvoid RendererGL::pushTexture(TextureGL * object)
 
 GLvoid RendererGL::prepare()
 {
-    for (auto i = 0; i < textures.size(); i++)
+    for (auto i = 0u; i < textures.size(); i++)
     {
         textures[i]->prepare();
     }
@@ -69,12 +69,12 @@ GLvoid RendererGL::prepare()
 
 GLvoid RendererGL::onRender()
 {
-    for (auto i = 0; i < textures.size(); i++)
+    for (auto i = 0u; i < textures.size(); i++)
     {
         renderTexture(textures[i]);
     }
 
-    for (auto i = 0; i < labels.size(); i++)
+    for (auto i = 0u; i < labels.size(); i++)
     {
         renderString(labels[i]);
     }

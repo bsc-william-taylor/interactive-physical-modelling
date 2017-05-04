@@ -28,51 +28,51 @@ MainScene::~MainScene()
 
 void MainScene::onRequest(SceneFactory * factory)
 {
-    backgroundTexture = factory->GrabAsset<TextureGL>("MenuBackground");
+    backgroundTexture = factory->grabAsset<TextureGL>("MenuBackground");
 }
 
-void MainScene::onKeyPress(int Key, int State)
+void MainScene::onKeyPress(int key, int state)
 {    
     auto eventManger = EventManager::get();
     auto ball = cannon.getProjectile();
     auto mass = ball->getMass();
 
-    cannon.onKeyPress(Key, State);
+    cannon.onKeyPress(key, state);
 
-    if (KEY_DOWN(ESCAPE, Key, State))
+    if (KEY_DOWN(ESCAPE, key, state))
     {
         eventManger->triggerEvent(new BackEvent(), true, this);
     }
 
-    if (KEY_DOWN(SPACE, Key, State) && !reloadCannon)
+    if (KEY_DOWN(SPACE, key, state) && !reloadCannon)
     {
         cannon.fire();
         reloadCannon = true;
     }
 
-    if (KEY_DOWN(R_KEY, Key, State))
+    if (KEY_DOWN(R_KEY, key, state))
     {
         reloadCannon = false;
         cameraPosition.x = 0;
     }
 
-    if (KEY_DOWN(W_KEY, Key, State))
+    if (KEY_DOWN(W_KEY, key, state))
     {
         ball->setMass(mass + 0.1f);
     }
 
-    if (KEY_DOWN(S_KEY, Key, State))
+    if (KEY_DOWN(S_KEY, key, state))
     {
         ball->setMass(mass - 0.1f);
     }
 
-    if (KEY_HOLDING(ARROW_LEFT, Key, State))
+    if (KEY_HOLDING(ARROW_LEFT, key, state))
     {
         cameraPosition.x -= CAMERASPEED;
         cameraPosition.x = std::max(cameraPosition.x, 0.0f);
     }
 
-    if (KEY_HOLDING(ARROW_RIGHT, Key, State))
+    if (KEY_HOLDING(ARROW_RIGHT, key, state))
     {
         cameraPosition.x += CAMERASPEED;
         cameraPosition.x = std::min(cameraPosition.x, 1720.0f);

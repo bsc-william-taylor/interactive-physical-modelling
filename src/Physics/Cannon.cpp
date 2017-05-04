@@ -46,8 +46,8 @@ void Cannon::initialise()
 
     projectiles.setMaxProjectiles(1);
 
-    float cannonLengthX = 90.0*cosf(glm::radians(angle));
-    float cannonLengthY = 90.0*sinf(glm::radians(angle));
+    float cannonLengthX = 90.0f * cosf(glm::radians(angle));
+    float cannonLengthY = 90.0f * sinf(glm::radians(angle));
     float xComponent(FULCRUM_X - 10 + cannonLengthX);		
     float yComponent(FULCRUM_Y - 10 + cannonLengthY);		
 
@@ -64,20 +64,20 @@ void Cannon::fire()
     projectiles.fireProjectile(angle);
 }
 
-void Cannon::onKeyPress(int Key, int State)
+void Cannon::onKeyPress(int key, int state)
 {
-    if (Key == ARROW_DOWN && angle > 0)
+    if (key == ARROW_DOWN && angle > 0)
     {
         angle--;
     }
 
-    if (Key == ARROW_UP && angle < 90)
+    if (key == ARROW_UP && angle < 90)
     {
         angle++;
     }
 
 
-    switch (Key)
+    switch (key)
     {
     case FOUR:
         projectiles.setMaterial(Material::Stone);

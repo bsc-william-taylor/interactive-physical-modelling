@@ -66,7 +66,7 @@
     <PostBuildEvent>
       <Command>xcopy /Y $(SolutionDir)..\lib\FreeImage\bin $(OutDir)
 xcopy /Y $(SolutionDir)..\lib\GLEW\bin $(OutDir)
-xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
+xcopy /Y /I /S $(SolutionDir)..\data $(OutDir)\data</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@ xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
     <PostBuildEvent>
       <Command>xcopy /Y $(SolutionDir)..\lib\FreeImage\bin $(OutDir)
 xcopy /Y $(SolutionDir)..\lib\GLEW\bin $(OutDir)
-xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
+xcopy /Y /I /S $(SolutionDir)..\data $(OutDir)\data</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
