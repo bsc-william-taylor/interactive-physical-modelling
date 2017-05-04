@@ -13,26 +13,27 @@ Demo::Demo() : framerate(60)
 
 Demo::~Demo()
 {
-    RELEASE_MANAGER(TextureManagerGL::get());
-    RELEASE_MANAGER(ShaderManagerGL::get());
-    RELEASE_MANAGER(SceneManager::get());
-    RELEASE_MANAGER(EventManager::get());
+    SAFE_RELEASE_SINGLETON(TextureManagerGL::get());
+    SAFE_RELEASE_SINGLETON(ShaderManagerGL::get());
+    SAFE_RELEASE_SINGLETON(SceneManager::get());
+    SAFE_RELEASE_SINGLETON(EventManager::get());
 }
 
 void Demo::setupWindow()
 {
-    system.setWindowTraits("Physics Demo", { Center, Center, 1280, 720 });
-    system.setWindowType(WINDOWED);
-    system.Initialise();
+    const auto center = (int)WindowLocation::Center;
+    system.setWindowTraits("Physics Demo", { center, center, 1280, 720 });
+    system.setWindowType(WindowType::Windowed);
+    system.initialise();
 }
 
 void Demo::setupStates()
 {
     auto sceneManager = SceneManager::get();
-    sceneManager->PushState(new MainMenu());
-    sceneManager->PushState(new MainScene());
-    sceneManager->StartFrom((int)SceneStates::MainMenu);
-    sceneManager->EnableFactory();
+    sceneManager->pushState(new MainMenu());
+    sceneManager->pushState(new MainScene());
+    sceneManager->startFrom((int)SceneStates::MainMenu);
+    sceneManager->enableFactory();
 }
 
 void Demo::setFrameRate(int framerate)
@@ -42,7 +43,7 @@ void Demo::setFrameRate(int framerate)
 
 void Demo::execute()
 {
-    timer.Start();
+    timer.start();
     setupWindow();
     setupStates();
 
@@ -52,7 +53,7 @@ void Demo::execute()
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-    while (system.WindowRunning())
+    while (system.windowRunning())
     {
         glClear(GL_COLOR_BUFFER_BIT);
         glViewport(0, 0, 1280, 720);
@@ -60,17 +61,17 @@ void Demo::execute()
         system.onUpdate();
         events->updateManager();
         scenes->updateManager();
-        system.SwapWindowBuffers();
+        system.swapWindowBuffers();
 
         auto timeLeft = 0.0;
 
         while (timeLeft < (double)1.0e9 / framerate)
         {
-            timer.Stop();
-            timeLeft = timer.Difference(TimeType::NS);
+            timer.stop();
+            timeLeft = timer.difference(TimeType::Nanoseconds);
         }
 
-        timer.Start();
+        timer.start();
     }
 }
 

@@ -13,7 +13,7 @@
 
 // Constructor & Deconstructor
 Target::Target()
-	: m_pSprite(new GL_Texture()),
+	: charTexture(new GL_Texture()),
 	  m_pObject(new GL_Object())
 {
 	m_Mass = 20.0f;
@@ -24,7 +24,7 @@ Target::Target()
 Target::~Target()
 {
 	SAFE_RELEASE(m_pObject);
-	SAFE_RELEASE(m_pSprite);
+	SAFE_RELEASE(charTexture);
 }
 
 // Member Functions
@@ -35,7 +35,7 @@ void Target::onUpdate()
 		return;
 	}
 
-	if ( m_Position.y - 10 < -TARGETHEIGHT / 2 )
+	if ( position.y - 10 < -TARGETHEIGHT / 2 )
 	{
 		return;
 	}
@@ -44,7 +44,7 @@ void Target::onUpdate()
 	{		
 		vec2 Acceleration = GRAVITY * m_Mass;
 
-		m_Position += Acceleration;
+		position += Acceleration;
 
 		m_pObject->setTranslate(Acceleration);
 	}
@@ -56,11 +56,11 @@ void Target::Setup(vec2 position)
 	m_pObject->setPosition(position);
 	m_pObject->setSize(vec2(TARGETWIDTH, TARGETHEIGHT));
 	
-	m_pSprite->setTexture("data/img/target.png", GL_CLAMP_TO_EDGE);
-	m_pSprite->setParameters(m_pObject);
-	m_pSprite->Prepare();
+	charTexture->setTexture("data/img/target.png", GL_CLAMP_TO_EDGE);
+	charTexture->setParameters(m_pObject);
+	charTexture->Prepare();
 
-	m_Position = position;
+	this->position = position;
 }
 
 
@@ -71,17 +71,17 @@ void Target::onMousePress(int button, int state, int x, int y)
 	{
 		m_Click = true;
 
-		if ( x >= m_Position.x  && x <= (m_Position.x + TARGETWIDTH) )
+		if ( x >= position.x  && x <= (position.x + TARGETWIDTH) )
 		{
-			if ( y >= m_Position.y && y <= (m_Position.y + TARGETHEIGHT) )
+			if ( y >= position.y && y <= (position.y + TARGETHEIGHT) )
 			{
-				float y1 = (y - (m_Position.y + TARGETHEIGHT/2));
-				float x1 = (x - (m_Position.x + TARGETWIDTH/2));
+				float y1 = (y - (position.y + TARGETHEIGHT/2));
+				float x1 = (x - (position.x + TARGETWIDTH/2));
 
 				m_pObject->setTranslate(vec2(x1, y1));
 
-				m_Position.x += x1;
-				m_Position.y += y1;
+				position.x += x1;
+				position.y += y1;
 			}
 		}
 	}
@@ -98,10 +98,10 @@ void Target::setMass(float mass)
 
 void Target::setPosition(vec2 pos)
 {
-	m_Position = pos;
+	position = pos;
 }
 
 GL_Texture * Target::getSprite()
 {
-	return m_pSprite;
+	return charTexture;
 }

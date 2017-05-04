@@ -40,7 +40,7 @@ public:
 	~Projectiles();
 
 	// Member Functions
-	void Initialise(float angle, vec2, vec2);
+	void initialise(float angle, vec2, vec2);
 	void FireProjectile(float angle);
 	void SetMaterial(Material);
 	void onUpdate();

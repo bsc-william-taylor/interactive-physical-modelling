@@ -36,7 +36,7 @@ class TextureManagerGL
 {
 private:
 
-	static TextureManagerGL * m_pManager;		// Singletons Instance
+	static TextureManagerGL * manager;		// Singletons Instance
 	vector<GL_Sprite *> m_Textures;				// Store all textures created for memory checking
 
 public:

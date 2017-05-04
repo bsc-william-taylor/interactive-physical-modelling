@@ -12,26 +12,26 @@
 
 // Constructor & Deconstructor
 Projectile::Projectile()
-	: m_pSprite(new GL_Texture()),
+	: charTexture(new GL_Texture()),
 	  m_pObject(new GL_Object())
 {
 	m_Mass = 1.0f;
 	m_Offset = vec2(0.0f);
 	m_Fired = false;
-	m_Size = vec3(1.0, 1.0, 1.0);
+	size = vec3(1.0, 1.0, 1.0);
 	m_bDragForce = true;
 }
 
 Projectile::~Projectile()
 {
 	SAFE_RELEASE(m_pObject);
-	SAFE_RELEASE(m_pSprite);
+	SAFE_RELEASE(charTexture);
 }
 
 // Member Functions
 void Projectile::onUpdate()
 {
-	if ( m_Position.y <= TARGETHEIGHT/4 )
+	if ( position.y <= TARGETHEIGHT/4 )
 	{
 		return;
 	}
@@ -59,7 +59,7 @@ void Projectile::onUpdate()
 
 		m_Velocity += DragForce + GRAVITY;
 
-		m_Position += m_Velocity;
+		position += m_Velocity;
 
 		m_pObject->setTranslate( PreviousTranslate + m_Velocity );
 	}
@@ -73,7 +73,7 @@ void Projectile::toggleDragForce()
 void Projectile::setSize(vec2 vec)
 {
 	m_pObject->setSize(vec);
-	m_Size = vec3(vec.x, vec.y, 1.0f);
+	size = vec3(vec.x, vec.y, 1.0f);
 }
 
 void Projectile::Fire()
@@ -97,7 +97,7 @@ void Projectile::Reset(float angle)
 	float xComponent( FULCRUM_X - 10 + cannonLengthX );	// 10 is bomb radius seeing the fact the origin is not in the center
 	float yComponent( FULCRUM_Y - 10 + cannonLengthY );	// bomb radius again
 	
-	m_Position = vec2(xComponent,yComponent);
+	position = vec2(xComponent,yComponent);
 	m_Velocity = vec2(0);
 
 	vec2 m_StartingAcceleration;
@@ -107,20 +107,20 @@ void Projectile::Reset(float angle)
 
 	m_Velocity += m_StartingAcceleration;
 
-	Setup(m_Position);
+	Setup(position);
 }
 
 void Projectile::Setup(vec2 position)
 {
 	m_pObject->setOrtho2D(vec4(0, 0, 1280, 720));
 	m_pObject->setPosition(position);
-	m_pObject->setSize(vec2(m_Size));
+	m_pObject->setSize(vec2(size));
 	
-	m_pSprite->setTexture("data/img/iron.png", GL_CLAMP_TO_EDGE);
-	m_pSprite->setParameters(m_pObject);
-	m_pSprite->Prepare();
+	charTexture->setTexture("data/img/iron.png", GL_CLAMP_TO_EDGE);
+	charTexture->setParameters(m_pObject);
+	charTexture->Prepare();
 
-	m_Position = position;
+	position = position;
 	m_Start = position;
 
 }
@@ -144,13 +144,13 @@ void Projectile::setVelocity(vec2 vec)
 
 void Projectile::setPosition(vec2 pos)
 {
-	m_Position.x = pos.x;
-	m_Position.y = pos.y;
+	position.x = pos.x;
+	position.y = pos.y;
 }
 
 GL_Texture * Projectile::getSprite()
 {
-	return m_pSprite;
+	return charTexture;
 }
 
 bool Projectile::hasFired()

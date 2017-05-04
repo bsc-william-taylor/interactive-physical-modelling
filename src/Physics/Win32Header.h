@@ -1,19 +1,8 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Win32Header.h
- @author	: William Taylor
- @date		: 12/02/2014
- @purpose	: Simple include file for all win32 files
-
- ------------------------------------------------- */
-
 #pragma once
 
-// Define the DirectInput version we want to use
 #define DIRECTINPUT_VERSION 0x0800
 
-// Include headers
 #include <Windows.h>
 #include <dinput.h>	
 #include <algorithm>
@@ -33,7 +22,6 @@
 #include <io.h>
 #include <list>
 
-// link librarys
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
@@ -42,8 +30,19 @@
 
 using std::vector;
 
-// some useful macros
-#define SAFE_RELEASE(ptr) if(ptr) delete ptr; ptr = 0;
-#define RELEASE_MANAGER(ptr) if(ptr) delete ptr;
+template<typename T>
+void SAFE_RELEASE(T*& pointer)
+{
+    if (pointer != nullptr)
+    {
+        delete pointer;
+        pointer = nullptr;
+    }
+}
 
-// END
+template<typename T>
+void SAFE_RELEASE_SINGLETON(T* pointer)
+{
+    auto copy = pointer;
+    SAFE_RELEASE(copy);
+}

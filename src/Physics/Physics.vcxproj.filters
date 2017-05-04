@@ -85,9 +85,6 @@
     <ClCompile Include="Win32Window.cpp">
       <Filter>Source Code\Framework\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="SceneFactory.cpp">
-      <Filter>Source Code\Framework\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Code\Framework\Scenes</Filter>
     </ClCompile>
@@ -239,12 +236,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\shaders\Trajectory.frag">
-      <Filter>Source Code\Framework\Shaders</Filter>
-    </None>
-    <None Include="data\shaders\Trajectory.vert">
-      <Filter>Source Code\Framework\Shaders</Filter>
-    </None>
     <None Include="data\shaders\text.frag">
       <Filter>Source Code\Framework\Shaders</Filter>
     </None>
@@ -255,6 +246,12 @@
       <Filter>Source Code\Framework\Shaders</Filter>
     </None>
     <None Include="data\shaders\texture.vert">
+      <Filter>Source Code\Framework\Shaders</Filter>
+    </None>
+    <None Include="data\shaders\trajectory.vert">
+      <Filter>Source Code\Framework\Shaders</Filter>
+    </None>
+    <None Include="data\shaders\trajectory.frag">
       <Filter>Source Code\Framework\Shaders</Filter>
     </None>
   </ItemGroup>

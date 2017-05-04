@@ -24,7 +24,7 @@ private:
 	vector<vec2> positions;			// Buffer Positions
 	vec2 m_Start;					// Starting point
 	
-	GLuint m_Position;				// Position in array
+	GLuint position;				// Position in array
 	GLuint VAO;						// Vertex array object
 	GLuint VBO;						// Vertex buffer object
 
@@ -37,7 +37,7 @@ public:
 	// Member Functions
 	void PlotPoint(int, int, float);
 	void ResetStart(float, float);
-	void StartFrom(int, int, float);
+	void startFrom(int, int, float);
 	void onRender();
 	void Clear();
 

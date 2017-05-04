@@ -17,16 +17,16 @@ class Projectile
 {
 private:
 
-	GL_Texture * m_pSprite;			// The sprite for the object
+	GL_Texture * charTexture;			// The sprite for the object
 	GL_Object * m_pObject;
 
 	float m_Mass;				// Its mass	
 	vec2 m_StartVelocity;			// Its Velocity
 	vec2 m_Velocity;				// Its Velocity
-	vec2 m_Position;
+	vec2 position;
 	vec2 m_Offset;
 	vec2 m_Start;
-	vec3 m_Size;
+	vec3 size;
 	bool m_Fired;					// Has it been fired ?
 	bool m_bDragForce;
 
@@ -45,7 +45,7 @@ public:
 
 	// Get & Set & Check functions.
 	GL_Texture * getSprite();
-	vec2 getPosition() { return m_Position; }
+	vec2 getPosition() { return position; }
 	vec2 getStartPos() { return m_Start; }
 	vec2 getVelocity() { return m_Velocity; }
 	GL_Object* getObject() { return m_pObject; }

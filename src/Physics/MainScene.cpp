@@ -85,12 +85,12 @@ void MainScene::onMousePress(int key, int state, int x, int y)
 
     for (auto& button : uiButtons)
     {
-        button.MouseState(key, state, x, y);
+        button.onMouseState(key, state, x, y);
     }
 
-    airResistanceButton.MouseState(key, state, x, y);
-    reloadButton.MouseState(key, state, x, y);
-    quitButton.MouseState(key, state, x, y);
+    airResistanceButton.onMouseState(key, state, x, y);
+    reloadButton.onMouseState(key, state, x, y);
+    quitButton.onMouseState(key, state, x, y);
     target.onMousePress(key, state, viewX, viewY);
 }
 
@@ -226,7 +226,7 @@ void MainScene::onTriggered(void * data)
 
     if (data == &quitButton)
     {
-        scenes->SwitchTo((int)SceneStates::MainMenu);
+        scenes->switchTo((int)SceneStates::MainMenu);
     }
 
     else if (data == &uiButtons[3])
@@ -300,7 +300,7 @@ void MainScene::onTriggered(void * data)
 
 void MainScene::setupCannon()
 {
-    cannon.Initialise();
+    cannon.initialise();
     cannon.getProjects()->SetMaterial(Material::Iron);
 
     target.Setup(vec2(1000, 200));
@@ -341,13 +341,13 @@ void MainScene::setupUI()
         statusStrings[i].Prepare();
     }
 
-    airResistanceButton.SetTexture("data/img/enabled.png");
-    airResistanceButton.SetPosition("", vec2(1125, 428), vec2(78, 14));
-    airResistanceButton.OnPress(this);
+    airResistanceButton.setTexture("data/img/enabled.png");
+    airResistanceButton.setPosition("", vec2(1125, 428), vec2(78, 14));
+    airResistanceButton.onPress(this);
 
-    reloadButton.OnPress(this);
-    reloadButton.SetTexture("data/img/reload.png");
-    reloadButton.SetPosition("", vec2(1126, 526), vec2(78, 14));
+    reloadButton.onPress(this);
+    reloadButton.setTexture("data/img/reload.png");
+    reloadButton.setPosition("", vec2(1126, 526), vec2(78, 14));
 
     settingsObject.setOrtho2D(vec4(0, 0, 1280, 720));
     settingsObject.setPosition(vec2(1000, 358));
@@ -359,9 +359,9 @@ void MainScene::setupUI()
 
     for (int i = 0; i < 8; i++)
     {
-        uiButtons[i].OnPress(this);
-        uiButtons[i].SetTexture(i < 4 ? "data/img/plus.png" : "data/img/minus.png");
-        uiButtons[i].SetPosition("", vec2(i < 4 ? 1190 : 1125, positions[i]), vec2(14, 13));
+        uiButtons[i].onPress(this);
+        uiButtons[i].setTexture(i < 4 ? "data/img/plus.png" : "data/img/minus.png");
+        uiButtons[i].setPosition("", vec2(i < 4 ? 1190 : 1125, positions[i]), vec2(14, 13));
     }
 
     headerObject.setOrtho2D(vec4(0, 0, 1280, 720));
@@ -372,8 +372,8 @@ void MainScene::setupUI()
     headerTexture.setParameters(&headerObject);
     headerTexture.Prepare();
 
-    quitButton.SetPosition("Back", vec2(25, 600), vec2(200, 50));
-    quitButton.OnPress(this);
+    quitButton.setPosition("Back", vec2(25, 600), vec2(200, 50));
+    quitButton.onPress(this);
 
     backplateObject.setOrtho2D(vec4(0, 0, 1280, 720));
     backplateObject.setPosition(vec2(1000, 454));

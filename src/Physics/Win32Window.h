@@ -3,48 +3,43 @@
 
 #include "Win32Header.h"
 
-enum Type 
-{ 
-    FULLSCREEN, 
-    WINDOWED 
-};			
-
-enum Location 
-{ 
-    Center = -1 
-};			
-
-struct Region 
-{ 
-    int x, y, w, h; 
-};
-    
-class Win32Window 
+enum class WindowType
 {
-	HGLRC m_Context;		
-	HWND m_Window;			
-	TCHAR * m_Title;		
-	Region m_Sizes;			
-	MSG m_Msg;				
+    Fullscreen,
+    Windowed
+};
+
+enum class WindowLocation
+{
+    Center = -1
+};
+
+struct Region
+{
+    int x, y, w, h;
+};
+
+class Win32Window
+{
+    Region region;
+    MSG message;
+    HGLRC context;
+    TCHAR* title;
+    HWND window;
 public:
-	Win32Window();
-	~Win32Window();
+    Win32Window();
+    ~Win32Window();
 
-	// Member Functions
-	void EnableOpenGL();
-	void Display(Type);
-	void Initialise();
-	bool onUpdate();
+    void setTraits(TCHAR*, int, int, int, int);
+    void enableOpenGL();
+    void display(WindowType);
+    void initialise();
+    bool onUpdate();
 
-	void setTraits(TCHAR *, int, int, int, int);
-	void setWindowTraits(Type);
-
-	HWND& GetHandle();
-	MSG& GetMsg();
-
+    HWND& GetHandle();
+    MSG& GetMsg();
 private:
-
-	static LRESULT __stdcall WndProc(HWND, UINT, WPARAM, LPARAM);	
+    static LRESULT __stdcall WndProc(HWND, UINT, WPARAM, LPARAM);
 };
 
 using Window = Win32Window;

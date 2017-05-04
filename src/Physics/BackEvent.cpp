@@ -3,7 +3,7 @@
 
 void BackEvent::onTriggered(void* data)
 {
-    SceneManager::get()->PreviousScene();
+    SceneManager::get()->previousScene();
 }
 
 std::string BackEvent::getMessage()

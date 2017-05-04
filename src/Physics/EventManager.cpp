@@ -1,7 +1,7 @@
 
 #include "EventManager.h"
 
-EventManager * EventManager::eventManager = 0;
+EventManager * EventManager::eventManager = nullptr;
 
 EventManager::EventManager()
     : eventLogger("log.txt")
@@ -31,7 +31,7 @@ void EventManager::triggerEvent(int ms, IEvent * event, void * data)
 {
     auto newEvent = new TimedEvent();
     newEvent->timer = new Win32Timer();
-    newEvent->timer->Start();
+    newEvent->timer->start();
     newEvent->event = event;
     newEvent->data = data;
     newEvent->ms = ms;
@@ -45,9 +45,9 @@ void EventManager::updateManager()
 
     for (auto& timedEvent : timedEvents)
     {
-        timedEvent->timer->Stop();
+        timedEvent->timer->stop();
 
-        if (timedEvent->timer->Difference(TimeType::MS) >= timedEvent->ms)
+        if (timedEvent->timer->difference(TimeType::Milliseconds) >= timedEvent->ms)
         {
             timedEvent->event->onTriggered(timedEvent->data);
             toRemove.push_back(timedEvent);
@@ -69,7 +69,7 @@ void EventManager::updateManager()
 
 EventManager * EventManager::get()
 {
-    if (!eventManager)
+    if (eventManager == nullptr)
     {
         eventManager = new EventManager();
     }

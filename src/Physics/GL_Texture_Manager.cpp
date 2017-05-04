@@ -11,7 +11,7 @@
 
 #include "GL_Texture_Manager.h"
 
-TextureManagerGL * TextureManagerGL::m_pManager = NULL;
+TextureManagerGL * TextureManagerGL::manager = NULL;
 
 // Constructor & Deconstructor
 TextureManagerGL::TextureManagerGL()
@@ -78,13 +78,13 @@ GL_Sprite * TextureManagerGL::CreateTexture(GLubyte * data, GLuint width, GLuint
 	return Sprite;
 }
 
-GL_Sprite * TextureManagerGL::LoadTexture(const std::string& Location, GLenum e)
+GL_Sprite * TextureManagerGL::LoadTexture(const std::string& WindowLocation, GLenum e)
 {
 	GL_Sprite * Sprite = new GL_Sprite();
 
-	FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(Location.c_str(), 0);
+	FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(WindowLocation.c_str(), 0);
 		
-	FIBITMAP * Texture = FreeImage_Load(formato, Location.c_str());
+	FIBITMAP * Texture = FreeImage_Load(formato, WindowLocation.c_str());
 	FIBITMAP * Temp    = FreeImage_ConvertTo32Bits(Texture);
 		
 	GLuint Height = FreeImage_GetHeight(Temp);
@@ -136,10 +136,10 @@ GLvoid TextureManagerGL::FreeTextures()
 // Get Functions
 TextureManagerGL * TextureManagerGL::get()
 {
-	if(m_pManager == NULL) 
+	if(manager == NULL) 
 	{
-		m_pManager = new TextureManagerGL();
+		manager = new TextureManagerGL();
 	}
 
-	return m_pManager;
+	return manager;
 }

@@ -38,13 +38,13 @@ Projectiles::~Projectiles()
 }
 
 // Member Functions
-void Projectiles::Initialise(float angle, vec2 vec, vec2 startPosition)
+void Projectiles::initialise(float angle, vec2 vec, vec2 startPosition)
 {
 	// Initialise all projectiles
 	float xVariation = cosf(glm::radians(angle));
 	float yVariation = sinf(glm::radians(angle));
 
-	m_pTrajectory->StartFrom(vec.x, vec.y, 5.0f);
+	m_pTrajectory->startFrom(vec.x, vec.y, 5.0f);
 
 	for(unsigned int i = 0; i < m_Max; i++)
 	{

@@ -1,99 +1,89 @@
 
-/* -------------------------------------------------
-  
- @Filename  : SceneManager.cpp
- @author	: William Taylor
- @date		: 12/02/2014
- @purpose	: class implementation
-
- ------------------------------------------------- */
-
 #include "SceneManager.h"
 
-// Initialise static variable
-SceneManager * SceneManager::m_pManager = NULL;
+SceneManager * SceneManager::manager = nullptr;
 
-// Constructor & Deconstructor
-SceneManager::SceneManager() 
-	: m_pFactory(new SceneFactory()),
-	  m_CurrentPlace(NULL)
+SceneManager::SceneManager()
+    : factory(new SceneFactory()),
+    currentScene(0)
 {
 }
 
 SceneManager::~SceneManager()
 {
-	m_vScenes.erase(m_vScenes.cbegin(), m_vScenes.cend());
-	m_pManager = NULL;
+    for (auto& scene : scenes)
+    {
+        delete scene;
+    }
+
+    manager = nullptr;
 }
 
-// Member Functions
-void SceneManager::StartFrom(unsigned int startingPoint)
+void SceneManager::startFrom(unsigned int startingPoint)
 {
-	m_CurrentPlace = startingPoint;
+    currentScene = startingPoint;
 }
 
-void SceneManager::EnableFactory()
+void SceneManager::enableFactory()
 {
-	for(unsigned int i = 0; i < m_vScenes.size(); i++)
-	{
-		m_vScenes[i]->onCommit(m_pFactory);	
-	}
+    for (unsigned int i = 0; i < scenes.size(); i++)
+    {
+        scenes[i]->onCommit(factory);
+    }
 
-	for(unsigned int i = 0; i < m_vScenes.size(); i++)
-	{
-		m_vScenes[i]->onRequest(m_pFactory);	
-	}
+    for (unsigned int i = 0; i < scenes.size(); i++)
+    {
+        scenes[i]->onRequest(factory);
+    }
 }
 
-void SceneManager::PreviousScene()
+void SceneManager::previousScene()
 {
-	m_CurrentPlace--;
+    currentScene--;
 }
 
-void SceneManager::NextScene()
+void SceneManager::nextScene()
 {
-	m_CurrentPlace++;
+    currentScene++;
 }
 
-void SceneManager::PushState(Scene * state)
+void SceneManager::pushState(Scene * state)
 {
-	if(state != NULL)
-	{
-		m_vScenes.push_back(state);
-	}
+    if (state != nullptr)
+    {
+        scenes.push_back(state);
+    }
 }
 
 void SceneManager::updateManager()
 {
-	m_vScenes[m_CurrentPlace]->onUpdate();
-	m_vScenes[m_CurrentPlace]->onRender();
+    scenes[currentScene]->onUpdate();
+    scenes[currentScene]->onRender();
 }
 
-void SceneManager::SwitchTo(unsigned int newPlace)
+void SceneManager::switchTo(unsigned int newPlace)
 {
-	m_vScenes[m_CurrentPlace]->onEnter();
-	m_CurrentPlace = newPlace;
-	m_vScenes[m_CurrentPlace]->onExit();
+    scenes[currentScene]->onEnter();
+    currentScene = newPlace;
+    scenes[currentScene]->onExit();
 }
 
-
-// Get & Set Functions
 Scene * SceneManager::getCurrent()
 {
-	if(m_vScenes.empty())
-	{
-		return NULL;
-	}
+    if (scenes.empty())
+    {
+        return nullptr;
+    }
 
-	return m_vScenes[m_CurrentPlace];
+    return scenes[currentScene];
 }
 
 SceneManager * SceneManager::get()
 {
-	if(m_pManager == 0)
-	{
-		m_pManager = new SceneManager();
-	} 
+    if (manager == nullptr)
+    {
+        manager = new SceneManager();
+    }
 
-	return m_pManager;
+    return manager;
 }

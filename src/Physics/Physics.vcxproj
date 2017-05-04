@@ -112,7 +112,6 @@ xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
     <ClCompile Include="PlayEvent.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Projectiles.cpp" />
-    <ClCompile Include="SceneFactory.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="Trajectory.cpp" />
@@ -166,8 +165,8 @@ xcopy /Y /I /S $(ProjectDir)Data $(OutDir)\Data</Command>
     <None Include="data\shaders\text.vert" />
     <None Include="data\shaders\texture.frag" />
     <None Include="data\shaders\texture.vert" />
-    <None Include="data\shaders\Trajectory.frag" />
-    <None Include="data\shaders\Trajectory.vert" />
+    <None Include="data\shaders\trajectory.frag" />
+    <None Include="data\shaders\trajectory.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

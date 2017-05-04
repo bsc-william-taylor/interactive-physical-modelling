@@ -1,90 +1,74 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Button.cpp
- @author	: William Taylor
- @date		: 19/02/2014
- @purpose	: Class implementation
-
- ------------------------------------------------- */
-
 #include "Button.h"
 #include "Win32Codes.h"
 
-// Constructor & Deconstructor
-Button::Button()
-	: m_pTextureObject(new GL_Object()),
-	  m_pTextObject(new GL_Object()),
-	  m_pSprite(new GL_Texture())
+Button::Button() :
+    filename("data/img/button.png"),
+    string("data/text.xml", "data/tinyText.png"),
+    event(nullptr)
 {
-	m_pString = new GL_String("data/text.xml", "data/tinyText.png");
-	filename = "data/img/button.png";
 }
 
 Button::~Button()
 {
-	SAFE_RELEASE(m_pTextureObject);
-	SAFE_RELEASE(m_pTextObject);
-	SAFE_RELEASE(m_pString);
-	SAFE_RELEASE(m_pSprite);
-	SAFE_RELEASE(event);
+    //SAFE_RELEASE(event);
 }
 
-// Member Functions
-void Button::OnPress(IEvent * event)
+void Button::onPress(IEvent* event)
 {
-	this->event = event;
+    this->event = event;
 }
 
-void Button::SetPosition(const std::string& name, vec2 position, vec2 size)
+void Button::setPosition(const std::string& text, vec2 pos, vec2 sz)
 {
-	m_pTextureObject->setOrtho2D(vec4(0, 0, 1280, 720));
-	m_pTextureObject->setPosition(position);
-	m_pTextureObject->setSize(size);
+    textureObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    textureObject.setPosition(pos);
+    textureObject.setSize(sz);
 
-	m_pSprite->setTexture(filename.c_str(), GL_CLAMP_TO_EDGE);
-	m_pSprite->setParameters(m_pTextureObject);
-	m_pSprite->Prepare();
+    charTexture.setTexture(filename.c_str(), GL_CLAMP_TO_EDGE);
+    charTexture.setParameters(&textureObject);
+    charTexture.Prepare();
 
-	m_pTextObject->setOrtho2D(vec4(0, 0, 1280, 720));
-	m_pTextObject->setPosition(position);
-	m_pTextObject->setSize(vec2(25, 25));
+    textObject.setOrtho2D(vec4(0, 0, 1280, 720));
+    textObject.setPosition(pos);
+    textObject.setSize(vec2(25, 25));
 
-	m_pString->setParameters(m_pTextObject);
-	m_pString->setString(name.c_str());
-	m_pString->Prepare();
+    string.setParameters(&textObject);
+    string.setString(text.c_str());
+    string.Prepare();
 
-	GLuint Height = (int)size.y - m_pString->getHeight();
-	GLuint Width = (int)size.x - m_pString->getWidth();
+    const auto height = (int)sz.y - string.getHeight();
+    const auto width = (int)sz.x - string.getWidth();
 
-	m_pTextObject->setTranslate(vec2(Width/2, Height/2));
-	m_Position = position;
-	m_Size = size;
+    textObject.setTranslate(vec2(width / 2, height / 2));
+    position = pos;
+    size = sz;
 }
 
-void Button::SetTexture(const std::string& file)
+void Button::setTexture(const std::string& file)
 {
-	filename = file;
+    filename = file;
 }
 
-void Button::MouseState(int Key, int State, int x, int y)
+void Button::onMouseState(int Key, int State, int x, int y)
 {
-	if(x >= m_Position.x && x <= m_Position.x + m_Size.x && y >= m_Position.y && y <= m_Position.y + m_Size.y)
-	{
-		if(Key == MOUSE_1 && State == RELEASED && event != nullptr)
-		{
-			EventManager::get()->triggerEvent(event, false, this);
-		}
-	}
+    auto events = EventManager::get();
+
+    if (x >= position.x && x <= position.x + size.x && y >= position.y && y <= position.y + size.y)
+    {
+        if (Key == MOUSE_1 && State == RELEASED && event != nullptr)
+        {
+            events->triggerEvent(event, false, this);
+        }
+    }
 }
 
-// Get & Set Functions
-GL_Texture * Button::getTexture()
+GL_Texture* Button::getTexture()
 {
-	return m_pSprite;
+    return &charTexture;
 }
 
-GL_String * Button::getString()
+GL_String* Button::getString()
 {
-	return m_pString;
+    return &string;
 }

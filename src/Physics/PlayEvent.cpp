@@ -5,7 +5,7 @@
 
 void PlayEvent::onTriggered(void* data)
 {
-    SceneManager::get()->SwitchTo((int)SceneStates::MainScene);
+    SceneManager::get()->switchTo((int)SceneStates::MainScene);
 }
 
 std::string PlayEvent::getMessage()

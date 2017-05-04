@@ -50,8 +50,8 @@ void MainMenu::setupLabels()
 
 void MainMenu::setupButtons()
 {
-    playButton.SetPosition("Play", vec2(800, 200), vec2(200, 60));
-    playButton.OnPress(new PlayEvent());
+    playButton.setPosition("Play", vec2(800, 200), vec2(200, 60));
+    playButton.onPress(new PlayEvent());
 }
 
 void MainMenu::setupImages()
@@ -95,7 +95,7 @@ void MainMenu::onKeyPress(int Key, int State)
 
 void MainMenu::onMousePress(int key, int state, int x, int y)
 {
-    playButton.MouseState(key, state, x, y);
+    playButton.onMouseState(key, state, x, y);
 }
 
 void MainMenu::onCommit(SceneFactory * factory)

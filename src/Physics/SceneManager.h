@@ -1,15 +1,4 @@
 
-/* -------------------------------------------------
-  
- @Filename  : SceneManager.h
- @author	: William Taylor
- @date		: 12/02/2014
-
- @purpose	: A singletone which manages scenes
-			  in the applications.
-
- ------------------------------------------------- */
-
 #pragma once
 
 #include "SceneFactory.h"
@@ -18,30 +7,23 @@
 
 class SceneManager
 {
-private:
-
-	unsigned int m_CurrentPlace;		// Current scene to render
-	std::vector<Scene *> m_vScenes;		// All scenes available
-	static SceneManager * m_pManager;	// Singleton instance
-	SceneFactory * m_pFactory;
-
-
+	unsigned int currentScene;		
+	std::vector<Scene*> scenes;		
+	static SceneManager* manager;	
+	SceneFactory* factory;
 public:
-
-	// Constructor & Deconstructor
 	SceneManager();
 	~SceneManager();
 
-	// Member functions
-	void EnableFactory();
-	void updateManager();
-	void StartFrom(unsigned int);	
-	void SwitchTo(unsigned int);
-	void PushState(Scene *);
-	void PreviousScene();
-	void NextScene();
+    Scene* getCurrent();
 
-	// Get & Set Functions
-	static SceneManager * get();		// Singleton get function
-	Scene * getCurrent();
+	void enableFactory();
+	void updateManager();
+	void startFrom(unsigned int);	
+	void switchTo(unsigned int);
+	void pushState(Scene *);
+	void previousScene();
+	void nextScene();
+
+	static SceneManager* get();	
 };

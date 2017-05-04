@@ -15,7 +15,7 @@
 // Constructor & Deconstructor
 Trajectory::Trajectory()
 	: m_pMatrix(new GL_Matrix()),
-	  m_Position(0)
+	  position(0)
 {
 	// Set up objects needed
 	glGenVertexArrays(1, &VAO);
@@ -40,12 +40,12 @@ Trajectory::~Trajectory()
 void Trajectory::PlotPoint(int x, int y, float r)
 {
 	// Plot new point into the array
-	if(m_Position + 1 < positions.size())
+	if(position + 1 < positions.size())
 	{
-		++m_Position;
+		++position;
 
-		positions[m_Position].x = (GLfloat)(x + r);
-		positions[m_Position].y = (GLfloat)(y + r);
+		positions[position].x = (GLfloat)(x + r);
+		positions[position].y = (GLfloat)(y + r);
 
 		// Bind new data into the buffer
 		glBindVertexArray(VAO);
@@ -58,7 +58,7 @@ void Trajectory::PlotPoint(int x, int y, float r)
 	}
 }
 
-void Trajectory::StartFrom(int x, int y, float r)
+void Trajectory::startFrom(int x, int y, float r)
 {
 	// Shader files
 	const GLchar * vs = "data/shaders/Trajectory.vert";
@@ -97,7 +97,7 @@ void Trajectory::onRender()
 
 	// Bind the Vertex array object & Draw
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_LINE_STRIP, 0, m_Position);
+	glDrawArrays(GL_LINE_STRIP, 0, position);
 	glBindVertexArray(0);
 
 	// Release Shader
@@ -107,7 +107,7 @@ void Trajectory::onRender()
 void Trajectory::Clear()
 {
 	// Reset positions & Array location
-	m_Position = 0;
+	position = 0;
 	for(GLint i = 0; i < 800; i++)
 	{
 		positions[i] = vec2(0, 0);

@@ -1,15 +1,4 @@
 
-/* -------------------------------------------------
-  
- @Filename  : Win32System.h
- @author	: William Taylor
- @date		: 12/02/2014
- @purpose	: A simple interface class to simplify 
-			  how a user would set up a window and 
-			  input devices.
-
- ------------------------------------------------- */
-
 #pragma once
 
 #include "Win32Window.h"
@@ -17,30 +6,22 @@
 
 class Win32System
 {
-private:
+    Win32Window window;
+    Win32Driver driver;
 
-	Type m_Type;			// The type of window to be set up
-	Win32Window * m_pWindow;			// ptr to the window class
-	Win32Driver * m_pInput;				// a ptr to the input class
-
-	BOOL m_Quit;						// quit ?
-
+    WindowType type;
+    BOOL quit;
 public:
+    Win32System();
+    ~Win32System();
 
-	// Constructor & Deconstructor
-	Win32System();
-	~Win32System();
+    Win32Window* getWindow();
 
-	// Member Functions
-	void SwapWindowBuffers();
-	void Initialise();
-	void onUpdate();
+    void setWindowTraits(CHAR *, Region);
+    void setWindowType(WindowType);
+    void swapWindowBuffers();
+    void initialise();
+    void onUpdate();
 
-	bool WindowRunning();
-
-	// Set & Get Functions
-	void setWindowTraits(CHAR *, Region);
-	void setWindowType(Type);
-
-	Win32Window * getWindow();
+    bool windowRunning();
 };
