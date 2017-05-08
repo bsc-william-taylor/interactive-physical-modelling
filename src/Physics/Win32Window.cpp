@@ -43,15 +43,15 @@ void Win32Window::initialise()
 
 bool Win32Window::onUpdate()
 {
-    PeekMessage(&GetMsg(), NULL, NULL, NULL, PM_REMOVE);
+    PeekMessage(&getMsg(), NULL, NULL, NULL, PM_REMOVE);
 
-    if (GetMsg().message == WM_QUIT)
+    if (getMsg().message == WM_QUIT)
     {
         return FALSE;
     }
 
-    TranslateMessage(&GetMsg());
-    DispatchMessage(&GetMsg());
+    TranslateMessage(&getMsg());
+    DispatchMessage(&getMsg());
     return TRUE;
 }
 
@@ -129,12 +129,12 @@ void Win32Window::enableOpenGL()
     wglMakeCurrent(hDC, context);
 }
 
-HWND& Win32Window::GetHandle()
+HWND& Win32Window::getHandle()
 {
     return window;
 }
 
-MSG& Win32Window::GetMsg()
+MSG& Win32Window::getMsg()
 {
     return message;
 }

@@ -21,7 +21,7 @@ void Win32System::initialise()
     window.display(type);
     window.enableOpenGL();
 
-    auto handle = window.GetHandle();
+    auto handle = window.getHandle();
     driver.initialise(&handle);
     auto error = glewInit();
 
@@ -34,7 +34,7 @@ void Win32System::initialise()
 
 void Win32System::swapWindowBuffers()
 {
-    SwapBuffers(GetDC(window.GetHandle()));
+    SwapBuffers(GetDC(window.getHandle()));
 }
 
 void Win32System::onUpdate()
